@@ -1,4 +1,4 @@
-const VERSION = "1757261086275";const preCache = ["/hexo-blog/images/taichi.png","/hexo-blog/images/banner.webp","/hexo-blog/css/loader.css","/hexo-blog/css/style.css","/hexo-blog/js/script.js"];const cacheDomain = [
+const VERSION = "1757262698495";const preCache = ["/hexo-blog/images/taichi.png","/hexo-blog/images/banner.webp","/hexo-blog/css/loader.css","/hexo-blog/css/style.css","/hexo-blog/js/script.js"];const cacheDomain = [
   "fonts.googleapis.com",
   "npm.webcache.cn",
   "unpkg.com",

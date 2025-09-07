@@ -19,7 +19,7 @@
   <title>
     Archives: 2025/9 |
     
-    My Hexo Blog
+    吾 之 归 处
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
@@ -35,10 +35,12 @@
 
   
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="My Hexo Blog">
+    <meta name="description" content="A personal blog about programming, math, life and articles.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="吾 之 归 处">
 <meta property="og:url" content="https://monkeyloveiu.github.io/archives/2025/09/index.html">
-<meta property="og:site_name" content="My Hexo Blog">
+<meta property="og:site_name" content="吾 之 归 处">
+<meta property="og:description" content="A personal blog about programming, math, life and articles.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://monkeyloveiu.github.io/images/banner.webp">
 <meta property="article:author" content="Monkey Love IU">
@@ -46,7 +48,7 @@
 <meta name="twitter:image" content="https://monkeyloveiu.github.io/images/banner.webp">
   
   
-    <link rel="alternate" href="/hexo-blog/atom.xml" title="My Hexo Blog" type="application/atom+xml">
+    <link rel="alternate" href="/hexo-blog/atom.xml" title="吾 之 归 处" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/hexo-blog/images/favicon.ico">
@@ -68,6 +70,8 @@
 <link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
 
   
+  
+    <link rel="preload" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;" href="https://npm.webcache.cn/aplayer@1.10.1/dist/APlayer.min.css" integrity="sha384-tLMkTWh2pfXNWGFlUS0w1TFtRG5xZ9lPWFOooj+vDDLIL+xBGQU&#x2F;voDBY5XE2lVh" crossorigin="anonymous">
   
   
 <meta name="generator" content="Hexo 7.3.0"></head>
@@ -220,6 +224,23 @@
   
     
     
+      <meting-js
+        theme="var(--color-link)"
+        id="2265921590"
+        server="netease"
+        type="playlist"
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      ></meting-js>
+    
   
  
   <div class="sidebar-wrapper">
@@ -228,7 +249,7 @@
         <div class="sidebar-author">
   <img data-src="/hexo-blog/avatar/avatar.webp" data-sizes="auto" alt="Monkey Love IU" class="lazyload">
   <div class="sidebar-author-name">Monkey Love IU</div>
-  <div class="sidebar-description"></div>
+  <div class="sidebar-description">A personal blog about programming, math, life and articles.</div>
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
@@ -413,7 +434,7 @@
       <div class="sidebar-author">
   <img data-src="/hexo-blog/avatar/avatar.webp" data-sizes="auto" alt="Monkey Love IU" class="lazyload">
   <div class="sidebar-author-name">Monkey Love IU</div>
-  <div class="sidebar-description"></div>
+  <div class="sidebar-description">A personal blog about programming, math, life and articles.</div>
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
@@ -740,6 +761,30 @@
 
 
 
+  
+<script src="https://npm.webcache.cn/aplayer@1.10.1/dist/APlayer.min.js" integrity="sha384-gdGYZwHnfJM54evoZhpO0s6ZF5BQiybkiyW7VXr+h5UfruuRL&#x2F;aORyw+5+HZoU6e" crossorigin="anonymous"></script>
+
+  
+
+
+
+  
+  <script>
+    var isMobile = window.matchMedia('(max-width: 959px)').matches;
+    if (isMobile) {
+      const meting = _$('meting-js');
+      if (meting) {
+        meting.setAttribute('fixed', 'true');
+        const aside = meting.parentNode?.parentNode;
+        if (aside?.tagName === 'ASIDE') {
+          meting.parentNode.removeChild(meting);
+          document.body.appendChild(meting);
+        }
+      }
+    }
+  </script>
+  
+<script src="https://npm.webcache.cn/meting@2.0.1/dist/Meting.min.js" integrity="sha384-ASVlpKF80A22OXTK3tfEjZm1EL6uFMKIC4p8+0maanw1S&#x2F;IyB+Y4JG+ZDU7GpKE8" crossorigin="anonymous"></script>
 
 
 
