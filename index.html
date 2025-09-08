@@ -1,6 +1,6 @@
 
   <!DOCTYPE html>
-  <html lang="en"  
+  <html lang="zh-CN"  
     
       data-theme-mode="auto"
     
@@ -14,7 +14,7 @@
 
   
 
-  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = 'All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://MonkeyLoveIU.github.io';</script>
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://MonkeyLoveIU.github.io';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
   
   <title>
     
@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://monkeyloveiu.github.io/index.html">
 <meta property="og:site_name" content="吾 之 归 处">
 <meta property="og:description" content="A personal blog about programming, math, life and articles.">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://monkeyloveiu.github.io/images/banner.webp">
 <meta property="article:author" content="Monkey Love IU">
 <meta name="twitter:card" content="summary">
@@ -95,7 +95,7 @@
       
         
       
-      <div class="loading-word">Loading...</div>
+      <div class="loading-word">少女祈祷中...</div>
     </div>
   </div>
   </div>
@@ -141,7 +141,7 @@
               &#xe62b;
              
           </div>
-          <a class="main-nav-link" href="/hexo-blog/">Home</a>
+          <a class="main-nav-link" href="/hexo-blog/">首页</a>
         </span>
       
         <span class="main-nav-link-wrap">
@@ -150,7 +150,7 @@
               &#xe62b;
              
           </div>
-          <a class="main-nav-link" href="/hexo-blog/archives">Archives</a>
+          <a class="main-nav-link" href="/hexo-blog/archives">归档</a>
         </span>
       
         <span class="main-nav-link-wrap">
@@ -159,7 +159,7 @@
               &#xe62b;
              
           </div>
-          <a class="main-nav-link" href="/hexo-blog/about">About</a>
+          <a class="main-nav-link" href="/hexo-blog/about">关于</a>
         </span>
       
         <span class="main-nav-link-wrap">
@@ -168,7 +168,7 @@
               &#xe62b;
              
           </div>
-          <a class="main-nav-link" href="/hexo-blog/friend">Friend</a>
+          <a class="main-nav-link" href="/hexo-blog/friend">友链</a>
         </span>
       
     
@@ -176,11 +176,62 @@
   </nav>
   <nav id="sub-nav">
     
-      <a id="nav-rss-link" class="nav-icon" href="/hexo-blog/atom.xml" title="RSS Feed" target="_blank"></a>
+      <a id="nav-rss-link" class="nav-icon" href="/hexo-blog/atom.xml" title="RSS 订阅" target="_blank"></a>
     
     
     
   </nav>
+  
+    
+    <nav id="i18n-nav">
+      <div class="custom-dropdown">
+        <div class="select-selected" id="select-selected">
+          <span id="nav-language-btn" class="nav-icon" style="padding: 0 20px 0 0"></span>
+          <span id="selected-lang">简体中文</span>
+        </div>
+        <ul class="select-items" id="select-items">
+          
+            <li data-value="zh-CN" class="selected">简体中文</li>
+          
+            <li data-value="en" >English</li>
+          
+        </ul>
+      </div>
+      <script>
+        var selectSelected = document.getElementById("select-selected");
+        var selectedLang = document.getElementById("selected-lang");
+        var selectItems = document.getElementById("select-items");
+        var selectOptions = selectItems.querySelectorAll("li");
+
+        selectSelected.addEventListener("click", () => {
+          selectItems.classList.toggle("show");
+        });
+
+        selectOptions.forEach((item) => {
+          item.addEventListener("click", () => {
+            const langMap = {};
+            
+              langMap['zh-CN'] = '/hexo-blog/';
+            
+              langMap['en'] = '/hexo-blog/en/';
+            
+            selectedLang.textContent = item.textContent;
+            selectItems.classList.remove("show");
+            selectOptions.forEach((option) => {
+              option.classList.remove("selected");
+            });
+            item.classList.add("selected");
+            window.location = langMap[item.dataset.value];
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest(".custom-dropdown")) {
+            selectItems.classList.remove("show");
+          }
+        });
+      </script>
+    </nav>
   
 </div>
 <header id="header">
@@ -252,15 +303,15 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>Post</div>
-    <div class="sidebar-state-number">1</div>
+    <div>文章</div>
+    <div class="sidebar-state-number">6</div>
   </div>
   <div class="sidebar-state-category">
-    <div>Category</div>
+    <div>分类</div>
     <div class="sidebar-state-number">0</div>
   </div>
   <div class="sidebar-state-tag">
-    <div>Tag</div>
+    <div>标签</div>
     <div class="sidebar-state-number">0</div>
   </div>
 </div>
@@ -271,43 +322,43 @@
   
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/hexo-blog/" aria-label="Home"></a>
+        <a class="sidebar-menu-link-dummy" href="/hexo-blog/" aria-label="首页"></a>
         <div class="sidebar-menu-icon icon rotate">
           
             &#xe62b;
           
         </div>
-        <div class="sidebar-menu-link">Home</div>
+        <div class="sidebar-menu-link">首页</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/hexo-blog/archives" aria-label="Archives"></a>
+        <a class="sidebar-menu-link-dummy" href="/hexo-blog/archives" aria-label="归档"></a>
         <div class="sidebar-menu-icon icon rotate">
           
             &#xe62b;
           
         </div>
-        <div class="sidebar-menu-link">Archives</div>
+        <div class="sidebar-menu-link">归档</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/hexo-blog/about" aria-label="About"></a>
+        <a class="sidebar-menu-link-dummy" href="/hexo-blog/about" aria-label="关于"></a>
         <div class="sidebar-menu-icon icon rotate">
           
             &#xe62b;
           
         </div>
-        <div class="sidebar-menu-link">About</div>
+        <div class="sidebar-menu-link">关于</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/hexo-blog/friend" aria-label="Friend"></a>
+        <a class="sidebar-menu-link-dummy" href="/hexo-blog/friend" aria-label="友链"></a>
         <div class="sidebar-menu-icon icon rotate">
           
             &#xe62b;
           
         </div>
-        <div class="sidebar-menu-link">Friend</div>
+        <div class="sidebar-menu-link">友链</div>
       </div>
     
   
@@ -334,29 +385,174 @@
       <div class="post-wrapper">
   <div class="post-wrap left" data-aos="fade-up">
     
-      <a class="post-link" href="/hexo-blog/2025/09/07/hello-world/" aria-label="Hello World"></a>
+      <a class="post-link" href="/hexo-blog/2025/09/08/undefined/" aria-label=""></a>
     
     
     <div class="post-cover left">
+      
+        
+        
+          <img data-src="/covers/hexo.webp" data-sizes="auto" alt="" class="lazyload">
+        
+      
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2025-09-08</span>
+        
+        <span><span class="icon-pencil"></span>0 字</span>
+        <span><span class="icon-clock"></span>1 分钟</span>
+      </div>
+      <h2 class="post-title"></h2>
+      <article class="post-article">
+        
+          
+        
+      </article>
+    </div>
+  </div>
+</div>
+      
+    
+      <div class="post-wrapper">
+  <div class="post-wrap right" data-aos="fade-up">
+    
+      <a class="post-link" href="/hexo-blog/2025/09/08/Hello/" aria-label="Hello World"></a>
+    
+    
+    <div class="post-cover right">
       
         <img data-src="/hexo-blog/covers/banner-800w.webp" data-sizes="auto" alt="Hello World" class="lazyload">
       
     </div>
     <div class="post-info">
       <div class="post-meta">
-        <span><span class="icon-calendar"></span>2025-09-07</span>
+        <span><span class="icon-calendar"></span>2025-09-08</span>
         
-        <span><span class="icon-pencil"></span>75 words</span>
-        <span><span class="icon-clock"></span>1 min</span>
+        <span><span class="icon-pencil"></span>131 字</span>
+        <span><span class="icon-clock"></span>1 分钟</span>
       </div>
       <h2 class="post-title">Hello World</h2>
       <article class="post-article">
         
-          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new &amp;quot;My New Post&amp;quot;
+          欢迎使用 Hexo! 这是你的第一篇文章。更多信息请查阅 文档。如果在使用 Hexo 时遇到问题，可以在 故障排查 中找到答案，或者在 GitHub 上向我提问。
+快速开始新建一篇文章1$ hexo new &amp;quot;My New Post&amp;quot;
 
-More info: Writing
-Run server1$ hexo ser
+更多信息：写作
+启动服务器1$ hexo server
+
+更多信息：服务器
+生成静态文件1$ hexo generate
+
+更多信息：生成
+部署到远程站点1$ hexo deploy
+
+更多信息：[部署](https://hexo.io/docs/one-command
+
+        
+      </article>
+    </div>
+  </div>
+</div>
+      
+    
+      <div class="post-wrapper">
+  <div class="post-wrap left" data-aos="fade-up">
+    
+      <a class="post-link" href="/hexo-blog/2025/09/08/HEXO%20style%20docs/" aria-label="HEXO主题文档"></a>
+    
+    
+    <div class="post-cover left">
+      
+        <img data-src="/hexo-blog/covers/style.webp" data-sizes="auto" alt="HEXO主题文档" class="lazyload">
+      
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2025-09-08</span>
+        
+        <span><span class="icon-pencil"></span>6.2k 字</span>
+        <span><span class="icon-clock"></span>26 分钟</span>
+      </div>
+      <h2 class="post-title">HEXO主题文档</h2>
+      <article class="post-article">
+        
+          特性基础功能
+✨ 完整的博客功能
+🔄 兼容 Hexo6 及以上版本
+📱 响应式布局
+🌙 暗黑模式支持
+🅰️ i18n 支持
+
+代码与数学
+🖥️ 代码高亮与复制
+➗ KaTeX &amp;#x2F; MathJax3 数学公式支持
+📊 Mermaid 流程图支持
+
+搜索与评论
+🔍 Algolia 搜索集成
+🔍 本地搜索集成
+💬 多评论系统支持：
+Valine
+Waline
+Twikoo
+Gitalk
+Giscus
+
+
+
+统计与分析
+📊 文章阅读统计（Valine &amp;#x2F; Waline）
+👥 访客统计（不蒜子）
+
+媒体与交互功能
+🎵 音乐播放器支持：
+Aplayer
+Meti
+        
+      </article>
+    </div>
+  </div>
+</div>
+      
+    
+      <div class="post-wrapper">
+  <div class="post-wrap right" data-aos="fade-up">
+    
+      <a class="post-link" href="/hexo-blog/2025/09/08/Hexo/" aria-label="HEXO"></a>
+    
+    
+    <div class="post-cover right">
+      
+        <img data-src="/hexo-blog/covers/hexo.webp" data-sizes="auto" alt="HEXO" class="lazyload">
+      
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2025-09-08</span>
+        
+        <span><span class="icon-pencil"></span>159 字</span>
+        <span><span class="icon-clock"></span>1 分钟</span>
+      </div>
+      <h2 class="post-title">HEXO</h2>
+      <article class="post-article">
+        
+          HEXO常用命令
+   12hexo clean    # 清理旧缓存和 publichexo generate # 重新生成静态文件
+
+本地调试时，可以直接用：   1hexo server
+
+
+Hexo 会自动 build + 启动本地服务器
+默认访问 http://localhost:4000 就能看到修改后的效果
+
+部署时，需要先构建，然后再推送到 GitHub&amp;#x2F;Vercel 才能在公网看到修改：   12hexo cleanhexo deploy
+
+
+⚡ 特殊情况
+如果只是改了 文章内容，有时 hexo generate 就够了。
+
+如果改了 主题配置 &amp;#x2F; 主题源
         
       </article>
     </div>
@@ -388,17 +584,17 @@ Run server1$ hexo ser
     </div>
     
       <div>
-        Powered by&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
         Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
       </div>
     
     
       <div>
         <span class="icon-brush"></span>
-        75
+        11.3k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:01
+        00:59
       </div>
     
     
@@ -407,10 +603,10 @@ Run server1$ hexo ser
     
       <div>
         <span class="icon-eye"></span>
-        <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
         &nbsp;|&nbsp;
         <span class="icon-user"></span>
-        <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
       </div>
     
   </div>
@@ -434,15 +630,15 @@ Run server1$ hexo ser
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>Post</div>
-    <div class="sidebar-state-number">1</div>
+    <div>文章</div>
+    <div class="sidebar-state-number">6</div>
   </div>
   <div class="sidebar-state-category">
-    <div>Category</div>
+    <div>分类</div>
     <div class="sidebar-state-number">0</div>
   </div>
   <div class="sidebar-state-tag">
-    <div>Tag</div>
+    <div>标签</div>
     <div class="sidebar-state-number">0</div>
   </div>
 </div>
@@ -453,43 +649,43 @@ Run server1$ hexo ser
   
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/hexo-blog/" aria-label="Home"></a>
+        <a class="sidebar-menu-link-dummy" href="/hexo-blog/" aria-label="首页"></a>
         <div class="sidebar-menu-icon icon rotate">
           
             &#xe62b;
           
         </div>
-        <div class="sidebar-menu-link">Home</div>
+        <div class="sidebar-menu-link">首页</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/hexo-blog/archives" aria-label="Archives"></a>
+        <a class="sidebar-menu-link-dummy" href="/hexo-blog/archives" aria-label="归档"></a>
         <div class="sidebar-menu-icon icon rotate">
           
             &#xe62b;
           
         </div>
-        <div class="sidebar-menu-link">Archives</div>
+        <div class="sidebar-menu-link">归档</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/hexo-blog/about" aria-label="About"></a>
+        <a class="sidebar-menu-link-dummy" href="/hexo-blog/about" aria-label="关于"></a>
         <div class="sidebar-menu-icon icon rotate">
           
             &#xe62b;
           
         </div>
-        <div class="sidebar-menu-link">About</div>
+        <div class="sidebar-menu-link">关于</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/hexo-blog/friend" aria-label="Friend"></a>
+        <a class="sidebar-menu-link-dummy" href="/hexo-blog/friend" aria-label="友链"></a>
         <div class="sidebar-menu-icon icon rotate">
           
             &#xe62b;
           
         </div>
-        <div class="sidebar-menu-link">Friend</div>
+        <div class="sidebar-menu-link">友链</div>
       </div>
     
   
