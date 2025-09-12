@@ -127,6 +127,12 @@
   font-family: "iconfont";
   content: "\e630";
 }
+.icon-telegram:before {
+  content: "\e623";
+}
+.icon-email:before {
+  content: "\e63c";
+}
 .sidebar-toc-btn:before {
   font-family: "iconfont";
   content: "\e633";

@@ -401,6 +401,12 @@ body [data-aos='zoom-in'] {
   font-family: "iconfont";
   content: "\e630";
 }
+.icon-telegram:before {
+  content: "\e623";
+}
+.icon-email:before {
+  content: "\e63c";
+}
 .sidebar-toc-btn:before {
   font-family: "iconfont";
   content: "\e633";
@@ -2735,6 +2741,12 @@ pre .javascript .function {
 }
 .sidebar-social-icon:hover {
   transform: scale(1.2);
+}
+.icon-email {
+  color: var(--red-2);
+}
+.icon-telegram {
+  color: #08c;
 }
 .sidebar-menu-icon,
 .sidebar-menu-link {
