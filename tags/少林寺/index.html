@@ -17,7 +17,7 @@
   <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_4k4bc36ef96';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://monkeyiu.icu';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
   
   <title>
-    HEXO |
+    标签: 少林寺 |
     
     吾 之 归 处
   </title>
@@ -35,17 +35,17 @@
 
   
   
-    <meta name="description" content="HEXO常用命令    12hexo clean    # 清理旧缓存和 publichexo generate # 重新生成静态文件  本地调试时，可以直接用：   1hexo server   Hexo 会自动 build + 启动本地服务器 默认访问 http:&#x2F;&#x2F;localhost:4000 就能看到修改后的效果  部署时，需要先构建，然后再推送到 GitHub&#x2F;Vercel 才">
-<meta property="og:type" content="article">
-<meta property="og:title" content="HEXO">
-<meta property="og:url" content="https://monkeyiu.icu/2025/09/08/Hexo/index.html">
+    <meta name="description" content="A personal blog about programming, math, life and articles.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="吾 之 归 处">
+<meta property="og:url" content="https://monkeyiu.icu/tags/%E5%B0%91%E6%9E%97%E5%AF%BA/index.html">
 <meta property="og:site_name" content="吾 之 归 处">
-<meta property="og:description" content="HEXO常用命令    12hexo clean    # 清理旧缓存和 publichexo generate # 重新生成静态文件  本地调试时，可以直接用：   1hexo server   Hexo 会自动 build + 启动本地服务器 默认访问 http:&#x2F;&#x2F;localhost:4000 就能看到修改后的效果  部署时，需要先构建，然后再推送到 GitHub&#x2F;Vercel 才">
+<meta property="og:description" content="A personal blog about programming, math, life and articles.">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-09-08T01:54:35.810Z">
-<meta property="article:modified_time" content="2025-09-08T03:47:09.114Z">
+<meta property="og:image" content="https://monkeyiu.icu/images/banner.webp">
 <meta property="article:author" content="Monkey Love IU">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyiu.icu/images/banner.webp">
   
   
     <link rel="alternate" href="/atom.xml" title="吾 之 归 处" type="application/atom+xml">
@@ -61,9 +61,7 @@
   
   
     
-      
-<link rel="stylesheet" href="https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.css" integrity="sha384-vltfZtesCdl6NYVcFVcjEaIi5RpNvZe9t7fXvq8twVtcoy+Ub9QgnxUYJmwOhYCK" crossorigin="anonymous">
-
+      <link rel="preload" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;" href="https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.css" integrity="sha384-vltfZtesCdl6NYVcFVcjEaIi5RpNvZe9t7fXvq8twVtcoy+Ub9QgnxUYJmwOhYCK" crossorigin="anonymous">
     
   
   
@@ -181,6 +179,15 @@
           <a class="main-nav-link" href="/friend">友链</a>
         </span>
       
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+             
+              &#xe62b;
+             
+          </div>
+          <a class="main-nav-link" href="/diary">碎碎念</a>
+        </span>
+      
     
     <a id="main-nav-toggle" class="nav-icon"></a>
   </nav>
@@ -221,9 +228,9 @@
           item.addEventListener("click", () => {
             const langMap = {};
             
-              langMap['zh-CN'] = '/2025/09/08/Hexo/';
+              langMap['zh-CN'] = '/tags/少林寺/';
             
-              langMap['en'] = '/en/2025/09/08/Hexo/';
+              langMap['en'] = '/en/tags/少林寺/';
             
             selectedLang.textContent = item.textContent;
             selectItems.classList.remove("show");
@@ -246,8 +253,14 @@
 </div>
 <header id="header">
   
-    <picture></picture>
-    <img  fetchpriority="high" src="/covers/hexo.webp" alt="HEXO">
+    
+      <picture>
+        
+      </picture>
+      
+        <img  fetchpriority="high" src="/images/banner.webp" alt="">
+      
+    
   
   <div id="header-outer">
     <div id="header-title">
@@ -255,13 +268,15 @@
         
         
           <span id="logo">
-            <h1 data-aos="slide-up">HEXO</h1>
+            <h1 data-aos="slide-up">标签</h1>
           </span>
         
       
       
         
         <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+            <span id="subtitle">少林寺</span>
           
         </h2>
       
@@ -272,7 +287,7 @@
         <div id="content" class="sidebar-left"  >
           <aside id="sidebar">
   
-  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper-container ">
   
     
     
@@ -298,15 +313,7 @@
   <div class="sidebar-wrapper">
     <div class="sidebar-wrap" data-aos="fade-up">
       
-        
-          <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
-<div class="sidebar-toc-wrapper toc-div-class" >
-  
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95%E6%97%B6%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E7%94%A8%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">本地调试时，可以直接用：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E6%97%B6%EF%BC%8C%E9%9C%80%E8%A6%81%E5%85%88%E6%9E%84%E5%BB%BA%EF%BC%8C%E7%84%B6%E5%90%8E%E5%86%8D%E6%8E%A8%E9%80%81%E5%88%B0-GitHub-Vercel-%E6%89%8D%E8%83%BD%E5%9C%A8%E5%85%AC%E7%BD%91%E7%9C%8B%E5%88%B0%E4%BF%AE%E6%94%B9%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">部署时，需要先构建，然后再推送到 GitHub&#x2F;Vercel 才能在公网看到修改：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%A1-%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5"><span class="toc-number">3.</span> <span class="toc-text">⚡ 特殊情况</span></a></li></ol>
-  
-</div>
-</div>
-          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+        <div class="sidebar-author">
   <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Monkey Love IU" class="lazyload">
   <div class="sidebar-author-name">Monkey Love IU</div>
   <div class="sidebar-description">A personal blog about programming, math, life and articles.</div>
@@ -314,15 +321,15 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">6</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
-    <div class="sidebar-state-number">0</div>
+    <div class="sidebar-state-number">2</div>
   </div>
   <div class="sidebar-state-tag">
     <div>标签</div>
-    <div class="sidebar-state-number">0</div>
+    <div class="sidebar-state-number">7</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -379,18 +386,20 @@
         <div class="sidebar-menu-link">友链</div>
       </div>
     
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/diary" aria-label="碎碎念"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          
+            &#xe62b;
+          
+        </div>
+        <div class="sidebar-menu-link">碎碎念</div>
+      </div>
+    
   
 </div>
-</div>
-        
+
       
-      
-        
-          <div class="sidebar-btn-wrapper" style="position:static">
-            <div class="sidebar-toc-btn current"></div>
-            <div class="sidebar-common-btn"></div>
-          </div>
-        
       
     </div>
   </div>
@@ -403,145 +412,85 @@
   
 </aside>
 
-          <section id="main"><article id="post-HEXO" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner" data-aos="fade-up">
-    <div class="article-meta">
-      <div class="article-date">
-  <span class="article-date-link icon-calendar" data-aos="zoom-in">
-    <time datetime="2025-09-08T01:54:35.810Z" itemprop="datePublished">2025-09-08</time>
-    <time style="display: none;" id="post-update-time">2025-09-08</time>
-  </span>
+          <section id="main">
+<div class="archives-outer-wrap" data-aos="fade-up">
+  
+    <div class="tag-wrap">
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/tags/ShaoLin/">ShaoLin</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/tags/Hiking/">Hiking</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/tags/Mount-Song/">Mount Song</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/tags/%E5%B0%91%E6%9E%97%E5%AF%BA/">少林寺</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/tags/%E7%88%AC%E5%B1%B1/">爬山</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/tags/%E6%B3%B0%E5%B1%B1/">泰山</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/tags/%E5%B5%A9%E5%B1%B1/">嵩山</a>
+    </div>
   
 </div>
-
-      
-
+<div class="category-wrap">
+  
+    <div class="archives-category-list-item" data-aos="zoom-in">
+      <a class="archives-category-list-link" href="/categories/Travel/">Travel</a>
     </div>
-    
-    <div class="hr-line"></div>
-    
-
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-      
-        <p>HEXO常用命令</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean    <span class="comment"># 清理旧缓存和 public</span></span><br><span class="line">hexo generate <span class="comment"># 重新生成静态文件</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="本地调试时，可以直接用："><a href="#本地调试时，可以直接用：" class="headerlink" title="本地调试时，可以直接用："></a>本地调试时，可以直接用：</h3>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Hexo 会自动 build + 启动本地服务器</li>
-<li>默认访问 <code>http://localhost:4000</code> 就能看到修改后的效果</li>
-</ul>
-<h3 id="部署时，需要先构建，然后再推送到-GitHub-Vercel-才能在公网看到修改："><a href="#部署时，需要先构建，然后再推送到-GitHub-Vercel-才能在公网看到修改：" class="headerlink" title="部署时，需要先构建，然后再推送到 GitHub&#x2F;Vercel 才能在公网看到修改："></a>部署时，需要先构建，然后再推送到 GitHub&#x2F;Vercel 才能在公网看到修改：</h3>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="⚡-特殊情况"><a href="#⚡-特殊情况" class="headerlink" title="⚡ 特殊情况"></a>⚡ 特殊情况</h3><ul>
-<li><p>如果只是改了 <strong>文章内容</strong>，有时 <code>hexo generate</code> 就够了。</p>
-</li>
-<li><p>如果改了 <strong>主题配置 &#x2F; 主题源码</strong>，建议用：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
-
-<p>这样可以避免旧缓存导致的“主题没生效”问题。</p>
-</li>
-</ul>
-<hr>
-
-      
+  
+    <div class="archives-category-list-item" data-aos="zoom-in">
+      <a class="archives-category-list-link" href="/categories/%E6%97%85%E8%A1%8C/">旅行</a>
     </div>
-    <footer class="article-footer">
+  
+</div>
+  
+  
+    
+    
+    
       
       
-      
-      
-      
-        <a data-aos="zoom-in" href="/2025/09/08/Hexo/#comments" class="article-comment-link">
-          <span class="post-comments-count waline-comment-count" data-path="/2025/09/08/Hexo/" itemprop="commentCount"></span>
-          留言
-        </a>
-      
-      
-      
-      
-        <span data-aos="zoom-in" class="article-visitor-link">
-          <span class="waline-pageview-count" data-path="/2025/09/08/Hexo/">0</span>
-          <em class="post-meta-item-text">阅读量</em>
-        </span>
-      
-      
-
-    </footer>
+        
+        
+        <section class="archives-wrap" data-aos="fade-up">
+          <div class="archive-year-wrap">
+            <a href="/archives/2025" class="archive-year">2025</a>
+          </div>
+          <ul>
+            
+            <li class="archive-article">
+  <div class="archive-article-date">
+    <span>
+      <time class="dt-published" datetime="2025-09-01T16:00:00.000Z" itemprop="datePublished">09-02</time>
+    </span>
   </div>
   
-  <nav id="article-nav" data-aos="fade-up">
-    
-      
-      <div class="article-nav-link-wrap left">
-        
-          <img data-src="/covers/style.webp" data-sizes="auto" alt="HEXO主题文档" class="lazyload">
-        
-        <a href="/2025/09/08/HEXO%20style%20docs/"></a>
-        <div class="article-nav-caption">前一篇</div>
-        <h3 class="article-nav-title">
-          
-            HEXO主题文档
-          
-        </h3>
-      </div>
-    
-    
-    
-    <div class="article-nav-link-wrap right">
-      
-        <img data-src="/covers/banner-800w.webp" data-sizes="auto" alt="Hello World" class="lazyload">
-      
-      <a href="/2025/09/07/Hello/"></a>
-      <div class="article-nav-caption">后一篇</div>
-      <h3 class="article-nav-title">
-        
-          Hello World
-        
-      </h3>
-    </div>
-    
-  </nav>
+    <a class="archive-article-title" href="/2025/09/02/shaolinsi/">少林寺</a>
+  
+</li>
 
-
-</article>
-
-
-
-
-
-
-
-
-
-  <section id="comments" data-aos="fade-up">
-    <div class="comment-header">
-      
-      
-        
-      
-      <h2 class="comment-title">请在这里留下银行卡号及密码</h2>
-      <div class="comment-selector">
-        <div class="comment-selector-wrap">
             
-            <div class="selector-item" data-selector="waline">
-              <span>waline</span>
-            </div>
             
-        </div>
-      </div>
-    </div>
-    <div class="comment-content">
-      
-        <div class="comment waline-comment" data-aos="fade-up"
-          id="waline-comment">
-        </div>
-      
-    </div>
-  </section>
+          </ul>
+        </section>
+    
+  
+  </div>
+
 
 
 </section>
@@ -571,10 +520,10 @@
     
       <div>
         <span class="icon-brush"></span>
-        11.4k
+        13.4k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:59
+        01:08
       </div>
     
     
@@ -614,15 +563,7 @@
       <nav id="mobile-nav">
   <div class="sidebar-wrap">
     
-      
-        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
-<div class="sidebar-toc-wrapper toc-div-class" >
-  
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95%E6%97%B6%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E7%94%A8%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">本地调试时，可以直接用：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E6%97%B6%EF%BC%8C%E9%9C%80%E8%A6%81%E5%85%88%E6%9E%84%E5%BB%BA%EF%BC%8C%E7%84%B6%E5%90%8E%E5%86%8D%E6%8E%A8%E9%80%81%E5%88%B0-GitHub-Vercel-%E6%89%8D%E8%83%BD%E5%9C%A8%E5%85%AC%E7%BD%91%E7%9C%8B%E5%88%B0%E4%BF%AE%E6%94%B9%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">部署时，需要先构建，然后再推送到 GitHub&#x2F;Vercel 才能在公网看到修改：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%A1-%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5"><span class="toc-number">3.</span> <span class="toc-text">⚡ 特殊情况</span></a></li></ol>
-  
-</div>
-</div>
-        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+      <div class="sidebar-author">
   <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Monkey Love IU" class="lazyload">
   <div class="sidebar-author-name">Monkey Love IU</div>
   <div class="sidebar-description">A personal blog about programming, math, life and articles.</div>
@@ -630,15 +571,15 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">6</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
-    <div class="sidebar-state-number">0</div>
+    <div class="sidebar-state-number">2</div>
   </div>
   <div class="sidebar-state-tag">
     <div>标签</div>
-    <div class="sidebar-state-number">0</div>
+    <div class="sidebar-state-number">7</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -695,19 +636,21 @@
         <div class="sidebar-menu-link">友链</div>
       </div>
     
-  
-</div>
-</div>
-      
-    
-  </div>
-  
-    
-      <div class="sidebar-btn-wrapper">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/diary" aria-label="碎碎念"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          
+            &#xe62b;
+          
+        </div>
+        <div class="sidebar-menu-link">碎碎念</div>
       </div>
     
+  
+</div>
+
+    
+  </div>
   
 </nav>
 
@@ -932,394 +875,11 @@
 
 <div id="lazy-script">
   <div>
-    
-      
-      
-      <script data-pjax>
-        window.REIMU_POST = {
-          author: "Monkey Love IU",
-          title: "HEXO",
-          url: "https://monkeyiu.icu/2025/09/08/Hexo/",
-          excerpt: "",
-          description: "",
-          stripContent: "HEXO常用命令    12hexo clean    # 清理旧缓存和 publichexo generate # 重新生成静态文件  本地调试时，可以直接用：   1hexo server   Hexo 会自动 build + 启动本地服务器 默认访问 http://localhost:4000 就能看到修改后的效果  部署时，需要先构建，然后再推送到 GitHub&amp;#x2F;Vercel 才能在公网看到修改：   12hexo cleanhexo deploy   ⚡ 特殊情况 如果只是改",
-          date: "Mon Sep 08 2025 09:54:35 GMT+0800",
-          updated: "Mon Sep 08 2025 11:47:09 GMT+0800",
-          cover: "/covers/hexo.webp",
-        };
-      </script>
        
     
     
       
-        
-<script src="/js/insert_highlight.js" data-pjax></script>
-
-        
-      
     
-    
-      <script type="module" data-pjax>
-        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
-        
-        const pswp = () => {
-          if (_$$('.article-entry a.article-gallery-item').length > 0) {
-            new PhotoSwipeLightbox({
-              gallery: '.article-entry',
-              children: 'a.article-gallery-item',
-              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
-            }).init();
-          }
-          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
-            new PhotoSwipeLightbox({
-              gallery: '.article-gallery',
-              children: 'a.article-gallery-item',
-              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
-            }).init();
-          }
-          window.lightboxStatus = 'done';
-          window.removeEventListener('lightbox:ready', pswp);
-        }
-        if(window.lightboxStatus === 'ready') {
-          pswp()
-        } else {
-          window.addEventListener('lightbox:ready', pswp);
-        }
-      </script>
-      
-        
-
-
-
-
-
-
-
-
-<script data-pjax>
-  var loadScript = (src, integrity) => {
-    const script = document.createElement('script');
-    script.src = src;
-    if (integrity) script.integrity = integrity;
-    script.crossOrigin = 'anonymous';
-    return script;
-  };
-
-  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus'];
-  var commentConfig = {
-    valine: {
-      enable: false,
-      load: () => {
-        const container = document.querySelector('.valine-comment');
-        if (!container) return;
-        container.style.display = 'block';
-
-        const script = loadScript(
-          'https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js',
-          'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn'
-        );
-        script.onload = () => {
-          var GUEST_INFO = ['nick', 'mail', 'link'];
-          var guest_info = 'nick,mail,link'.split(',').filter((item) => {
-            return GUEST_INFO.indexOf(item) > -1
-          });
-          var recordIP = JSON.parse('true');
-          var highlight = JSON.parse('true');
-          var visitor = JSON.parse('true');
-          var serverURLs = undefined;
-
-          if (window.Valine) {
-            new Valine({
-              el: '.valine-comment',
-              appId: "",
-              appKey: "",
-              placeholder: "Just go go",
-              pageSize: '10',
-              avatar: 'mp',
-              lang: document.documentElement.lang || 'en',
-              recordIP: recordIP,
-              highlight: highlight,
-              visitor: visitor,
-              requiredFields: guest_info,
-              path: window.location.pathname,
-              serverURLs
-            });
-          }
-        };
-        document.head.appendChild(script);
-      }
-    },
-    waline: {
-      enable: true,
-      load: async () => {
-        const container = document.querySelector('.waline-comment');
-        if (!container) return;
-        container.style.display = 'block';
-
-        let walineInit;
-        const walineCdn = 'https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.mjs';
-        const walineIntegrity = 'sha384-9sbqJjrfGjbkI6/PI4nU/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH/KinBEAZII/5';
-
-        const module = await safeImport(walineCdn, walineIntegrity);
-        walineInit = module.init;
-
-        window.walineInstance = walineInit({
-          el: '.waline-comment',
-          serverURL: 'https://waline-text-omnf4msbv-key-mons-projects.vercel.app',
-          lang: document.documentElement.lang || 'en',
-          locale: {},
-          emoji: ["https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/bmoji","https://unpkg.com/@waline/emojis@1.2.0/qq","https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji","https://unpkg.com/@waline/emojis@1.2.0/soul-emoji"],
-          meta: ["nick","mail","link"],
-          requiredMeta: ["nick","mail"],
-          wordLimit: JSON.parse('0'),
-          comment: true,
-          pageSize: JSON.parse('10'),
-          dark: 'html[data-theme="dark"]',
-          pageview: JSON.parse('true'),
-        });
-      }
-    },
-    twikoo: {
-      enable: false,
-      load: () => {
-        const container = document.querySelector('.twikoo-comment');
-        if (!container) return;
-        container.style.display = 'block';
-
-        const script = loadScript(
-          'https://npm.webcache.cn/twikoo@1.6.44/dist/twikoo.all.min.js',
-          'sha384-kwWLC0HjeZZnVPqCJ1AncI8tsk+kQqF9TbAmCclcc9Z0hGkfgHRzeQZxmdmZhE0K'
-        );
-
-        script.onload = () => {
-          if (window.twikoo) {
-            twikoo.init({
-              envId: '',
-              el: '.twikoo-comment',
-              region: '',
-              lang: document.documentElement.lang || 'en',
-            });
-
-            twikoo.getCommentsCount({
-              envId: '',
-              region: '',
-              urls: [
-                '/about/index.html'
-              ],
-              includeReply: false
-            }).then((res) => {
-              _$('.twikoo-comment-count').innerText = res[0].count;
-            }).catch((err) => {
-              console.error(err);
-            });
-          }
-        } 
-        document.head.appendChild(script);
-      }
-    },
-    gitalk: {
-      enable: false,
-      load: () => {
-        const container = document.querySelector('.gitalk-comment');
-        if (!container) return;
-        container.style.display = 'block';
-
-        const script = loadScript(
-          'https://npm.webcache.cn/gitalk@1.8.0/dist/gitalk.min.js',
-          'sha384-kspnZUWBoSWwoJHa0hBCXYbHGbhvU/lcEH5O8eVbSDhbPwsiVUTp/aGX/z/5EuMA'
-        );
-
-        script.onload = () => {
-          if (false) {
-            const md5Script = loadScript(
-              'https://npm.webcache.cn/blueimp-md5@2.19.0/js/md5.min.js',
-              'sha384-JmVtRz6RWiXnA14QbIOJzPuU3MidULOpBP66deeLLyyoF4Tr/gZlbkHkL6vTthxH'
-            );
-            md5Script.onload = initGitalk;
-            document.head.appendChild(md5Script);
-          } else {
-            initGitalk();
-          }
-        }
-        document.head.appendChild(script);
-
-        function initGitalk() {
-          var gitalkId = location.pathname;
-          var gitalk = new Gitalk({
-            clientID: '',
-            clientSecret: '',
-            repo: '',
-            owner: '',
-            admin: null,
-            id: gitalkId,
-            distractionFreeMode: false,
-            language: document.documentElement.lang || 'en',
-          })
-          gitalk.render('gitalk-comment');
-        }
-      }
-    },
-    giscus: {
-      enable: false,
-      load: () => {
-        const container = document.querySelector('.giscus-comment');
-        if (!container) return;
-        container.style.display = 'block';
-
-        // 删除可能已存在的 giscus 脚本和 iframe
-        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
-        if (existingScript) existingScript.remove();
-        const existingFrame = document.querySelector('iframe.giscus-frame');
-        if (existingFrame) existingFrame.remove();
-
-        const giscusScript = document.createElement('script');
-        const domMode = document.documentElement.getAttribute("data-theme");
-
-        const docLang = document.documentElement.lang || 'en';
-        const langBase = docLang.split('-')[0];
-        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en', 
-        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja', 
-        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
-        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
-
-        giscusScript.src = 'https://giscus.app/client.js';
-        giscusScript.setAttribute('data-repo', '');
-        giscusScript.setAttribute('data-repo-id', '');
-        giscusScript.setAttribute('data-category', ''); 
-        giscusScript.setAttribute('data-category-id', '');
-        giscusScript.setAttribute('data-mapping', '0');
-        giscusScript.setAttribute('data-strict', '0');
-        giscusScript.setAttribute('data-reactions-enabled', '1');
-        giscusScript.setAttribute('data-emit-metadata', '0');
-        giscusScript.setAttribute('data-input-position', 'bottom');
-        giscusScript.setAttribute('data-theme', domMode === 'dark' ? 'dark' : 'light');
-        giscusScript.setAttribute('data-lang', giscusLang);
-        giscusScript.setAttribute('crossorigin', 'anonymous');
-        giscusScript.async = true;
-        container.appendChild(giscusScript);
-        document.body.addEventListener('light-theme-set', () => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
-        });
-        document.body.addEventListener('dark-theme-set', () => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
-        });
-      }
-    }
-  }
-  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
-
-  var defaultComment = '';
-  if (commentConfig.enable) {
-    // 1. 首先检查localStorage中是否有保存的评论类型
-    var savedCommentType = localStorage.getItem('commentType');
-    
-    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
-    if (savedCommentType) {
-      if (commentConfig[savedCommentType]?.enable) {
-        defaultComment = savedCommentType;
-      }
-    }
-    
-    // 3. 如果localStorage无效，检查配置的默认评论系统
-    if (!defaultComment) {
-      var configDefault = 'waline';
-      if (commentConfig[configDefault]?.enable) {
-        defaultComment = configDefault;
-      }
-    }
-    
-    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
-    if (!defaultComment) {
-      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
-    }
-  }
-  function loadComments() {
-    if (!commentConfig.enable) return;
-    // 评论组件加载状态跟踪
-    const loadedComments = {
-      valine: false,
-      waline: false,
-      twikoo: false,
-      gitalk: false,
-      giscus: false
-    };
-
-    // 隐藏所有评论容器
-    const hideAllComments = () => {
-      const commentContainers = document.querySelectorAll('.comment');
-      commentContainers.forEach(container => {
-        container.style.display = 'none';
-      });
-    };
-
-    // 按需加载评论系统
-    const loadCommentSystem = (type) => {
-      if (loadedComments[type]) {
-        // 如果已加载，只需显示对应容器
-        document.querySelector(`.${type}-comment`).style.display = 'block';
-        return;
-      }
-
-      // 根据类型加载对应的脚本
-      commentConfig[type]?.load();
-      loadedComments[type] = true;
-    };
-
-    // 评论组件选择器
-    const changeActiveCommentItems = (item) => {
-      const commentItems = document.querySelectorAll('.selector-item');
-      for (let i = 0; i < commentItems.length; i++) {
-        commentItems[i].classList.remove('active');
-      }
-      item.classList.add('active');
-
-      // 获取要加载的评论系统类型
-      const commentType = item.getAttribute('data-selector');
-
-      // 隐藏所有评论系统
-      hideAllComments();
-
-      // 加载选中的评论系统
-      loadCommentSystem(commentType);
-    };
-
-    const commentInit = () => {
-      // 评论组件选择器点击事件
-      const commentItems = document.querySelectorAll('.selector-item');
-      for (let item of commentItems) {
-        item.addEventListener('click', () => {
-          // 保存选择器状态
-          const commentType = item.getAttribute('data-selector');
-          window.localStorage.setItem('commentType', commentType);
-          // 切换选中状态
-          changeActiveCommentItems(item);
-        });
-      }
-
-      // 检查是否需要加载默认评论系统
-      if (defaultComment) {
-        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
-        if (!defaultSelectorItem) return;
-        defaultSelectorItem.style.display = 'block';
-        defaultSelectorItem.classList.add('active');
-        loadCommentSystem(defaultComment);
-      }
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', commentInit);
-    } else {
-      commentInit();
-    }
-  };
-  loadComments();
-</script>
-
-      
     
   </div>
 </div>
@@ -1384,6 +944,12 @@
   </script>
   
 <script src="https://npm.webcache.cn/meting@2.0.1/dist/Meting.min.js" integrity="sha384-ASVlpKF80A22OXTK3tfEjZm1EL6uFMKIC4p8+0maanw1S&#x2F;IyB+Y4JG+ZDU7GpKE8" crossorigin="anonymous"></script>
+
+
+
+
+
+
 
 
 
