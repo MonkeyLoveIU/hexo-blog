@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont";
-  src: url("//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2") format('woff2');
+  src: url("//at.alicdn.com/t/c/font_5091610_5wo8r44i04a.woff2") format('woff2');
   font-display: swap;
 }
 .archives-tag-list-link:before {
@@ -9,7 +9,7 @@
 }
 .archives-category-list-link:before {
   font-family: "iconfont";
-  content: "\e604";
+  content: "\e608";
 }
 .article-date-link:before {
   font-family: "iconfont";
@@ -17,7 +17,7 @@
 }
 .article-category-link:before {
   font-family: "iconfont";
-  content: "\e604";
+  content: "\e608";
 }
 .article-tag-list-link:before {
   font-family: "iconfont";

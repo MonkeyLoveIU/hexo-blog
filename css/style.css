@@ -274,7 +274,7 @@ body [data-aos='zoom-in'] {
 }
 @font-face {
   font-family: "iconfont";
-  src: url("//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2") format('woff2');
+  src: url("//at.alicdn.com/t/c/font_5091610_5wo8r44i04a.woff2") format('woff2');
   font-display: swap;
 }
 .archives-tag-list-link:before {
@@ -283,7 +283,7 @@ body [data-aos='zoom-in'] {
 }
 .archives-category-list-link:before {
   font-family: "iconfont";
-  content: "\e604";
+  content: "\e608";
 }
 .article-date-link:before {
   font-family: "iconfont";
@@ -291,7 +291,7 @@ body [data-aos='zoom-in'] {
 }
 .article-category-link:before {
   font-family: "iconfont";
-  content: "\e604";
+  content: "\e608";
 }
 .article-tag-list-link:before {
   font-family: "iconfont";
@@ -2732,6 +2732,103 @@ pre .javascript .function {
   .sidebar-top-taichi {
     background: var(--top-icon) no-repeat center/100%;
   }
+}
+.sponsor-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px 0;
+  margin-top: 10px;
+}
+.sponsor-title {
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--color-link);
+  opacity: 0.8;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  display: block;
+  padding: 10px 0;
+  font-weight: 700;
+  user-select: none;
+}
+.sponsor-icon {
+  width: 30px;
+  margin: 0 10px;
+  opacity: 0.8;
+}
+.sponsor-icon.rotate {
+  animation: rotate-all 3s linear infinite;
+}
+@supports (-webkit-mask: var(--sponsor-icon) no-repeat center/80%) {
+  .sponsor-icon {
+    background-color: var(--red-1);
+    -webkit-mask: var(--sponsor-icon) no-repeat center/80%;
+  }
+}
+@supports (mask: var(--sponsor-icon) no-repeat center/80%) {
+  .sponsor-icon {
+    background-color: var(--red-1);
+    mask: var(--sponsor-icon) no-repeat center/80%;
+  }
+}
+@supports not ((mask: var(--sponsor-icon) no-repeat center/80%) and (-webkit-mask: var(--sponsor-icon) no-repeat center/80%)) {
+  .sponsor-icon {
+    background: var(--sponsor-icon) no-repeat center/80%;
+  }
+}
+.sponsor-button {
+  margin: 8px 50px;
+  display: flex;
+  position: relative;
+  width: fit-content;
+  justify-content: center;
+  border: 10px var(--color-red-3-shadow) double;
+  transition: border 0.5s;
+  cursor: var(--cursor-pointer) !important;
+}
+.sponsor-button:hover {
+  border: 10px var(--color-h2-after) double;
+}
+.sponsor-button:hover + .sponsor-tip {
+  opacity: 0.8;
+}
+.sponsor-button.active {
+  border: 10px var(--color-h2-after) double;
+}
+.sponsor-tip {
+  transition: opacity 0.2s;
+  color: var(--color-link);
+  opacity: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.sponsor-tip.active {
+  opacity: 0.8;
+}
+.sponsor-qr {
+  gap: 5px;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  display: none;
+  margin-top: 5px;
+}
+.sponsor-qr.active {
+  display: flex;
+}
+.sponsor-qr-image-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sponsor-qr-name {
+  font-size: 14px;
+  opacity: 0.9;
+  color: var(--color-default);
+  margin-top: 8px;
 }
 #sidebar {
   display: none;
