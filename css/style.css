@@ -274,12 +274,12 @@ body [data-aos='zoom-in'] {
 }
 @font-face {
   font-family: "iconfont";
-  src: url("//at.alicdn.com/t/c/font_5091610_5wo8r44i04a.woff2") format('woff2');
+  src: url("//at.alicdn.com/t/c/font_5091610_9ws1x947v5h.woff2") format('woff2');
   font-display: swap;
 }
 .archives-tag-list-link:before {
   font-family: "iconfont";
-  content: "\e622";
+  content: "\e602";
 }
 .archives-category-list-link:before {
   font-family: "iconfont";
@@ -295,7 +295,7 @@ body [data-aos='zoom-in'] {
 }
 .article-tag-list-link:before {
   font-family: "iconfont";
-  content: "\e622";
+  content: "\e602";
 }
 .article-comment-link:before {
   font-family: "iconfont";
@@ -303,7 +303,7 @@ body [data-aos='zoom-in'] {
 }
 .icon-copyright:before {
   font-family: "iconfont";
-  content: "\e60a";
+  content: "\e609";
 }
 .icon-brush:before {
   font-family: "iconfont";
@@ -319,7 +319,7 @@ body [data-aos='zoom-in'] {
 }
 .icon-user:before {
   font-family: "iconfont";
-  content: "\e628";
+  content: "\e69f";
 }
 #main-nav-toggle:before {
   font-family: "iconfont";
@@ -327,7 +327,7 @@ body [data-aos='zoom-in'] {
 }
 #nav-rss-link:before {
   font-family: "iconfont";
-  content: "\e61f";
+  content: "\e69d";
 }
 #nav-search-btn:before {
   font-family: "iconfont";
@@ -335,23 +335,23 @@ body [data-aos='zoom-in'] {
 }
 #nav-sun-btn:before {
   font-family: "iconfont";
-  content: "\e621";
+  content: "\e71c";
 }
 #nav-moon-btn:before {
   font-family: "iconfont";
-  content: "\e617";
+  content: "\ea20";
 }
 #nav-circle-half-stroke-btn:before {
   font-family: "iconfont";
-  content: "\e641";
+  content: "\e6fa";
 }
 #nav-language-btn:before {
   font-family: "iconfont";
-  content: "\e642";
+  content: "\e79f";
 }
 .icon-copy:before {
   font-family: "iconfont";
-  content: "\e60c";
+  content: "\e609";
 }
 .icon-chevron-down:before {
   font-family: "iconfont";
@@ -363,27 +363,27 @@ body [data-aos='zoom-in'] {
 }
 .icon-times:before {
   font-family: "iconfont";
-  content: "\e637";
+  content: "\e6a0";
 }
 .icon-calendar:before {
   font-family: "iconfont";
-  content: "\e605";
+  content: "\e601";
 }
 .icon-calendar-plus:before {
   font-family: "iconfont";
-  content: "\e648";
+  content: "\e65f";
 }
 .icon-pencil:before {
   font-family: "iconfont";
-  content: "\e61b";
+  content: "\e65e";
 }
 .icon-clock:before {
   font-family: "iconfont";
-  content: "\e613";
+  content: "\e60a";
 }
 .post-sticky:before {
   font-family: "iconfont";
-  content: "\e627";
+  content: "\e6a0";
 }
 .popup-btn-close:before {
   font-family: "iconfont";
@@ -401,11 +401,11 @@ body [data-aos='zoom-in'] {
   font-family: "iconfont";
   content: "\e630";
 }
-.icon-telegram:before {
-  content: "\e623";
+.icon-bilibili:before {
+  content: "\e605";
 }
 .icon-email:before {
-  content: "\e63c";
+  content: "\e62e";
 }
 .sidebar-toc-btn:before {
   font-family: "iconfont";
@@ -2997,8 +2997,8 @@ pre .javascript .function {
 .icon-email {
   color: var(--red-2);
 }
-.icon-telegram {
-  color: #08c;
+.icon-bilibili {
+  color: #00a1d6;
 }
 .sidebar-menu-icon,
 .sidebar-menu-link {
