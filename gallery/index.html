@@ -17,7 +17,7 @@
   <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '5091610_9ws1x947v5h';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.anchor_icon = 'e697';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://monkeyiu.icu';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
   
   <title>
-    论文2 |
+    我的原生 HTML 展览馆 |
     
     吾 之 归 处
   </title>
@@ -35,18 +35,19 @@
 
   
   
-    <meta name="description" content="AI生成">
-<meta property="og:type" content="article">
-<meta property="og:title" content="论文2">
-<meta property="og:url" content="https://monkeyiu.icu/2025/12/25/movieee/index.html">
+    <meta name="description" content="&#x2F;* 给你手搓的画廊加点基本的现代文明（CSS Grid） *&#x2F; .gallery-grid {     display: grid;     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));     gap: 20px;     margin-top: 20px; } .gallery-item {     border">
+<meta property="og:type" content="website">
+<meta property="og:title" content="我的原生 HTML 展览馆">
+<meta property="og:url" content="https://monkeyiu.icu/gallery/index.html">
 <meta property="og:site_name" content="吾 之 归 处">
-<meta property="og:description" content="AI生成">
+<meta property="og:description" content="&#x2F;* 给你手搓的画廊加点基本的现代文明（CSS Grid） *&#x2F; .gallery-grid {     display: grid;     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));     gap: 20px;     margin-top: 20px; } .gallery-item {     border">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-12-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-12-26T01:00:16.814Z">
+<meta property="og:image" content="https://monkeyiu.icu/images/banner.webp">
+<meta property="article:published_time" content="2026-05-24T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-23T17:57:36.125Z">
 <meta property="article:author" content="Monkey Love IU">
-<meta property="article:tag" content="文学">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://monkeyiu.icu/images/banner.webp">
   
   
     <link rel="alternate" href="/atom.xml" title="吾 之 归 处" type="application/atom+xml">
@@ -201,6 +202,17 @@
           <a class="main-nav-link" href="/diary">碎碎念</a>
         </span>
       
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+             
+              
+                &#xe60b;
+              
+             
+          </div>
+          <a class="main-nav-link" href="/gallery">画廊</a>
+        </span>
+      
     
     <a id="main-nav-toggle" class="nav-icon"></a>
   </nav>
@@ -241,9 +253,9 @@
           item.addEventListener("click", () => {
             const langMap = {};
             
-              langMap['zh-CN'] = '/2025/12/25/movieee/';
+              langMap['zh-CN'] = '/gallery/';
             
-              langMap['en'] = '/en/2025/12/25/movieee/';
+              langMap['en'] = '/en/gallery/';
             
             selectedLang.textContent = item.textContent;
             selectItems.classList.remove("show");
@@ -266,8 +278,14 @@
 </div>
 <header id="header">
   
-    <picture></picture>
-    <img  fetchpriority="high" src="/covers/night.webp" alt="论文2">
+    
+      <picture>
+        
+      </picture>
+      
+        <img  fetchpriority="high" src="/images/banner.webp" alt="我的原生 HTML 展览馆">
+      
+    
   
   <div id="header-outer">
     <div id="header-title">
@@ -275,7 +293,7 @@
         
         
           <span id="logo">
-            <h1 data-aos="slide-up">论文2</h1>
+            <h1 data-aos="slide-up">我的原生 HTML 展览馆</h1>
           </span>
         
       
@@ -292,7 +310,7 @@
         <div id="content" class="sidebar-left"  >
           <aside id="sidebar">
   
-  <div class="sidebar-wrapper-container sticky">
+  <div class="sidebar-wrapper-container ">
   
     
     
@@ -318,15 +336,7 @@
   <div class="sidebar-wrapper">
     <div class="sidebar-wrap" data-aos="fade-up">
       
-        
-          <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
-<div class="sidebar-toc-wrapper toc-div-class" >
-  
-    
-  
-</div>
-</div>
-          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+        <div class="sidebar-author">
   <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Monkey Love IU" class="lazyload">
   <div class="sidebar-author-name">Monkey Love IU</div>
   <div class="sidebar-description">A personal blog about programming, math, life and articles.</div>
@@ -334,15 +344,15 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">15</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
-    <div class="sidebar-state-number">10</div>
+    <div class="sidebar-state-number">8</div>
   </div>
   <div class="sidebar-state-tag">
     <div>标签</div>
-    <div class="sidebar-state-number">18</div>
+    <div class="sidebar-state-number">15</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -419,18 +429,22 @@
         <div class="sidebar-menu-link">碎碎念</div>
       </div>
     
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/gallery" aria-label="画廊"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe60b;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">画廊</div>
+      </div>
+    
   
 </div>
-</div>
-        
+
       
-      
-        
-          <div class="sidebar-btn-wrapper" style="position:static">
-            <div class="sidebar-toc-btn current"></div>
-            <div class="sidebar-common-btn"></div>
-          </div>
-        
       
     </div>
   </div>
@@ -443,22 +457,18 @@
   
 </aside>
 
-          <section id="main"><article id="post-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
       <div class="article-date">
   <span class="article-date-link icon-calendar" data-aos="zoom-in">
-    <time datetime="2025-12-24T16:00:00.000Z" itemprop="datePublished">2025-12-25</time>
-    <time style="display: none;" id="post-update-time">2025-12-26</time>
+    <time datetime="2026-05-24T02:00:00.000Z" itemprop="datePublished">2026-05-24</time>
+    <time style="display: none;" id="post-update-time">2026-05-24</time>
   </span>
   
 </div>
 
       
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA/" data-aos="zoom-in">论</a>
-  </div>
-
 
     </div>
     
@@ -468,40 +478,57 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
       
-        <p>权力意志的幻灭与阶级天花板：论《红与黑》中于连的英雄主义与伪善</p>
-<p>摘要： 本文以司汤达的代表作《红与黑》为研究对象，深入探讨主人公于连·索雷尔在复辟王朝背景下的生存策略及其悲剧归宿。通过文本细读法，分析于连如何将“伪善”作为阶级跨越的生存工具；运用对比分析法，阐述德·雷纳尔夫人与玛蒂尔德对于连人格重塑的不同意义；并结合社会规训理论，论证个人英雄主义在森严阶级天花板下的必然幻灭。本文认为，于连的悲剧不仅是性格与伦理的选择悲剧，更是特定时代社会结构对个体才华的集体性放逐。</p>
-<p>关键词： 司汤达；于连；阶级斗争；伪善；个人主义；英雄主义</p>
-<p>一、 绪论：拿破仑幽灵下的阶级焦虑</p>
-<p>当拿破仑在圣埃勒纳岛孤独死去时，他不仅带走了一个帝国，还带走了一个“才华即通行证”的时代。对于出身木匠之家的于连·索雷尔而言，他错过了那个通过战功实现阶级跃迁的“红色”年代，转而陷入了一个由教士黑袍统治的、暮气沉沉的复辟时代。</p>
-<p>在司汤达的笔下，于连是一个典型的“多余人”变体：他拥有贵族般的自尊和卓越的才干，却被禁锢在底层卑微的躯壳里。张白杨在《矛盾和无助中的于连》中指出，于连的内心世界是一个充满矛盾的战场，这种矛盾源于他对社会上层的极度渴望与对现实卑微地位的极度排斥之间的张力[1]。这种“权力意志”的萌芽，迫使他走上了一条以伪善为武装、以英雄主义为底色的不归路。</p>
-<p>二、 伪善：作为弱者的战略伪装（文本细读）</p>
-<p>在复辟时期的法国，诚实是底层的奢侈品，而伪善则是攀爬者的敲门砖。于连深谙此道，他将生活变成了一场漫长的试镜。</p>
-<p>（一） 对理性的工具化利用</p>
-<p>于连最著名的武器莫过于他那能倒背如流的拉丁文《圣经》。在文本中，司汤达详尽地描写了于连在谢朗神父面前的表演。他并不信神，甚至在内心深处对教会的腐朽嗤之以鼻，但他意识到，在“黑色”的统治下，宗教话语是通往上流社会的入场券。这种“表演性生存”在贝桑松神学院达到了巅峰。他必须让自己看起来比最虔诚的人还要迟钝，因为“在神学院，才华是罪过”[2]。</p>
-<p>这里体现了一种极其辛辣的讽刺：社会要求人们崇尚神性，但实际上却只奖赏那些最擅长伪装的人。孙良在研究中利用“社会规训”理论指出，于连的伪善并非天生恶毒，而是对外部高压环境的一种病态适应[2]。他将自己的真实情感锁进地窖，代之以一套精准计算的社交算法。</p>
-<p>（二） 战场思维的错位</p>
-<p>于连将每一次社交互动都视为一场战役。当他第一次试图握住德·雷纳尔夫人的手时，他想的不是情欲，而是“职责”。他在内心对自己下达命令：“十点钟声响起时，我必须完成这个动作，否则我就是个胆小鬼。”这种将爱情、友谊甚至闲谈都“战场化”的思维，体现了他对阶级跨越的极度紧迫感。他不是在生活，他是在执行任务。</p>
-<p>三、 阶级镜像：两位女性与于连的人格裂变（对比分析）</p>
-<p>于连与德·雷纳尔夫人以及玛蒂尔德的关系，绝非简单的浪漫爱情，而是他阶级意识觉醒与幻灭的两个镜像。</p>
-<p>（一） 自然之爱的引力：德·雷纳尔夫人</p>
-<p>德·雷纳尔夫人象征着一种前现代的、自然的、带有母性光辉的纯真。于连最初接近她是为了报复那个傲慢的市长，试图通过征服市长的妻子来获得一种卑微的快感。然而，在文本细读中可以发现，随着关系的深入，于连性格中那些被“伪善”掩盖的真实本性开始复苏。冯晓认为，从文学伦理学视角看，于连在德·雷纳尔夫人面前经历了一种道德救赎的可能[3]。在维里埃尔的树荫下，他短暂地忘记了阶级和野心，成为了一个真实的人。</p>
-<p>（二） 智力竞技的巅峰：玛蒂尔德</p>
-<p>相比之下，侯爵小姐玛蒂尔德则是于连阶级跨越的“天梯”。她拥有傲慢的血统和叛逆的灵魂，她爱上于连不是因为温柔，而是因为于连那股敢于藐视贵族的“平民英雄气”。两人的关系更像是一场智慧与自尊的博弈。玛蒂尔德剪掉头发寄给于连，这种夸张的浪漫行为实际上是旧贵族阶级对乏味生活的最后反叛。</p>
-<p>对比这两者：德·雷纳尔夫人让于连看到了“人”的可能，而玛蒂尔德让于连看到了“贵族”的终点。然而，这种终点是脆弱的。魏薇在其研究中指出，于连在玛蒂尔德面前始终保持着一种由于出身卑微带来的警惕和防御心理，这种阶级隔阂注定了两人的情感无法走向真正的融合[4]。</p>
-<p>四、 阶级天花板的崩塌：法庭自辩的英雄主义回归</p>
-<p>当德·雷纳尔夫人的那封揭发信出现后，于连的阶级跨越之梦彻底破碎。他那两枪开向夫人的子弹，实际上是开向了他自己那苦心经营的“伪善”幻梦。</p>
-<p>（一） 拒绝交易：从伪善者到英雄</p>
-<p>在狱中，于连经历了一次剧烈的精神洗礼。他拒绝了玛蒂尔德的贿赂营救，也拒绝了通过表现忏悔来换取减刑。这一刻，他彻底丢弃了那件穿了整部书的“黑袍”。正如冯晓所言，于连在最后的伦理选择中，选择了一种近乎自毁的诚实[3]。</p>
-<p>（二） 法庭上的最后宣战</p>
-<p>于连在法庭上的自辩词，是整部文学史上最壮丽的阶级宣言。他没有为自己的罪行辩护，而是直接指出了这场审判的本质：“你们看在我面前的，不是一个被判了罪的农夫，而是一个反抗自己卑贱命运的被剥夺者。”[5]</p>
-<p>通过文本分析可以发现，于连此时的言论已经完全超出了个人恩怨。他是在以一个阶级代表的身份，向那个由布尔乔亚和旧贵族勾结而成的司法机器宣战。他明确表示，陪审团想要判他死刑，不仅是因为他开了枪，更是因为他这个出身卑微的人竟然敢于展示出才华并企图进入他们的圈子。这种清醒的自我剖析，标志着他从一个精致的利己主义者升华为一个具有悲剧色彩的个人主义英雄。</p>
-<p>五、 权力意志的幻灭与悲剧意蕴</p>
-<p>于连的头颅落下了。玛蒂尔德按照她心心念念的复古仪式埋葬了这颗头颅，但这不过是一场贵族式的、毫无意义的浪漫主义模仿。</p>
-<p>魏薇在《时代社会造就的悲剧人生》中强调，于连的悲剧是复辟时期社会结构刚性的必然结果[4]。那个时代没有给于连这样的平民精英留下任何体面的上升空间。如果你想要上升，你必须出卖灵魂（伪善）；而如果你想要保持灵魂的完整（诚实），你就必须面对毁灭。</p>
-<p>于连·索雷尔的形象之所以在近两百年后依然具有震撼人心的力量，是因为他揭示了一个关于“阶级天花板”的残酷真相：在一个缺乏流动性的封闭社会中，才华不仅不能改变命运，反而可能成为个体痛苦的根源。于连的英雄主义在于，他在意识到天花板不可逾越后，选择用死亡作为最后的撞击。</p>
-<p>参考文献</p>
-<p>[1] [J] 张白杨. 矛盾和无助中的于连——再析《红与黑》[J]. 科技信息, 2014, (6): 134.<br>[2] [J] 孙良. 社会规训下的悲歌——论《红与黑》中于连的悲剧人生[J]. 宜春学院学报, 2023, 45(5): 77-80.<br>[3] [J] 冯晓. 文学伦理学视角下于连悲剧成因分析[J]. 牡丹江师范学院学报(哲学社会科学版), 2023, (12): 56-59.<br>[4] [J] 魏薇. 时代社会造就的悲剧人生：《红与黑》主人公的悲剧命运研究[J]. 宜宾学院学报, 2024, 40(2): 82-85.<br>[5] [M] (法)司汤达. 红与黑[M]. 郝运, 译. 上海: 上海译文出版社, 2005.</p>
+        <style>
+/* 给你手搓的画廊加点基本的现代文明（CSS Grid） */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+.gallery-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.gallery-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.gallery-item h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+.gallery-item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+</style>
 
+<div class="gallery-grid">
+    <div class="gallery-item">
+        <a href="/gallery-items/xixi.html" target="_blank">
+            <img src="/covers/four.webp" alt="NS">
+            <h3>NS方程手工版</h3>
+        </a>
+    </div>
+
+<pre><code>&lt;div class=&quot;gallery-item&quot;&gt;
+    &lt;a href=&quot;/gallery-items/wudang.html&quot; target=&quot;_blank&quot;&gt;
+        &lt;div style=&quot;width:100%; height:150px; background:#4a4a4a;&quot;&gt;&lt;/div&gt;
+        &lt;h3&gt;武当山赛博修仙&lt;/h3&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+</div>
       
     </div>
     <footer class="article-footer">
@@ -533,8 +560,8 @@
       
       
       
-        <a data-aos="zoom-in" href="/2025/12/25/movieee/#comments" class="article-comment-link">
-          <span class="post-comments-count waline-comment-count" data-path="/2025/12/25/movieee/" itemprop="commentCount"></span>
+        <a data-aos="zoom-in" href="/gallery/index.html#comments" class="article-comment-link">
+          <span class="post-comments-count waline-comment-count" data-path="/gallery/index.html" itemprop="commentCount"></span>
           留言
         </a>
       
@@ -542,50 +569,15 @@
       
       
         <span data-aos="zoom-in" class="article-visitor-link">
-          <span class="waline-pageview-count" data-path="/2025/12/25/movieee/">0</span>
+          <span class="waline-pageview-count" data-path="/gallery/">0</span>
           <em class="post-meta-item-text">阅读量</em>
         </span>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%96%87%E5%AD%A6/" rel="tag">文学</a></li></ul>
-
 
     </footer>
   </div>
   
-  <nav id="article-nav" data-aos="fade-up">
-    
-      
-      <div class="article-nav-link-wrap left">
-        
-          <img data-src="/covers/night.webp" data-sizes="auto" alt="物是人非" class="lazyload">
-        
-        <a href="/2026/01/10/zhanglaosi/"></a>
-        <div class="article-nav-caption">前一篇</div>
-        <h3 class="article-nav-title">
-          
-            物是人非
-          
-        </h3>
-      </div>
-    
-    
-    
-    <div class="article-nav-link-wrap right">
-      
-        <img data-src="/covers/night.webp" data-sizes="auto" alt="论文" class="lazyload">
-      
-      <a href="/2025/12/25/movi/"></a>
-      <div class="article-nav-caption">后一篇</div>
-      <h3 class="article-nav-title">
-        
-          论文
-        
-      </h3>
-    </div>
-    
-  </nav>
-
 
 </article>
 
@@ -651,10 +643,10 @@
     
       <div>
         <span class="icon-brush"></span>
-        28.5k
+        7k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        01:35
+        00:24
       </div>
     
     
@@ -694,15 +686,7 @@
       <nav id="mobile-nav">
   <div class="sidebar-wrap">
     
-      
-        <div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
-<div class="sidebar-toc-wrapper toc-div-class" >
-  
-    
-  
-</div>
-</div>
-        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+      <div class="sidebar-author">
   <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Monkey Love IU" class="lazyload">
   <div class="sidebar-author-name">Monkey Love IU</div>
   <div class="sidebar-description">A personal blog about programming, math, life and articles.</div>
@@ -710,15 +694,15 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">15</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
-    <div class="sidebar-state-number">10</div>
+    <div class="sidebar-state-number">8</div>
   </div>
   <div class="sidebar-state-tag">
     <div>标签</div>
-    <div class="sidebar-state-number">18</div>
+    <div class="sidebar-state-number">15</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -795,19 +779,23 @@
         <div class="sidebar-menu-link">碎碎念</div>
       </div>
     
-  
-</div>
-</div>
-      
-    
-  </div>
-  
-    
-      <div class="sidebar-btn-wrapper">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/gallery" aria-label="画廊"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe60b;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">画廊</div>
       </div>
     
+  
+</div>
+
+    
+  </div>
   
 </nav>
 
@@ -1038,14 +1026,14 @@
       <script data-pjax>
         window.REIMU_POST = {
           author: "Monkey Love IU",
-          title: "论文2",
-          url: "https://monkeyiu.icu/2025/12/25/movieee/",
-          excerpt: "AI生成",
+          title: "我的原生 HTML 展览馆",
+          url: "https://monkeyiu.icu/gallery/index.html",
+          excerpt: "",
           description: "",
-          stripContent: "权力意志的幻灭与阶级天花板：论《红与黑》中于连的英雄主义与伪善 摘要： 本文以司汤达的代表作《红与黑》为研究对象，深入探讨主人公于连·索雷尔在复辟王朝背景下的生存策略及其悲剧归宿。通过文本细读法，分析于连如何将“伪善”作为阶级跨越的生存工具；运用对比分析法，阐述德·雷纳尔夫人与玛蒂尔德对于连人格重塑的不同意义；并结合社会规训理论，论证个人英雄主义在森严阶级天花板下的必然幻灭。本文认为，于连的悲剧不仅是性格与伦理的选择悲剧，更是特定时代社会结构对个体才华的集体性放逐。 关键词： 司汤达；于连；阶级",
-          date: "Thu Dec 25 2025 00:00:00 GMT+0800",
-          updated: "Fri Dec 26 2025 09:00:16 GMT+0800",
-          cover: "/covers/night.webp",
+          stripContent: " /* 给你手搓的画廊加点基本的现代文明（CSS Grid） */ .gallery-grid {     display: grid;     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));     gap: 20px;     margin-top: 20px; } .gallery-item {     border: 1px solid #ddd;     border-radius: 8px;     over",
+          date: "Sun May 24 2026 10:00:00 GMT+0800",
+          updated: "Sun May 24 2026 01:57:36 GMT+0800",
+          cover: "/images/banner.webp",
         };
       </script>
        
@@ -1204,7 +1192,7 @@
               envId: '',
               region: '',
               urls: [
-                '/friend/index.html'
+                '/about/index.html'
               ],
               includeReply: false
             }).then((res) => {
