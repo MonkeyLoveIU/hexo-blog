@@ -942,47 +942,190 @@ const desp = `
     return defaultGreeting;
   }
 
-  // ========== 渲染问候卡片 ==========
-  function renderGreeting(locationText) {
-    const card = document.getElementById('greeting-card');
-    if (!card) return;
-    
-    const g = matchGreeting(locationText);
-    
-    card.style.display = 'block';
-    card.innerHTML = `
-      <div style="
-        text-align: left;
-        background: linear-gradient(135deg, rgba(255, 78, 106, 0.08), rgba(255, 200, 120, 0.08));
-        padding: 12px 14px;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 78, 106, 0.25);
-        font-size: 0.85em;
-        line-height: 1.6;
-        position: relative;
-        overflow: hidden;
-      ">
-        <!-- 大号 emoji 水印 -->
-        <div style="position:absolute; right: 8px; bottom: -2px; font-size: 2.8em; opacity: 0.1; pointer-events:none;">
-          ${g.emoji}
-        </div>
-        
-        <!-- 标签 -->
-        <div style="margin-bottom: 6px;">
-          <span style="background: var(--red-1); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75em; font-weight: 600;">
-            <i class="fas fa-envelope-open-text" style="margin-right: 4px;"></i>博主の小纸条
-          </span>
-        </div>
-        
-        <!-- 问候内容 -->
-        <div style="padding-left: 2px; position: relative; z-index: 1; color: var(--text-color);">
-          <span style="font-size: 1.2em; margin-right: 4px;">${g.emoji}</span>
-          ${g.message}
-        </div>
-      </div>
-    `;
+// ========== 智能问候语匹配（多维度） ==========
+function getSmartGreeting(ctx) {
+  const { location, hour, weekday, isNew, visits, weather, month, date } = ctx;
+
+  // ============================================
+  // 🎯 优先级 1：节日彩蛋（最优先）
+  // ============================================
+  const festival = `${String(month).padStart(2,'0')}-${String(date).padStart(2,'0')}`;
+  const festivals = {
+    '01-01': { emoji: '🎆', message: '新年快乐！愿新的一年里你心想事成～' },
+    '02-14': { emoji: '💝', message: '情人节快乐！无论是否单身，都要好好爱自己。' },
+    '03-08': { emoji: '🌷', message: '女神节快乐！愿你永远闪闪发光。' },
+    '05-01': { emoji: '👷', message: '劳动节快乐！别太累，记得休息哦～' },
+    '05-04': { emoji: '🔥', message: '青年节快乐！永远保持热爱～' },
+    '06-01': { emoji: '🎈', message: '儿童节快乐！愿你永远有一颗童心。' },
+    '10-01': { emoji: '🇨🇳', message: '国庆快乐！祖国母亲生日快乐～' },
+    '11-11': { emoji: '🛍️', message: '双十一了，购物车里的东西买了吗？' },
+    '12-24': { emoji: '🎄', message: '平安夜快乐！记得吃苹果哦～' },
+    '12-25': { emoji: '🎅', message: '圣诞快乐！希望你今天收到了想要的礼物。' },
+    '12-31': { emoji: '🎇', message: '一年的最后一天啦，回头看看，你已经很棒了！' }
+  };
+  if (festivals[festival]) return festivals[festival];
+
+  if (month === 1 && date === 12) {
+    return { emoji: '🎂', message: '今天是博主的生日呢！谢谢你的到访～' };
+}
+  // 比如：凌晨 4 点 + 老朋友
+  if (hour === 4 && visits >= 5) {
+    return { emoji: '🦉', message: '又是这个时间...你和我一样都是夜猫子吗？' };
+    }
+
+  // ============================================
+  // 🌙 优先级 2：特殊时段（深夜/凌晨）
+  // ============================================
+  if (hour >= 0 && hour < 5) {
+    return { emoji: '🌙', message: '都这么晚了还在刷博客？快去睡觉，熬夜伤身啊！' };
+  }
+  if (hour >= 5 && hour < 7) {
+    return { emoji: '🌅', message: '哇这么早！是早起的鸟儿还是没睡觉的夜猫子？' };
   }
 
+  // ============================================
+  // 🌧️ 优先级 3：天气相关（如果获取到了天气）
+  // ============================================
+  if (weather) {
+    if (weather.includes('雨')) {
+      return { emoji: '☔', message: '你那边下雨了？窝在家里看博客最舒服了。' };
+    }
+    if (weather.includes('雪')) {
+      return { emoji: '❄️', message: '下雪啦！记得多穿点，别冻着了～' };
+    }
+    if (weather.includes('雷')) {
+      return { emoji: '⛈️', message: '打雷下雨，待在家里最安全。' };
+    }
+    if (weather.includes('雾') || weather.includes('霾')) {
+      return { emoji: '🌫️', message: '空气不太好，出门记得戴口罩哦。' };
+    }
+  }
+
+  // ============================================
+  // 📅 优先级 4：星期 + 时段组合
+  // ============================================
+  // 周五晚上
+  if (weekday === 5 && hour >= 18) {
+    return { emoji: '🎉', message: '周五快乐！终于到周末了，好好放松一下吧～' };
+  }
+  // 周一早上
+  if (weekday === 1 && hour >= 7 && hour < 10) {
+    return { emoji: '😩', message: '周一早晨...打工人加油，咬咬牙挺过去！' };
+  }
+  // 周末
+  if ((weekday === 0 || weekday === 6) && hour >= 9 && hour < 22) {
+    return { emoji: '🛋️', message: '周末好呀！希望你过得轻松愉快～' };
+  }
+
+  // ============================================
+  // 🆕 优先级 5：首次访问 + 地区组合
+  // ============================================
+  if (isNew && location) {
+    if (location.includes('北京')) {
+      return { emoji: '🏛️', message: '第一次来！欢迎来自帝都的新朋友～' };
+    }
+    if (location.includes('上海')) {
+      return { emoji: '🌃', message: '新朋友你好！魔都来的客人，欢迎欢迎！' };
+    }
+    if (location.includes('广东') || location.includes('深圳') || location.includes('广州')) {
+      return { emoji: '🍵', message: '新朋友雷猴啊！欢迎来自广东的你～' };
+    }
+    return { emoji: '🌟', message: '第一次来呀！谢谢你发现了这个小角落，欢迎常来～' };
+  }
+
+  // ============================================
+  // 🔄 优先级 6：老朋友（访问 5 次以上）
+  // ============================================
+  if (visits >= 10) {
+    return { emoji: '💖', message: `这是你第 ${visits} 次来啦！真的太感谢你了，我们已经是老朋友了～` };
+  }
+  if (visits >= 5) {
+    return { emoji: '🥰', message: `又见面啦！这是第 ${visits} 次了，你是我的常客呢～` };
+  }
+
+  // ============================================
+  // 🍱 优先级 7：饭点
+  // ============================================
+  if (hour >= 11 && hour < 13) {
+    return { emoji: '🍱', message: '中午好！吃午饭了吗？别光顾着看博客哦～' };
+  }
+  if (hour >= 17 && hour < 19) {
+    return { emoji: '🍜', message: '到饭点啦，今晚吃什么呢？' };
+  }
+  if (hour >= 22 || hour < 1) {
+    return { emoji: '🌃', message: '夜深了，看完这篇就早点休息吧～' };
+  }
+
+  // ============================================
+  // 🌍 优先级 8：地区匹配（兜底走原来的逻辑）
+  // ============================================
+  if (location) {
+    for (const keyword in greetings) {
+      if (location.includes(keyword)) {
+        return greetings[keyword];
+      }
+    }
+  }
+
+  // ============================================
+  // 🌐 最终兜底
+  // ============================================
+  return {
+    emoji: '🌍',
+    message: '欢迎来自远方的旅人！感谢你在茫茫互联网中发现了这个小角落。'
+  };
+}
+
+// ========== 渲染问候卡片（升级版） ==========
+function renderGreeting(locationText, weatherDesc) {
+  const card = document.getElementById('greeting-card');
+  if (!card) return;
+
+  const now = new Date();
+  const visits = parseInt(localStorage.getItem('reimu_visits') || '0');
+
+  // ★ 构造上下文
+  const ctx = {
+    location: locationText || '',
+    hour: now.getHours(),
+    weekday: now.getDay(),
+    month: now.getMonth() + 1,
+    date: now.getDate(),
+    isNew: visits <= 1,
+    visits: visits,
+    weather: weatherDesc || ''
+  };
+
+  const g = getSmartGreeting(ctx);
+
+  card.style.display = 'block';
+  card.innerHTML = `
+    <div style="
+      text-align: left;
+      background: linear-gradient(135deg, rgba(255, 78, 106, 0.08), rgba(255, 200, 120, 0.08));
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 78, 106, 0.25);
+      font-size: 0.85em;
+      line-height: 1.6;
+      position: relative;
+      overflow: hidden;
+    ">
+      <div style="position:absolute; right: 8px; bottom: -2px; font-size: 2.8em; opacity: 0.1; pointer-events:none;">
+        ${g.emoji}
+      </div>
+      <div style="margin-bottom: 6px;">
+        <span style="background: var(--red-1); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.75em; font-weight: 600;">
+          <i class="fas fa-envelope-open-text" style="margin-right: 4px;"></i>博主の小纸条
+        </span>
+      </div>
+      <div style="padding-left: 2px; position: relative; z-index: 1; color: var(--text-color);">
+        <span style="font-size: 1.2em; margin-right: 4px;">${g.emoji}</span>
+        ${g.message}
+      </div>
+    </div>
+  `;
+}
   // ========== 情报收集模块 ==========
   const dossier = {
     network: {},
@@ -1226,6 +1369,8 @@ function startLiveClock() {
               `
               container.innerHTML = weatherBlock + container.innerHTML
             }
+            // ★ 把天气传给小纸条重新渲染一次
+            renderGreeting(location, desc);
           })
           .catch(() => {}) // 天气请求失败就静默，不影响其他内容
       }
