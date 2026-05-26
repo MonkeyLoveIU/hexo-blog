@@ -660,17 +660,103 @@ function sendHello() {
         info.ip = match[1].trim();
         info.location = match[2].trim();
       }
-      pushToTelegram(info);
+      pushToServerChan(info); // ★ 改成调用 Server 酱
     })
-    .catch(() => pushToTelegram(info));
+    .catch(() => pushToServerChan(info));
 }
 
-function pushToTelegram(info) {
-  // ★ 改成你的 SendKey
-  const SEND_KEY = 'SCT354793TToGtVTMOxmHceHx1jkKFDR5L';
+function autoNotifyOwner(info) {
+  // 1. 防刷：24小时只通知一次
+  // const lastNotify = localStorage.getItem('auto_notify_time');
+  // if (lastNotify && Date.now() - parseInt(lastNotify) < 24 * 3600 * 1000) return;
 
+  // 2. 过滤爬虫
+  const ua = navigator.userAgent.toLowerCase();
+  if (['bot', 'spider', 'crawler', 'baidu', 'google'].some(k => ua.includes(k))) return;
+
+  // 3. 过滤博主自己 (填你的城市或IP)
+  // if (info.location && (info.location.includes('石家庄') || info.location.includes('你的IP'))) return;
+
+
+  // ─── ★ 增强：识别操作系统 ───
+  const uaRaw = navigator.userAgent;
+  let os = '未知';
+  if (uaRaw.includes('Windows NT 10.0')) os = 'Windows 10/11';
+  else if (uaRaw.includes('Windows NT 6.3')) os = 'Windows 8.1';
+  else if (uaRaw.includes('Windows NT 6.1')) os = 'Windows 7';
+  else if (uaRaw.includes('Mac OS X')) {
+    const m = uaRaw.match(/Mac OS X (\d+[._]\d+)/);
+    os = m ? `macOS ${m[1].replace('_', '.')}` : 'macOS';
+  }
+  else if (uaRaw.includes('Android')) {
+    const m = uaRaw.match(/Android (\d+[._]?\d*)/);
+    os = m ? `Android ${m[1]}` : 'Android';
+  }
+  else if (uaRaw.includes('iPhone') || uaRaw.includes('iPad')) {
+    const m = uaRaw.match(/OS (\d+[._]\d+)/);
+    os = m ? `iOS ${m[1].replace('_', '.')}` : 'iOS';
+  }
+  else if (uaRaw.includes('Linux')) os = 'Linux';
+
+  // ─── ★ 增强：识别浏览器 ───
+  let browser = '未知';
+  if (uaRaw.includes('Edg/')) browser = 'Edge';
+  else if (uaRaw.includes('Chrome/') && !uaRaw.includes('Edg/')) browser = 'Chrome';
+  else if (uaRaw.includes('Safari/') && !uaRaw.includes('Chrome/')) browser = 'Safari';
+  else if (uaRaw.includes('Firefox/')) browser = 'Firefox';
+
+  // ─── ★ 增强：输入方式 ───
+  const touch = ('ontouchstart' in window || navigator.maxTouchPoints > 0) ? '触摸屏 📱' : '键鼠 🖱️';
+
+  // ─── ★ 增强：网络类型 ───
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  let network = '未知';
+  if (conn) {
+    network = (conn.effectiveType || '').toUpperCase();
+    if (conn.downlink) network += ` (${conn.downlink} Mbps)`;
+  }
+
+  // ─── 组装最终数据（含天气） ───
+  const payload = {
+    ip: info.ip || '未知',
+    location: info.location || '未知',
+    page: location.href,
+    referrer: document.referrer || '直接访问',
+    ua: navigator.userAgent,
+    time: new Date().toLocaleString('zh-CN', { hour12: false }),
+    screen: `${screen.width}×${screen.height}`,
+    lang: navigator.language,
+
+    // ★ 新增字段
+    os: os,
+    browser: browser,
+    touch: touch,
+    network: network,
+    weather: info.weather || '（未获取）'  // 天气从外部传入
+  };
+
+  pushToWorker(payload);
+  localStorage.setItem('auto_notify_time', now.toString());
+  console.log('[自动通知] 已发送', payload);
+}
+
+
+
+// 🚀 自动通知：发往 Telegram (通过 Worker)
+function pushToWorker(info) {
+  const WORKER_URL = 'https://sayhello-bot.kawayida.workers.dev'; // ★ 改成你的 Worker 地址
+  fetch(WORKER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(info)
+  }).catch(err => console.log('自动通知失败', err));
+}
+
+// 💌 手动招呼：发往 Server 酱 (直接发微信)
+function pushToServerChan(info) {
+    const SEND_KEY = 'SCT354793TToGtVTMOxmHceHx1jkKFDR5L'; // ★ 改成你的 Server 酱 SendKey
   const title = `👋 ${info.name} 跟你打招呼啦`;
-const desp = `
+  const desp = `
 ## 💬 留言内容
 > ${info.message}
 
@@ -683,10 +769,8 @@ const desp = `
 - **时间**：${info.time}
 - **页面**：${info.page}
 - **来源**：${info.referrer}
-- **屏幕**：${info.screen}
-- **语言**：${info.lang}
-- **UA**：\`${info.ua}\`
-`.trim();
+  `.trim();
+
   fetch(`https://sctapi.ftqq.com/${SEND_KEY}.send`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -694,7 +778,7 @@ const desp = `
   })
   .then(r => r.json())
   .then(data => {
-    const btn = document.getElementById('hello-btn');
+    const btn = document.getElementById('hello-submit');
     if (data.code === 0) {
       btn.textContent = '✅ 博主已收到你的招呼！';
       btn.style.background = 'linear-gradient(135deg, #4caf50, #66bb6a)';
@@ -703,11 +787,6 @@ const desp = `
       btn.textContent = '❌ 发送失败，再试试？';
       btn.disabled = false;
     }
-  })
-  .catch(() => {
-    const btn = document.getElementById('hello-btn');
-    btn.textContent = '❌ 网络异常，请稍后再试';
-    btn.disabled = false;
   });
 }
 (function() {
@@ -1320,43 +1399,45 @@ function startLiveClock() {
   }
 
   // ========== 主流程 ==========
-  fetch('https://myip.ipip.net/')
+fetch('https://myip.ipip.net/')
   .then(res => res.text())
   .then(text => {
-    const cleanText = text.replace(/<[^>]+>/g, '').trim()
-    const match = cleanText.match(/当前 IP：(.+?)\s{2,}来自于：(.+)/)
+    const cleanText = text.replace(/<[^>]+>/g, '').trim();
+    const match = cleanText.match(/当前 IP：(.+?)\s{2,}来自于：(.+)/);
+
     if (match) {
-      const location = match[2].trim()
-      renderGreeting(location)
+      const location = match[2].trim();
+      const ipInfo = { ip: match[1].trim(), location: location };
 
-      // 提取城市名（取第三段，如"石家庄"）
-      const cityName = location.split(' ')[2] || location.split(' ')[1] || ''
+      // 1️⃣ 先渲染小纸条和情报面板
+      renderGreeting(location);
+      renderDossier(ipInfo);
 
-      // 先渲染不含天气的版本
-      renderDossier({ ip: match[1].trim(), location: location })
+      // 2️⃣ 提取城市名
+      const cityName = location.split(' ')[2] || location.split(' ')[1] || '';
 
-      // 再请求天气，成功后更新天气区块
       if (cityName) {
+        // 3️⃣ 请求天气
         fetch(`https://wttr.in/${encodeURIComponent(cityName)}?format=j1&lang=zh`)
           .then(r => r.json())
           .then(w => {
-            const cur     = w.current_condition[0]
-            const temp    = cur.temp_C
-            const feels   = cur.FeelsLikeC
-            const humidity= cur.humidity
-            const wind    = cur.windspeedKmph
-            const desc    = cur.lang_zh?.[0]?.value || cur.weatherDesc[0].value
+            const cur      = w.current_condition[0];
+            const temp     = cur.temp_C;
+            const feels    = cur.FeelsLikeC;
+            const humidity = cur.humidity;
+            const wind     = cur.windspeedKmph;
+            const desc     = cur.lang_zh?.[0]?.value || cur.weatherDesc[0].value;
 
             const weatherEmoji = {
               '晴':  '☀️', '多云': '⛅', '阴': '☁️',
               '雨':  '🌧️', '雪':  '❄️', '雾': '🌫️',
               '雷':  '⛈️', '冰':  '🌨️'
-            }
-            const emojiKey = Object.keys(weatherEmoji).find(k => desc.includes(k))
-            const emoji    = emojiKey ? weatherEmoji[emojiKey] : '🌤️'
+            };
+            const emojiKey = Object.keys(weatherEmoji).find(k => desc.includes(k));
+            const emoji    = emojiKey ? weatherEmoji[emojiKey] : '🌤️';
 
-            // 插入天气区块到情报面板顶部
-            const container = document.getElementById('visitor-dossier')
+            // 4️⃣ 插入天气区块到情报面板顶部
+            const container = document.getElementById('visitor-dossier');
             if (container) {
               const weatherBlock = `
                 <div style="margin-bottom: 10px; font-weight: 700; color: var(--red-1); font-size: 0.9em; border-bottom: 1px solid rgba(255,78,106,0.2); padding-bottom: 4px;">
@@ -1367,23 +1448,38 @@ function startLiveClock() {
                 <div><span style="opacity:0.6;">湿度</span><span style="float:right;">${humidity}%</span></div>
                 <div><span style="opacity:0.6;">风速</span><span style="float:right;">${wind} km/h</span></div>
                 <div style="clear:both; margin-bottom: 8px;"></div>
-              `
-              container.innerHTML = weatherBlock + container.innerHTML
+              `;
+              container.innerHTML = weatherBlock + container.innerHTML;
             }
-            // ★ 把天气传给小纸条重新渲染一次
+
+            // 5️⃣ 用天气重新渲染小纸条
             renderGreeting(location, desc);
+
+            // 6️⃣ ★★★ 带着天气信息发通知 ★★★
+            autoNotifyOwner({
+              ...ipInfo,
+              weather: `${emoji} ${desc} ${temp}°C（体感 ${feels}°C）`
+            });
           })
-          .catch(() => {}) // 天气请求失败就静默，不影响其他内容
+          .catch(() => {
+            // 天气请求失败：发不带天气的通知
+            autoNotifyOwner(ipInfo);
+          });
+
+      } else {
+        // 没有提取到城市名：直接发通知
+        autoNotifyOwner(ipInfo);
       }
 
     } else {
-      renderGreeting(null)
-      renderDossier(null)
+      // IP 匹配失败
+      renderGreeting(null);
+      renderDossier(null);
     }
   })
   .catch(() => {
-    renderGreeting(null)
-    renderDossier(null)
+    renderGreeting(null);
+    renderDossier(null);
   });
 })();
 </script>
@@ -1409,6 +1505,10 @@ function startLiveClock() {
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E5%9C%BA%E9%9B%AA/">第一场雪</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
       <a class="archives-tag-list-link" href="/tags/%E5%B5%A9%E5%B1%B1/">嵩山</a>
     </div>
   
@@ -1417,7 +1517,7 @@ function startLiveClock() {
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
-      <a class="archives-tag-list-link" href="/tags/%E7%AC%AC%E4%B8%80%E5%9C%BA%E9%9B%AA/">第一场雪</a>
+      <a class="archives-tag-list-link" href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
@@ -1428,10 +1528,6 @@ function startLiveClock() {
       <a class="archives-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
     </div>
   
-    <div class="archives-tag-list-item" data-aos="zoom-in">
-      <a class="archives-tag-list-link" href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
-    </div>
-  
 </div>
 <div class="category-wrap">
   
@@ -1440,19 +1536,19 @@ function startLiveClock() {
     </div>
   
     <div class="archives-category-list-item" data-aos="zoom-in">
-      <a class="archives-category-list-link" href="/categories/%E6%97%85%E8%A1%8C/">旅行</a>
-    </div>
-  
-    <div class="archives-category-list-item" data-aos="zoom-in">
       <a class="archives-category-list-link" href="/categories/%E9%9B%AA/">雪</a>
     </div>
   
     <div class="archives-category-list-item" data-aos="zoom-in">
-      <a class="archives-category-list-link" href="/categories/%E5%AD%A6%E7%94%9F%E6%97%B6%E4%BB%A3/">学生时代</a>
+      <a class="archives-category-list-link" href="/categories/%E6%97%85%E8%A1%8C/">旅行</a>
     </div>
   
     <div class="archives-category-list-item" data-aos="zoom-in">
       <a class="archives-category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+    </div>
+  
+    <div class="archives-category-list-item" data-aos="zoom-in">
+      <a class="archives-category-list-link" href="/categories/%E5%AD%A6%E7%94%9F%E6%97%B6%E4%BB%A3/">学生时代</a>
     </div>
   
 </div>
