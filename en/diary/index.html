@@ -673,9 +673,9 @@ function autoNotifyOwner(info) {
   // const lastNotify = localStorage.getItem('auto_notify_time');
   // if (lastNotify && Date.now() - parseInt(lastNotify) < 24 * 3600 * 1000) return;
 
-  // 2. 过滤爬虫
-  const ua = navigator.userAgent.toLowerCase();
-  if (['bot', 'spider', 'crawler', 'baidu', 'google'].some(k => ua.includes(k))) return;
+  // // 2. 过滤爬虫
+  // const ua = navigator.userAgent.toLowerCase();
+  // if (['bot', 'spider', 'crawler', 'baidu', 'google'].some(k => ua.includes(k))) return;
 
   // 3. 过滤博主自己 (填你的城市或IP)
   // if (info.location && (info.location.includes('石家庄') || info.location.includes('你的IP'))) return;
