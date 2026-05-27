@@ -739,6 +739,7 @@ function autoNotifyOwner(info) {
   };
 
   pushToWorker(payload);
+  const now = Date.now(); // 必须声明并赋值！
   localStorage.setItem('auto_notify_time', now.toString());
   console.log('[自动通知] 已发送', payload);
 }
@@ -747,7 +748,7 @@ function autoNotifyOwner(info) {
 
 // 🚀 自动通知：发往 Telegram (通过 Worker)
 function pushToWorker(info) {
-  const WORKER_URL = 'https://sayhello-bot.kawayida.workers.dev'; // ★ 改成你的 Worker 地址
+  const WORKER_URL = 'https://api.monkeyiu.icu'; // ★ 改成你的 Worker 地址
   fetch(WORKER_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -1483,6 +1484,7 @@ fetch('https://myip.ipip.net/')
   .catch(() => {
     renderGreeting(null);
     renderDossier(null);
+    autoNotifyOwner({ ip: '获取失败/被拦截', location: '未知地域' });
   });
 })();
 </script>
@@ -2398,7 +2400,7 @@ fetch('https://myip.ipip.net/')
               envId: '',
               region: '',
               urls: [
-                '/about/index.html'
+                '/diary/index.html'
               ],
               includeReply: false
             }).then((res) => {
