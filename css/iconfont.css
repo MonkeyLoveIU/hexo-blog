@@ -49,7 +49,7 @@
 }
 #main-nav-toggle:before {
   font-family: "iconfont";
-  content: "\e62f";
+  content: "\ea1f";
 }
 #nav-rss-link:before {
   font-family: "iconfont";
@@ -57,7 +57,7 @@
 }
 #nav-search-btn:before {
   font-family: "iconfont";
-  content: "\e631";
+  content: "\e699";
 }
 #nav-sun-btn:before {
   font-family: "iconfont";

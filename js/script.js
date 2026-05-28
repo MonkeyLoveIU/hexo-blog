@@ -256,4 +256,24 @@ var safeImport = async (url, integrity) => {
   URL.revokeObjectURL(blobUrl);
 
   return module;
+  // 强行注入的移动端导航栏唤醒补丁
+document.addEventListener("DOMContentLoaded", function() {
+  var navToggle = document.getElementById("main-nav-toggle");
+  var body = document.body;
+  
+  if (navToggle) {
+    navToggle.addEventListener("click", function(e) {
+      e.stopPropagation(); // 阻止事件冒泡
+      body.classList.toggle("mobile-nav-on");
+    });
+  }
+
+  // 点击空白处自动收起导航栏（提升一下用户体验）
+  document.addEventListener("click", function(e) {
+    var mobileNav = document.getElementById("mobile-nav");
+    if (body.classList.contains("mobile-nav-on") && mobileNav && !mobileNav.contains(e.target) && e.target !== navToggle) {
+      body.classList.remove("mobile-nav-on");
+    }
+  });
+});
 };
