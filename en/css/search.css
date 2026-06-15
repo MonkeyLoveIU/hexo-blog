@@ -1,0 +1,47 @@
+.reimu-hit-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--red-5);
+  transition: background-color 0.2s ease;
+}
+.reimu-hit-item:hover {
+  background-color: var(--red-5-5);
+}
+.reimu-hit-item:last-child {
+  border-bottom: none;
+}
+.reimu-hit-item-link {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--red-0);
+  text-decoration: none;
+  margin-bottom: 4px;
+}
+.reimu-hit-item-link:hover {
+  text-decoration: underline;
+}
+.reimu-hit-snippet {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--highlight-foreground);
+  margin: 4px 0 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.search-highlight {
+  background-color: var(--red-2);
+  color: var(--red-6);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-style: normal;
+}
+.search-target-highlight {
+  background-color: var(--red-1);
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-style: normal;
+}
