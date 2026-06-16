@@ -1,0 +1,21 @@
+<div class="moment-card">
+  <div class="moment-header">
+    <img src="<%= page.avatar %>" class="avatar">
+    <div class="user-info">
+      <div class="nickname"><%= page.nickname %></div>
+      <div class="meta">
+        <div class="location"><%= page.location %></div>
+        <div class="time"><%= page.date.format('YYYY.MM.DD') %></div>
+      </div>
+    </div>
+  </div>
+  <div class="moment-content"><%- page.content %></div>
+  <% if (page.image) { %>
+    <div class="moment-image">
+      <img src="<%= page.image %>" alt="配图">
+    </div>
+  <% } %>
+  <div class="moment-footer">
+    ❤️ <%= page.likes || 0 %>
+  </div>
+</div>
