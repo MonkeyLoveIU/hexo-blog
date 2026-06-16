@@ -1,0 +1,169 @@
+/* ========== 朋友圈碎碎念 ========== */
+/* 所有颜色跟随主题暗色/亮色变量，自动适配 */
+
+.moments-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* ---------- 单条卡片 ---------- */
+.moments-item {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+.moments-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+/* ---------- 头部 ---------- */
+.moments-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.moments-avatar {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--red-4);
+}
+.moments-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.moments-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.moments-username {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  letter-spacing: 0.01em;
+}
+.moments-time {
+  font-size: 0.75rem;
+  color: var(--highlight-comment);
+}
+
+/* ---------- 正文 ---------- */
+.moments-body {
+  padding-left: 56px;
+  margin-bottom: 14px;
+}
+.moments-text {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-color);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.moments-location {
+  font-size: 0.82rem;
+  color: var(--highlight-comment);
+  margin-top: 8px;
+}
+
+/* ---------- 图片九宫格 ---------- */
+.moments-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-top: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.moments-images:has(> :nth-child(1):last-child) {
+  grid-template-columns: 1fr;
+  max-width: 55%;
+}
+.moments-images:has(> :nth-child(2):last-child) {
+  grid-template-columns: 1fr 1fr;
+}
+.moments-images:has(> :nth-child(4):last-child) {
+  grid-template-columns: repeat(2, 1fr);
+}
+.moments-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+.moments-image:hover {
+  filter: brightness(0.9);
+}
+
+/* ---------- 操作栏 ---------- */
+.moments-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--red-5);
+  margin: 0 -22px;
+  padding-left: 22px;
+  padding-right: 22px;
+}
+.moments-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  color: var(--highlight-comment);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.moments-actions button:active {
+  transform: scale(0.94);
+}
+.moments-actions button:hover {
+  background: var(--red-5-5);
+  color: var(--red-1);
+}
+.moments-actions button svg {
+  flex-shrink: 0;
+}
+
+/* 点赞状态 */
+.moments-like-btn.liked {
+  color: var(--red-1) !important;
+}
+.moments-like-btn.liked .moments-like-icon path {
+  fill: var(--red-1) !important;
+}
+
+/* ---------- 评论区 ---------- */
+.moments-comments-wrapper {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--red-5);
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 480px) {
+  .moments-wrap { padding: 16px 10px; }
+  .moments-item { padding: 14px 16px; margin-bottom: 12px; }
+  .moments-body { padding-left: 0; }
+  .moments-avatar { width: 38px; height: 38px; }
+  .moments-text { font-size: 0.95rem; }
+  .moments-images:has(> :nth-child(1):last-child) { max-width: 100%; }
+  .moments-actions { margin: 0 -16px; padding-left: 16px; padding-right: 16px; justify-content: space-around; }
+}

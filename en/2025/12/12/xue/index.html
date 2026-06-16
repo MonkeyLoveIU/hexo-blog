@@ -1221,7 +1221,7 @@ Live2D 自定义样式 & 打字机
 
         window.walineInstance = walineInit({
           el: '.waline-comment',
-          serverURL: 'https://waline-text-omnf4msbv-key-mons-projects.vercel.app',
+          serverURL: 'https://waline-text-six.vercel.app',
           lang: document.documentElement.lang || 'en',
           locale: {},
           emoji: ["https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/bmoji","https://unpkg.com/@waline/emojis@1.2.0/qq","https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji","https://unpkg.com/@waline/emojis@1.2.0/soul-emoji"],
@@ -1250,17 +1250,17 @@ Live2D 自定义样式 & 打字机
         script.onload = () => {
           if (window.twikoo) {
             twikoo.init({
-              envId: '',
+              envId: 'https://twikoo-kappa-seven.vercel.app',
               el: '.twikoo-comment',
               region: '',
               lang: document.documentElement.lang || 'en',
             });
 
             twikoo.getCommentsCount({
-              envId: '',
+              envId: 'https://twikoo-kappa-seven.vercel.app',
               region: '',
               urls: [
-                '/about/index.html'
+                '/friend/index.html'
               ],
               includeReply: false
             }).then((res) => {
@@ -1382,7 +1382,7 @@ Live2D 自定义样式 & 打字机
     
     // 3. 如果localStorage无效，检查配置的默认评论系统
     if (!defaultComment) {
-      var configDefault = 'waline';
+      var configDefault = 'twikoo';
       if (commentConfig[configDefault]?.enable) {
         defaultComment = configDefault;
       }
@@ -1551,7 +1551,7 @@ Live2D 自定义样式 & 打字机
 
 
     
-      <script src="/js/search-scroll.js"></script>
+      <link rel="stylesheet" href="/css/moments.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script>
     
   </body>
   </html>

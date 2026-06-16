@@ -55,7 +55,7 @@
 <meta property="og:description" content="从只有标题的简单搜索，到上下文预览 + 精确跳转 + 高亮定位，记录一次完整的搜索体验优化过程。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-15T22:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-15T22:40:45.487Z">
+<meta property="article:modified_time" content="2026-06-16T07:57:56.923Z">
 <meta property="article:author" content="Monkey Love IU">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="前端">
@@ -521,8 +521,8 @@ Live2D 自定义样式 & 打字机
 <p> 改造后增加 <code>getSnippet</code> 函数，从正文中截取关键词附近的上下文片段，并用 <code>&lt;mark&gt;</code> 高亮：</p>
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getSnippet</span>(<span class="params">text, keyword, contextLen = <span class="number">60</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> lower = text.<span class="title function_">toLowerCase</span>();</span><br><span class="line">  <span class="keyword">const</span> kwLower = keyword.<span class="title function_">toLowerCase</span>();</span><br><span class="line">  <span class="keyword">const</span> idx = lower.<span class="title function_">indexOf</span>(kwLower);</span><br><span class="line">  <span class="keyword">if</span> (idx === -<span class="number">1</span>) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> start = <span class="title class_">Math</span>.<span class="title function_">max</span>(<span class="number">0</span>, idx - contextLen);</span><br><span class="line">  <span class="keyword">const</span> end = <span class="title class_">Math</span>.<span class="title function_">min</span>(text.<span class="property">length</span>, idx + keyword.<span class="property">length</span> + contextLen);</span><br><span class="line">  <span class="keyword">let</span> snippet = text.<span class="title function_">slice</span>(start, end);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (start &gt; <span class="number">0</span>) snippet = <span class="string">&quot;…&quot;</span> + snippet;</span><br><span class="line">  <span class="keyword">if</span> (end &lt; text.<span class="property">length</span>) snippet = snippet + <span class="string">&quot;…&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> escaped = keyword.<span class="title function_">replace</span>(<span class="regexp">/[.*+?^$&#123;&#125;()|[\]\\]/g</span>, <span class="string">&quot;\\$&amp;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> re = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&quot;(&quot;</span> + escaped + <span class="string">&quot;)&quot;</span>, <span class="string">&quot;gi&quot;</span>);</span><br><span class="line">  snippet = snippet.<span class="title function_">replace</span>(re, <span class="string">&quot;&lt;mark class=\&quot;search-highlight\&quot;&gt;$1&lt;/mark&gt;&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> snippet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p> 同时配上 CSS 样式，搜索结果从一行链接变成了带有上下文预览的卡片：</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.reimu-hit-item</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">12px</span> <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="built_in">var</span>(--red-<span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.reimu-hit-snippet</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">0.85rem</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--highlight-foreground);</span><br><span class="line">  <span class="attribute">display</span>: -webkit-box;</span><br><span class="line">  -webkit-<span class="selector-tag">line</span>-clamp: <span class="number">3</span>;</span><br><span class="line">  -webkit-<span class="attribute">box-orient</span>: vertical;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.search-highlight</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">var</span>(--red-<span class="number">2</span>);</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--red-<span class="number">6</span>);</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1px</span> <span class="number">4px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时配上 CSS 样式，搜索结果从一行链接变成了带有上下文预览的卡片：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.reimu-hit-item</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">12px</span> <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="built_in">var</span>(--red-<span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.reimu-hit-snippet</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">0.85rem</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--highlight-foreground);</span><br><span class="line">  <span class="attribute">display</span>: -webkit-box;</span><br><span class="line">  -webkit-<span class="selector-tag">line</span>-clamp: <span class="number">3</span>;</span><br><span class="line">  -webkit-<span class="attribute">box-orient</span>: vertical;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.search-highlight</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">var</span>(--red-<span class="number">2</span>);</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--red-<span class="number">6</span>);</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1px</span> <span class="number">4px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p> 搜索”弦”时不再干巴巴地列一个标题，而是能看到”知音少，<strong>弦</strong>断有谁听”这样的上下文片段。</p>
 <hr>
@@ -1173,7 +1173,7 @@ Live2D 自定义样式 & 打字机
           description: "",
           stripContent: "写在前面 博客一直用 Reimu 主题内置的 generator_search 作为站内搜索方案。功能虽能用，但体验上有个明显缺口：  搜索结果只有文章标题，没有上下文预览，没有关键词高亮，点到文章里还得自己找。   正好借这个机会，把搜索体验从”能用”做到”好用”。下面记录完整的优化过程。  第一版：上下文摘要 + 高亮 最朴素的诉求：搜索结果里能告诉我关键词在文章的哪个位置。 思路 generator_search 的工作流很简单——Hexo 构建时把全文内容写入 search.json，前",
           date: "Tue Jun 16 2026 06:00:00 GMT+0800",
-          updated: "Tue Jun 16 2026 06:40:45 GMT+0800",
+          updated: "Tue Jun 16 2026 15:57:56 GMT+0800",
           cover: "https://img.monkeyiu.icu/{year}/{month}/{md5}.{extName}/20260616062459825.webp",
         };
       </script>
@@ -1294,7 +1294,7 @@ Live2D 自定义样式 & 打字机
 
         window.walineInstance = walineInit({
           el: '.waline-comment',
-          serverURL: 'https://waline-text-omnf4msbv-key-mons-projects.vercel.app',
+          serverURL: 'https://waline-text-six.vercel.app',
           lang: document.documentElement.lang || 'en',
           locale: {},
           emoji: ["https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/bmoji","https://unpkg.com/@waline/emojis@1.2.0/qq","https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji","https://unpkg.com/@waline/emojis@1.2.0/soul-emoji"],
@@ -1323,17 +1323,17 @@ Live2D 自定义样式 & 打字机
         script.onload = () => {
           if (window.twikoo) {
             twikoo.init({
-              envId: '',
+              envId: 'https://twikoo-kappa-seven.vercel.app',
               el: '.twikoo-comment',
               region: '',
               lang: document.documentElement.lang || 'en',
             });
 
             twikoo.getCommentsCount({
-              envId: '',
+              envId: 'https://twikoo-kappa-seven.vercel.app',
               region: '',
               urls: [
-                '/about/index.html'
+                '/friend/index.html'
               ],
               includeReply: false
             }).then((res) => {
@@ -1455,7 +1455,7 @@ Live2D 自定义样式 & 打字机
     
     // 3. 如果localStorage无效，检查配置的默认评论系统
     if (!defaultComment) {
-      var configDefault = 'waline';
+      var configDefault = 'twikoo';
       if (commentConfig[configDefault]?.enable) {
         defaultComment = configDefault;
       }
@@ -1624,7 +1624,7 @@ Live2D 自定义样式 & 打字机
 
 
     
-      <script src="/js/search-scroll.js"></script>
+      <link rel="stylesheet" href="/css/moments.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script>
     
   </body>
   </html>
