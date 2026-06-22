@@ -62,47 +62,11 @@
   let guardianState = null;
 
   const getGuardianState = (days) => {
-    if (days <= 3) return { mood: 'happy', icon: '🕺', msg: '最近更新了！好开心～要一起努力哦！', face: '正常' };
-    if (days <= 7) return { mood: 'normal', icon: '😊', msg: '主人最近还好吗？', face: '正常' };
-    if (days <= 14) return { mood: 'worried', icon: '😟', msg: '已经一周没更新了...主人是不是太忙了？', face: '正常' };
-    if (days <= 30) return { mood: 'sad', icon: '😞', msg: '快半个月了…主人不要我了吗？', face: '伤心' };
-    return { mood: 'angry', icon: '😤', msg: '一个月不更新！太过分了！哼！', face: '生气' };
-  };
-
-  /* ----- 每周不同主题 ----- */
-  const WEEKLY_THEMES = [
-    { keywords: ['旅行','山','嵩山','泰山','Mount'], msg: '这周是旅行周！想看看主人爬过的每一座山 🏔️' },
-    { keywords: ['技术','Hexo','前端','搜索','图床'], msg: '技术周！这周我们来聊聊代码和折腾 🛠️' },
-    { keywords: ['随笔','小感','日记','碎碎念'], msg: '日常周！听听主人最近的碎碎念 📝' },
-    { keywords: ['电影','剧','纸钞屋','韩国'], msg: '影视周！主人好像又熬夜看剧了 📺' },
-    { keywords: ['数学','高考','论文','Pandoc','学'], msg: '学习周！一起努力变强吧 💪' },
-  ];
-
-  const getWeeklyTheme = () => {
-    const week = Math.floor((Date.now() / 604800000) % WEEKLY_THEMES.length);
-    return WEEKLY_THEMES[week];
-  };
-
-  const initWeeklyTheme = () => {
-    const theme = getWeeklyTheme();
-    const sidebar = document.querySelector('aside#sidebar');
-    if (!sidebar) return;
-
-    // 在已发表的随机文章中找一篇匹配主题的
-    fetch('/site-meta.json')
-      .then(r => r.json())
-      .then(() => {
-        const el = document.createElement('div');
-        el.style.cssText = 'margin-top:8px;padding:8px 12px;border-radius:8px;font-size:12px;text-align:center;background:rgba(255,78,106,0.06);border:1px solid rgba(255,78,106,0.15);opacity:0.8;';
-        el.innerHTML = `📌 本周主题：${theme.msg}`;
-        const insertAfter = () => {
-          const badge = document.getElementById('guardian-badge') || document.getElementById('miku-game-widget');
-          if (badge && badge.parentNode) badge.parentNode.insertBefore(el, badge.nextSibling);
-          else { const wa = sidebar.querySelector('.sidebar-widget'); if (wa) wa.appendChild(el); else sidebar.appendChild(el); }
-        };
-        setTimeout(insertAfter, 2000);
-      })
-      .catch(() => {});
+    if (days <= 3) return { mood: 'quiet', msg: null };
+    if (days <= 7) return { mood: 'normal', msg: null };
+    if (days <= 14) return { mood: 'worried', msg: null };
+    if (days <= 30) return { mood: 'sad', msg: '好久没更新了…' };
+    return { mood: 'angry', msg: `已经 ${days} 天没更新了` };
   };
 
   const initGuardian = () => {
@@ -112,90 +76,84 @@
         const state = getGuardianState(data.daysSinceLastUpdate);
         guardianState = state.mood;
 
-        // 侧边栏或 footer 显示博客状态
+        // >14 天再不显示坏ge
+        if (state.mood === 'quiet' || state.mood === 'normal' || state.mood === 'worried') return;
+
         const badge = document.createElement('div');
         badge.id = 'guardian-badge';
-        badge.style.cssText =
-          'margin-top:8px;padding:8px 12px;border-radius:8px;font-size:12px;' +
-          'text-align:center;line-height:1.5;';
+        badge.style.cssText = 'margin-top:8px;padding:8px 12px;border-radius:8px;font-size:12px;text-align:center;line-height:1.5;';
+        badge.style.background = 'rgba(244,67,54,0.1)';
+        badge.style.border = '1px solid rgba(244,67,54,0.3)';
+        badge.style.color = '#f44336';
+        badge.innerHTML = state.msg;
 
-        if (state.mood === 'happy') {
-          badge.style.background = 'rgba(76,175,80,0.1)';
-          badge.style.border = '1px solid rgba(76,175,80,0.3)';
-          badge.style.color = '#4caf50';
-          badge.innerHTML = `🕺 Miku：主人最近很勤快呢！`;
-        } else if (state.mood === 'sad') {
-          badge.style.background = 'rgba(255,152,0,0.1)';
-          badge.style.border = '1px solid rgba(255,152,0,0.3)';
-          badge.style.color = '#ff9800';
-          badge.innerHTML = `😞 Miku：好久没更新了…`;
-        } else if (state.mood === 'angry') {
-          badge.style.background = 'rgba(244,67,54,0.1)';
-          badge.style.border = '1px solid rgba(244,67,54,0.3)';
-          badge.style.color = '#f44336';
-          badge.innerHTML = `😤 Miku：已经 ${data.daysSinceLastUpdate} 天没更新了！！`;
-        } else {
-          badge.style.opacity = '0.6';
-          badge.innerHTML = `📝 上次更新：${data.daysSinceLastUpdate} 天前`;
-        }
-
-        // 注入到侧边栏
         const injectBadge = () => {
           if (document.getElementById('guardian-badge')) return;
           const sidebar = document.querySelector('aside#sidebar');
           if (!sidebar) { setTimeout(injectBadge, 500); return; }
           const gameWidget = document.getElementById('miku-game-widget');
-          if (gameWidget && gameWidget.parentNode) {
-            gameWidget.parentNode.insertBefore(badge, gameWidget.nextSibling);
-          } else {
-            const wa = sidebar.querySelector('.sidebar-widget');
-            if (wa) wa.appendChild(badge);
-            else sidebar.appendChild(badge);
-          }
+          if (gameWidget && gameWidget.parentNode) gameWidget.parentNode.insertBefore(badge, gameWidget.nextSibling);
+          else { const wa = sidebar.querySelector('.sidebar-widget'); if (wa) wa.appendChild(badge); else sidebar.appendChild(badge); }
         };
         setTimeout(injectBadge, 1500);
 
-        // 非 happy 状态，Miku 在首页会多说一句
-        if (state.mood !== 'happy' && window.location.pathname === '/') {
-          setTimeout(() => scene.say(state.msg, 6000), 4000);
-        }
+        if (window.location.pathname === '/') setTimeout(() => scene.say(state.msg, 6000), 4000);
       })
       .catch(() => {});
   };
 
-  /* ----- 原场景 ---- */
+  /* ----- 每周主题 ----- */
+  const initWeeklyTheme = () => {
+    // 不再显示每周 banner。保留函数占位。
+  };
+
+  /* ----- 场景 ---- */
+  const DAILY_LINES = ['……','。','（安静）',null,null,null];
+
   const initScrollTrigger = () => {
     let hasTriggered = false;
+    let triggerCount = 0;
+    try { triggerCount = parseInt(localStorage.getItem('miku_scroll_count') || '0'); } catch {}
+    if (triggerCount >= 3) return; // 超过 3 次后不再触发
     window.addEventListener('scroll', () => {
       if (hasTriggered) return;
       const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
       if (scrollPercent > 0.85) {
         hasTriggered = true;
-        const msgs = guardianState === 'sad' ? ['居然看完了…谢谢你来看我','虽然主人不更新，但还有你在'] : ['居然全部看完了…给你点赞 👍','看完了！要不要翻翻其他文章？'];
+        try { localStorage.setItem('miku_scroll_count', String(triggerCount + 1)); } catch {}
+        const msgs = ['居然看完了…','看完了？'];
         scene.say(msgs[Math.floor(Math.random() * msgs.length)]);
       }
     }, { passive: true });
   };
 
   const initPageGreeting = () => {
+    // 70% 概率什么都不说
+    if (Math.random() < 0.7) return;
     const path = window.location.pathname;
     let msg = '';
     if (path === '/' || path === '/index.html') {
-      if (guardianState === 'angry') msg = '哼！你来了，但主人不更新有什么用…';
-      else if (guardianState === 'sad') msg = '欢迎回家…虽然这里好久没变化了';
-      else msg = '欢迎回家～ 看看主人最近写了什么吧';
-    } else if (path.startsWith('/about')) msg = '想了解主人吗？他是个很有趣的人呢～';
-    else if (path.startsWith('/friend')) msg = '来认识主人的朋友们吧！';
-    else if (path.startsWith('/gallery')) msg = '来看看主人拍的照片！';
-    else if (path.startsWith('/diary')) msg = '主人的碎碎念都在这里啦～';
-    else if (path.match(/^\/(\d{4})\//)) msg = guardianState === 'angry' ? '又来看旧文章吗…' : '又有新文章可以看啦～';
+      if (guardianState === 'angry') msg = '……';
+      else if (guardianState === 'sad') msg = '……';
+      else msg = DAILY_LINES[Math.floor(Math.random() * DAILY_LINES.length)];
+    } else if (path.startsWith('/about')) msg = DAILY_LINES[Math.floor(Math.random() * DAILY_LINES.length)];
+    else if (path.startsWith('/friend')) msg = DAILY_LINES[Math.floor(Math.random() * DAILY_LINES.length)];
+    else if (path.startsWith('/diary')) msg = DAILY_LINES[Math.floor(Math.random() * DAILY_LINES.length)];
+    else if (path.match(/^\/(\d{4})\//)) msg = DAILY_LINES[Math.floor(Math.random() * DAILY_LINES.length)];
     if (msg) setTimeout(() => scene.say(msg, 5000), 800);
   };
 
   const initNightCheck = () => {
     const hour = new Date().getHours();
     if (hour >= 23 || hour < 5) {
-      setTimeout(() => { scene.say('这么晚了还不睡！要注意身体呀 ⚠️', 5000); }, 5000);
+      // 30% 概率触发，会话级只一次
+      try {
+        if (sessionStorage.getItem('miku_night_done')) return;
+        sessionStorage.setItem('miku_night_done', '1');
+      } catch {}
+      if (Math.random() < 0.3) {
+        setTimeout(() => { scene.say('……', 5000); }, 5000);
+      }
     }
   };
 
@@ -222,7 +180,6 @@
     const waifu = document.getElementById('waifu') || document.getElementById('live2d-plugin');
     if (waifu) { waifu.addEventListener('click', unlock); waifu.addEventListener('mouseenter', unlock); }
     target.addEventListener('click', unlock);
-    console.log('[Live2D Scene] 智能对话系统已启动 ✨');
   };
 
   const boot = () => {
