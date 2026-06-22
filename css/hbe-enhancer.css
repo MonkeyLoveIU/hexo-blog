@@ -1,0 +1,41 @@
+/* ============================================
+ * 加密增强系统样式
+ *
+ * 包含：解密彩蛋、密码迷宫、知识问答、双人解密 UI
+ * ============================================ */
+
+/* ---- 密码线索面板 ---- */
+.hbe-clues-panel {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--red-5-5, rgba(255,228,228,0.1));
+  border: 1px dashed var(--red-3, #ffafaf);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ---- 知识问答 ---- */
+.hbe-quiz-wrap {
+  margin: 12px 0;
+}
+
+#hbe-quiz-input:focus {
+  border-color: var(--red-1, #ff5252) !important;
+  box-shadow: 0 0 0 3px rgba(255, 82, 82, 0.15);
+}
+
+#hbe-quiz-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+#hbe-quiz-btn:active {
+  transform: translateY(0);
+}
+
+/* ---- 双人解密 ---- */
+.hbe-dual-wrap input:focus {
+  border-color: var(--red-1, #ff5252) !important;
+  box-shadow: 0 0 0 3px rgba(255, 82, 82, 0.15);
+}

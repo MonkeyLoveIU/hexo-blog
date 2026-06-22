@@ -26,7 +26,7 @@
 
   
 
-  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '5091610_9ws1x947v5h';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.anchor_icon = 'e697';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://monkeyiu.icu';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '5091610_9ws1x947v5h';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.swPath = '/sw.js';window.REIMU_CONFIG.anchor_icon = 'e697';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://monkeyiu.icu';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
   
   <title>
     
@@ -134,6 +134,17 @@ Live2D 自定义样式 & 打字机
              
           </div>
           <a class="main-nav-link" href="/about">关于</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+             
+              
+                &#xe635;
+              
+             
+          </div>
+          <a class="main-nav-link" href="/travel-map">travel</a>
         </span>
       
         <span class="main-nav-link-wrap">
@@ -487,7 +498,17 @@ Live2D 自定义样式 & 打字机
 
   <script>
     function initLive2d() {
-      live2d.init("https://fastly.jsdelivr.net/gh/D-Sketon/plugin-live2d/", {themeTipsPath: ""});
+      live2d.init("https://fastly.jsdelivr.net/gh/D-Sketon/plugin-live2d/", {
+        themeTipsPath: "/live2d-tips.json",
+        tipsPath: "/live2d-tips.json",
+        firstOpenSite: true,
+        backSite: true,
+        openConsole: true,
+        copyContent: true,
+        backSiteTip: "欢迎回来！等你半天了呢～",
+        openConsoleTip: "哎呀，被发现了！控制台里可没有我的秘密哦～",
+        copyContentTip: "复制带走可以，记得注明出处哦！"
+      });
     }
   </script>
   
@@ -497,6 +518,17 @@ Live2D 自定义样式 & 打字机
 
 
 
+
+  
+<script src="https://npm.webcache.cn/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha384-aD7FsuQkS1ohgFKY41fJfeA+Wd&#x2F;QRNnrOd9Bs58K3FzKdJJv8yPnYU8Tnp5z1agS" crossorigin="anonymous"></script>
+
+  <script data-pjax>
+    window.quicklink?.listen({
+      timeout: 3000,
+      priority: true,
+      ignores: []
+    });
+  </script>
 
 
 <div id="lazy-script">
@@ -532,15 +564,9 @@ Live2D 自定义样式 & 打字机
 
 
 
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then((registrations) => {
-      for (let registration of registrations) {
-        registration.unregister();
-      }
-    });
-  }
-</script>
+  
+<script src="/js/service_worker.js"></script>
+
 
 
 
@@ -581,7 +607,7 @@ Live2D 自定义样式 & 打字机
 
 
   
-    <link rel="stylesheet" href="/css/moments.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script>
+    <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script>
   
 </body>
 </html>

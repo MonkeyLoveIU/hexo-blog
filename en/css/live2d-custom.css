@@ -1,11 +1,11 @@
 /* ============================================
  * Live2D 对话气泡自定义样式
- * 作者: 你
  * 描述: 暗夜星空魔法款 + 打字机效果
+ * 使用超高特异性选择器压制主题默认样式
  * ============================================ */
 
 /* —— 默认隐藏 —— */
-div#live2d-tips {
+html body div#live2d-tips {
   opacity: 0 !important;
   visibility: hidden !important;
   transition: opacity 0.5s ease, visibility 0.5s ease !important;
@@ -13,7 +13,7 @@ div#live2d-tips {
 }
 
 /* —— 说话时显示（星空魔法款） —— */
-div#live2d-tips.live2d-tips-active {
+html body div#live2d-tips.live2d-tips-active {
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: auto !important;
@@ -54,7 +54,7 @@ div#live2d-tips.live2d-tips-active {
 }
 
 /* —— 打字机光标 —— */
-div#live2d-tips.live2d-tips-active::after {
+html body div#live2d-tips.live2d-tips-active::after {
   content: "▋";
   margin-left: 2px;
   color: #B19CD9;

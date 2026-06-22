@@ -26,7 +26,7 @@
 
   
 
-  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '5091610_9ws1x947v5h';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = 'All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!';window.REIMU_CONFIG.anchor_icon = 'e697';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://monkeyiu.icu';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '5091610_9ws1x947v5h';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = 'All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!';window.REIMU_CONFIG.swPath = '/sw.js';window.REIMU_CONFIG.anchor_icon = 'e697';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://monkeyiu.icu';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
   
   <title>
     
@@ -153,6 +153,15 @@ Live2D 自定义样式 & 打字机
 <div id="heatmap-tooltip"></div>
 
 
+  <div class="notification-wrapper">
+    <h1>New version found</h1>
+    <p>The website seems to have new content, do you want to update?</p>
+    <div class="notification-btn">
+      <button id="notification-update-btn">Update</button>
+      <button id="notification-close-btn">Cancel</button>
+    </div>
+  </div>
+
     <div id="container">
       <div id="wrap">
         <div id="header-nav">
@@ -190,6 +199,17 @@ Live2D 自定义样式 & 打字机
              
           </div>
           <a class="main-nav-link" href="/en/about">About</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+             
+              
+                &#xe635;
+              
+             
+          </div>
+          <a class="main-nav-link" href="/en/travel-map">travel</a>
         </span>
       
         <span class="main-nav-link-wrap">
@@ -359,15 +379,15 @@ Live2D 自定义样式 & 打字机
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Post</div>
-    <div class="sidebar-state-number">13</div>
+    <div class="sidebar-state-number">15</div>
   </div>
   <div class="sidebar-state-category">
     <div>Category</div>
-    <div class="sidebar-state-number">10</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-tag">
     <div>Tag</div>
-    <div class="sidebar-state-number">21</div>
+    <div class="sidebar-state-number">22</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -418,6 +438,18 @@ Live2D 自定义样式 & 打字机
           
         </div>
         <div class="sidebar-menu-link">About</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/travel-map" aria-label="travel"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe635;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">travel</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
@@ -1510,7 +1542,16 @@ fetch('https://myip.ipip.net/')
   
 </aside>
 
-          <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting"
+  
+  
+  
+  
+  
+  
+  
+  
+  >
   <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
       <div class="article-date">
@@ -1531,7 +1572,7 @@ fetch('https://myip.ipip.net/')
     <div class="e-content article-entry" itemprop="articleBody">
       
       
-        <script>var REIMU_HEATMAP_CONFIG = {articleStats: [{"title":"Pandoc + XeLaTeX 中英文论文 PDF 生成","date":"2026-06-04T16:00:00.000Z","updated":"2026-06-06T18:33:38.654Z","wordcount":1390,"url":"/2026/06/05/pandoc/"},{"title":"","date":"2025-09-17T10:52:46.948Z","updated":"2026-06-04T11:07:33.809Z","wordcount":279,"url":"/2025/09/17/undefined/"},{"title":"Night Climb of Mount Song - Journey to the Sea of Clouds","date":"2024-04-11T16:00:00.000Z","updated":"2026-06-04T11:16:00.743Z","wordcount":553,"url":"/2024/04/12/songshan/"},{"title":"访客の网络小情报","date":"2026-05-26T13:59:15.768Z","updated":"2026-06-04T10:59:15.245Z","wordcount":2083,"url":"/2026/05/26/ip-card/"},{"title":"加油！","date":"2026-06-06T18:33:42.423Z","updated":"2026-06-09T12:44:45.609Z","wordcount":1475,"url":"/2026/06/07/gaokao/"},{"title":"Hexo 搜索体验优化纪实","date":"2026-06-15T22:00:00.000Z","updated":"2026-06-16T07:57:56.923Z","wordcount":1639,"url":"/2026/06/16/search-optimization/"},{"title":"初雪物语","date":"2025-12-12T04:15:00.000Z","updated":"2026-06-04T12:18:28.664Z","wordcount":586,"url":"/2025/12/12/xue/"},{"title":"夜爬嵩山 云海之旅","date":"2024-04-11T16:00:00.000Z","updated":"2026-06-15T22:50:54.673Z","wordcount":785,"url":"/2024/04/12/songshan/"},{"title":"图床","date":"2025-12-11T12:59:11.094Z","updated":"2026-06-04T11:00:19.561Z","wordcount":1472,"url":"/2025/12/11/tu/"},{"title":"修为散尽","date":"2024-01-01T00:00:00.000Z","updated":"2026-06-19T19:23:49.050Z","wordcount":830,"url":"/2024/01/01/xiuwei/"},{"title":"夜爬泰山","date":"2024-05-29T16:00:00.000Z","updated":"2026-06-04T11:00:09.579Z","wordcount":345,"url":"/2024/05/30/taishan/"},{"title":"弦断有谁听？","date":"2026-06-13T16:40:00.000Z","updated":"2026-06-15T14:35:55.180Z","wordcount":1033,"url":"/2026/06/14/xianduan/"},{"title":"观看《纸钞屋：韩国版》","date":"2026-06-19T19:20:00.000Z","updated":"2026-06-19T19:25:11.173Z","wordcount":526,"url":"/2026/06/20/zhichaowu/"}], i18n: {"en":{"no_articles":"No articles","words":"word(s)","total_articles":"$1 article(s), $2 word(s)"},"ja":{"no_articles":"記事がありません","words":"文字","total_articles":"$1 記事, $2 文字"},"zh-CN":{"no_articles":"没有文章","words":"字","total_articles":"共 $1 篇文章, $2 字"},"zh-TW":{"no_articles":"没有文章","words":"字","total_articles":"共 $1 篇文章, $2 字"},"pt-BR":{"no_articles":"Sem artigos","words":"palavra(s)","total_articles":"$1 artigo(s), $2 palavra(s)"}}, levelStandard: "levelStandard"};</script>
+        <script>var REIMU_HEATMAP_CONFIG = {articleStats: [{"title":"Pandoc + XeLaTeX 中英文论文 PDF 生成","date":"2026-06-04T16:00:00.000Z","updated":"2026-06-06T18:33:38.654Z","wordcount":1390,"url":"/2026/06/05/pandoc/"},{"title":"Night Climb of Mount Song - Journey to the Sea of Clouds","date":"2024-04-11T16:00:00.000Z","updated":"2026-06-21T23:53:55.967Z","wordcount":553,"url":"/2024/04/12/songshan/"},{"title":"","date":"2026-06-21T23:53:42.979Z","updated":"2026-06-21T23:53:42.980Z","wordcount":279,"url":"/2026/06/22/undefined/"},{"title":"访客の网络小情报","date":"2026-05-26T13:59:15.768Z","updated":"2026-06-04T10:59:15.245Z","wordcount":2083,"url":"/2026/05/26/ip-card/"},{"title":"加油！","date":"2026-06-06T18:33:42.423Z","updated":"2026-06-09T12:44:45.609Z","wordcount":1475,"url":"/2026/06/07/gaokao/"},{"title":"隐藏的终章","date":"2026-06-21T23:05:46.205Z","updated":"2026-06-21T23:07:06.128Z","wordcount":3,"url":"/2026/06/22/five/"},{"title":"Hexo 搜索体验优化纪实","date":"2026-06-15T22:00:00.000Z","updated":"2026-06-16T07:57:56.923Z","wordcount":1639,"url":"/2026/06/16/search-optimization/"},{"title":"写给五年后的自己","date":"2026-06-21T23:07:36.046Z","updated":"2026-06-21T23:08:33.328Z","wordcount":4,"url":"/2026/06/22/six/"},{"title":"夜爬嵩山 云海之旅","date":"2024-04-11T16:00:00.000Z","updated":"2026-06-21T23:53:40.152Z","wordcount":785,"url":"/2024/04/12/songshan/"},{"title":"初雪物语","date":"2025-12-12T04:15:00.000Z","updated":"2026-06-04T12:18:28.664Z","wordcount":586,"url":"/2025/12/12/xue/"},{"title":"夜爬泰山","date":"2024-05-29T16:00:00.000Z","updated":"2026-06-21T23:53:41.068Z","wordcount":345,"url":"/2024/05/30/taishan/"},{"title":"图床","date":"2025-12-11T12:59:11.094Z","updated":"2026-06-04T11:00:19.561Z","wordcount":1472,"url":"/2025/12/11/tu/"},{"title":"弦断有谁听？","date":"2026-06-13T16:40:00.000Z","updated":"2026-06-15T14:35:55.180Z","wordcount":1033,"url":"/2026/06/14/xianduan/"},{"title":"观看《纸钞屋：韩国版》","date":"2026-06-19T19:20:00.000Z","updated":"2026-06-19T19:25:11.173Z","wordcount":526,"url":"/2026/06/20/zhichaowu/"},{"title":"修为散尽","date":"2024-01-01T00:00:00.000Z","updated":"2026-06-19T19:23:49.050Z","wordcount":830,"url":"/2024/01/01/xiuwei/"}], i18n: {"en":{"no_articles":"No articles","words":"word(s)","total_articles":"$1 article(s), $2 word(s)"},"ja":{"no_articles":"記事がありません","words":"文字","total_articles":"$1 記事, $2 文字"},"zh-CN":{"no_articles":"没有文章","words":"字","total_articles":"共 $1 篇文章, $2 字"},"zh-TW":{"no_articles":"没有文章","words":"字","total_articles":"共 $1 篇文章, $2 字"},"pt-BR":{"no_articles":"Sem artigos","words":"palavra(s)","total_articles":"$1 artigo(s), $2 palavra(s)"}}, levelStandard: "levelStandard"};</script>
 <link rel="stylesheet" href="/css/heat-map.css">
 <div id="heatmap"></div>
 <script src="/js/heat_map.js"></script>
@@ -1547,6 +1588,7 @@ fetch('https://myip.ipip.net/')
 
       
     </div>
+    
     <footer class="article-footer">
       
       
@@ -1662,7 +1704,7 @@ fetch('https://myip.ipip.net/')
         9.6k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:32
+        00:34
       </div>
     
     
@@ -1688,8 +1730,29 @@ fetch('https://myip.ipip.net/')
         <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
       </div>
     
+    <div>
+      <span class="icon-heart" style="color:var(--red-1);"></span>
+      <span id="blog-age">计算中...</span>
+    </div>
   </div>
 </footer>
+<script>
+(function() {
+  var birth = new Date('2025-01-01T00:00:00');
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var diff = Date.now() - birth.getTime();
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var el = document.getElementById('blog-age');
+    if (el) el.textContent = '博客已运行 ' + d + ' 天 ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
 
         
           <div class="sidebar-top">
@@ -1709,15 +1772,15 @@ fetch('https://myip.ipip.net/')
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>Post</div>
-    <div class="sidebar-state-number">13</div>
+    <div class="sidebar-state-number">15</div>
   </div>
   <div class="sidebar-state-category">
     <div>Category</div>
-    <div class="sidebar-state-number">10</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-tag">
     <div>Tag</div>
-    <div class="sidebar-state-number">21</div>
+    <div class="sidebar-state-number">22</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -1768,6 +1831,18 @@ fetch('https://myip.ipip.net/')
           
         </div>
         <div class="sidebar-menu-link">About</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/travel-map" aria-label="travel"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe635;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">travel</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
@@ -2041,7 +2116,17 @@ fetch('https://myip.ipip.net/')
 
   <script>
     function initLive2d() {
-      live2d.init("https://fastly.jsdelivr.net/gh/D-Sketon/plugin-live2d/", {themeTipsPath: ""});
+      live2d.init("https://fastly.jsdelivr.net/gh/D-Sketon/plugin-live2d/", {
+        themeTipsPath: "/live2d-tips.json",
+        tipsPath: "/live2d-tips.json",
+        firstOpenSite: true,
+        backSite: true,
+        openConsole: true,
+        copyContent: true,
+        backSiteTip: "欢迎回来！等你半天了呢～",
+        openConsoleTip: "哎呀，被发现了！控制台里可没有我的秘密哦～",
+        copyContentTip: "复制带走可以，记得注明出处哦！"
+      });
     }
   </script>
   
@@ -2051,6 +2136,17 @@ fetch('https://myip.ipip.net/')
 
 
 
+
+  
+<script src="https://npm.webcache.cn/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha384-aD7FsuQkS1ohgFKY41fJfeA+Wd&#x2F;QRNnrOd9Bs58K3FzKdJJv8yPnYU8Tnp5z1agS" crossorigin="anonymous"></script>
+
+  <script data-pjax>
+    window.quicklink?.listen({
+      timeout: 3000,
+      priority: true,
+      ignores: []
+    });
+  </script>
 
 
 <div id="lazy-script">
@@ -2065,7 +2161,7 @@ fetch('https://myip.ipip.net/')
           url: "https://monkeyiu.icu/about/index.html",
           excerpt: "",
           description: "",
-          stripContent: "var REIMU_HEATMAP_CONFIG = {articleStats: [{&#34;title&#34;:&#34;Pandoc + XeLaTeX 中英文论文 PDF 生成&#34;,&#34;date&#34;:&#34;2026-06-04T16:00:00.000Z&#34;,&#34;updated&#34;:&#34;2026-06-06T18:33:38.654Z&#34;,&#34;wordcount&#34;:1390,&#34;url&#34;:&#34;/2026/06/05/pandoc/&#34;},{&#34;title&#34;:&#34;&#34;,&#34;date&#34;:&#34;2025-09-17T10:52:46.948Z&#34;,&#34;up",
+          stripContent: "var REIMU_HEATMAP_CONFIG = {articleStats: [{&#34;title&#34;:&#34;Pandoc + XeLaTeX 中英文论文 PDF 生成&#34;,&#34;date&#34;:&#34;2026-06-04T16:00:00.000Z&#34;,&#34;updated&#34;:&#34;2026-06-06T18:33:38.654Z&#34;,&#34;wordcount&#34;:1390,&#34;url&#34;:&#34;/2026/06/05/pandoc/&#34;},{&#34;title&#34;:&#34;Night Climb of Mount Song - Journey to ",
           date: "Tue Jun 16 2026 04:47:28 GMT+0800",
           updated: "Tue May 26 2026 01:15:32 GMT+0800",
           cover: "/images/banner.webp",
@@ -2469,15 +2565,9 @@ fetch('https://myip.ipip.net/')
 
 
 
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then((registrations) => {
-      for (let registration of registrations) {
-        registration.unregister();
-      }
-    });
-  }
-</script>
+  
+<script src="/js/service_worker.js"></script>
+
 
 
 
@@ -2518,7 +2608,7 @@ fetch('https://myip.ipip.net/')
 
 
     
-      <link rel="stylesheet" href="/css/moments.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script>
+      <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script>
     
   </body>
   </html>

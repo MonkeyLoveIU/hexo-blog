@@ -26,7 +26,7 @@
 
   
 
-  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '5091610_9ws1x947v5h';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.anchor_icon = 'e697';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://monkeyiu.icu';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '5091610_9ws1x947v5h';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.swPath = '/sw.js';window.REIMU_CONFIG.anchor_icon = 'e697';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://monkeyiu.icu';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
   
   <title>
     Hexo 搜索体验优化纪实 |
@@ -155,6 +155,15 @@ Live2D 自定义样式 & 打字机
 <div id="heatmap-tooltip"></div>
 
 
+  <div class="notification-wrapper">
+    <h1>发现新版本</h1>
+    <p>网站好像有新内容，是否更新(ﾟ⊿ﾟ)ﾂ？</p>
+    <div class="notification-btn">
+      <button id="notification-update-btn">更新</button>
+      <button id="notification-close-btn">取消</button>
+    </div>
+  </div>
+
     <div id="container">
       <div id="wrap">
         <div id="header-nav">
@@ -192,6 +201,17 @@ Live2D 自定义样式 & 打字机
              
           </div>
           <a class="main-nav-link" href="/about">关于</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+             
+              
+                &#xe635;
+              
+             
+          </div>
+          <a class="main-nav-link" href="/travel-map">travel</a>
         </span>
       
         <span class="main-nav-link-wrap">
@@ -361,15 +381,15 @@ Live2D 自定义样式 & 打字机
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">13</div>
+    <div class="sidebar-state-number">15</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
-    <div class="sidebar-state-number">10</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-tag">
     <div>标签</div>
-    <div class="sidebar-state-number">21</div>
+    <div class="sidebar-state-number">22</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -420,6 +440,18 @@ Live2D 自定义样式 & 打字机
           
         </div>
         <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/travel-map" aria-label="travel"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe635;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">travel</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
@@ -482,7 +514,16 @@ Live2D 自定义样式 & 打字机
   
 </aside>
 
-          <section id="main"><article id="post-search-optimization" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main"><article id="post-search-optimization" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting"
+  
+  
+  
+  
+  
+  
+  
+  
+  >
   <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
       <div class="article-date">
@@ -568,7 +609,16 @@ Live2D 自定义样式 & 打字机
 <p> 这样每次页面加载（包括 PJAX 后的加载）都会执行一次关键词定位。</p>
 <hr>
 <h2 id="最终成果：一条搜索的生命周期"><a href="#最终成果：一条搜索的生命周期" class="headerlink" title="最终成果：一条搜索的生命周期"></a>最终成果：一条搜索的生命周期</h2><p> 整个搜索体验的完整流程如下：</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">  A[输入关键词] --&gt; B[generator_search.js 遍历 search.json]</span><br><span class="line">  B --&gt; C[findAllOccurrences 找出全部匹配位置]</span><br><span class="line">  C --&gt; D[每条匹配渲染为一个独立结果条目]</span><br><span class="line">  D --&gt; E[点击某一条结果]</span><br><span class="line">  E --&gt; F[关闭弹窗 / 存入搜索词和序号 / 全页跳转]</span><br><span class="line">  F --&gt; G[目标页面加载]</span><br><span class="line">  G --&gt; H[search-scroll.js 读取 sessionStorage]</span><br><span class="line">  H --&gt; I[DOM 遍历找到第 N 个匹配]</span><br><span class="line">  I --&gt; J[内联样式高亮 + 滚动到视野中央]</span><br></pre></td></tr></table></figure>
+ <pre class="mermaid"> graph TD
+   A[输入关键词] --> B[generator_search.js 遍历 search.json]
+   B --> C[findAllOccurrences 找出全部匹配位置]
+   C --> D[每条匹配渲染为一个独立结果条目]
+   D --> E[点击某一条结果]
+   E --> F[关闭弹窗 / 存入搜索词和序号 / 全页跳转]
+   F --> G[目标页面加载]
+   G --> H[search-scroll.js 读取 sessionStorage]
+   H --> I[DOM 遍历找到第 N 个匹配]
+   I --> J[内联样式高亮 + 滚动到视野中央]</pre>
 
 <hr>
 <h2 id="文件改动清单"><a href="#文件改动清单" class="headerlink" title="文件改动清单"></a>文件改动清单</h2><p> 涉及文件不多，但改动覆盖了搜索的整个链路：</p>
@@ -616,6 +666,7 @@ Live2D 自定义样式 & 打字机
 
       
     </div>
+    
     <footer class="article-footer">
       
       
@@ -766,7 +817,7 @@ Live2D 自定义样式 & 打字机
         9.6k
         &nbsp;|&nbsp;
         <span class="icon-coffee"></span>
-        00:32
+        00:34
       </div>
     
     
@@ -792,8 +843,29 @@ Live2D 自定义样式 & 打字机
         <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
       </div>
     
+    <div>
+      <span class="icon-heart" style="color:var(--red-1);"></span>
+      <span id="blog-age">计算中...</span>
+    </div>
   </div>
 </footer>
+<script>
+(function() {
+  var birth = new Date('2025-01-01T00:00:00');
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var diff = Date.now() - birth.getTime();
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var el = document.getElementById('blog-age');
+    if (el) el.textContent = '博客已运行 ' + d + ' 天 ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
 
         
           <div class="sidebar-top">
@@ -821,15 +893,15 @@ Live2D 自定义样式 & 打字机
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">13</div>
+    <div class="sidebar-state-number">15</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
-    <div class="sidebar-state-number">10</div>
+    <div class="sidebar-state-number">12</div>
   </div>
   <div class="sidebar-state-tag">
     <div>标签</div>
-    <div class="sidebar-state-number">21</div>
+    <div class="sidebar-state-number">22</div>
   </div>
 </div>
 <div class="sidebar-social">
@@ -880,6 +952,18 @@ Live2D 自定义样式 & 打字机
           
         </div>
         <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/travel-map" aria-label="travel"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe635;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">travel</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
@@ -1161,7 +1245,17 @@ Live2D 自定义样式 & 打字机
 
   <script>
     function initLive2d() {
-      live2d.init("https://fastly.jsdelivr.net/gh/D-Sketon/plugin-live2d/", {themeTipsPath: ""});
+      live2d.init("https://fastly.jsdelivr.net/gh/D-Sketon/plugin-live2d/", {
+        themeTipsPath: "/live2d-tips.json",
+        tipsPath: "/live2d-tips.json",
+        firstOpenSite: true,
+        backSite: true,
+        openConsole: true,
+        copyContent: true,
+        backSiteTip: "欢迎回来！等你半天了呢～",
+        openConsoleTip: "哎呀，被发现了！控制台里可没有我的秘密哦～",
+        copyContentTip: "复制带走可以，记得注明出处哦！"
+      });
     }
   </script>
   
@@ -1171,6 +1265,17 @@ Live2D 自定义样式 & 打字机
 
 
 
+
+  
+<script src="https://npm.webcache.cn/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha384-aD7FsuQkS1ohgFKY41fJfeA+Wd&#x2F;QRNnrOd9Bs58K3FzKdJJv8yPnYU8Tnp5z1agS" crossorigin="anonymous"></script>
+
+  <script data-pjax>
+    window.quicklink?.listen({
+      timeout: 3000,
+      priority: true,
+      ignores: []
+    });
+  </script>
 
 
 <div id="lazy-script">
@@ -1589,15 +1694,9 @@ Live2D 自定义样式 & 打字机
 
 
 
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then((registrations) => {
-      for (let registration of registrations) {
-        registration.unregister();
-      }
-    });
-  }
-</script>
+  
+<script src="/js/service_worker.js"></script>
+
 
 
 
@@ -1638,7 +1737,7 @@ Live2D 自定义样式 & 打字机
 
 
     
-      <link rel="stylesheet" href="/css/moments.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script>
+      <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script>
     
   </body>
   </html>
