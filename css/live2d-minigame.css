@@ -1,7 +1,7 @@
 /* ============================================
  * Miku 互动小游戏 — 样式
  *
- * 包含：热区定位、侧边栏面板、猜拳按钮（星空质感）
+ * 包含：热区定位、侧边栏面板、猜拳（星空质感）、骰子
  * ============================================ */
 
 /* ---- 热区容器（覆盖在 canvas 上） ---- */
@@ -83,6 +83,37 @@
   transform: translateY(0);
 }
 
+/* ---- 游戏 Tab 切换 ---- */
+.miku-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.miku-tab {
+  flex: 1;
+  padding: 6px 4px;
+  border-radius: 8px;
+  border: 1px solid var(--red-3, #ffafaf);
+  background: transparent;
+  color: var(--highlight-foreground, #666);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.miku-tab.active {
+  background: linear-gradient(135deg, var(--red-1, #ff5252), #ff8a65);
+  color: #fff;
+  border-color: transparent;
+}
+
+.miku-tab:hover:not(.active) {
+  border-color: var(--red-1, #ff5252);
+  color: var(--red-1, #ff5252);
+}
+
 /* ============================================
  * 星空玻璃质感 RPS 按钮
  * ============================================ */
@@ -116,20 +147,17 @@
   outline: none;
 }
 
-/* --- 悬停：紫色呼吸发光 --- */
 .miku-rps-choice:hover {
   transform: scale(1.15);
   border-color: rgba(200, 170, 255, 0.7);
   animation: rpsGlow 2s infinite ease-in-out;
 }
 
-/* --- 按压反馈 --- */
 .miku-rps-choice:active {
   transform: scale(0.92);
   transition-duration: 0.05s;
 }
 
-/* --- 点击闪光态（JS 临时添加） --- */
 .miku-rps-choice.miku-rps-flash {
   transform: scale(0.85);
   background:
@@ -143,7 +171,6 @@
   transition-duration: 0.1s;
 }
 
-/* --- 悬停呼吸发光动画 --- */
 @keyframes rpsGlow {
   0%, 100% {
     box-shadow:
@@ -159,7 +186,6 @@
   }
 }
 
-/* --- VS 弹出动画 --- */
 @keyframes vsPop {
   0%   { transform: scale(0); opacity: 0; }
   60%  { transform: scale(1.3); }
@@ -180,12 +206,85 @@
 }
 
 @keyframes rpsParticleFly {
-  0% {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(var(--dx, 60px), var(--dy, -80px)) scale(0);
-  }
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(0); }
+}
+
+/* ============================================
+ * 骰子游戏
+ * ============================================ */
+
+/* 骰子本体 */
+.miku-die {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin: 0 3px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1.5px solid rgba(180, 150, 255, 0.5);
+  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.1s ease;
+}
+
+/* 摇骰动画：旋转 + 缩放抖动 */
+.miku-die.rolling {
+  animation: diceRoll 0.1s infinite alternate;
+}
+
+@keyframes diceRoll {
+  0%   { transform: rotate(-10deg) scale(1); }
+  25%  { transform: rotate(10deg) scale(1.1); }
+  50%  { transform: rotate(-5deg) scale(0.95); }
+  75%  { transform: rotate(15deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+/* 骰子区域 */
+.miku-dice-section {
+  margin-bottom: 8px;
+}
+
+.miku-dice-area {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin: 4px 0;
+  min-height: 38px;
+  align-items: center;
+}
+
+.miku-dice-label {
+  font-size: 11px;
+  opacity: 0.6;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.miku-dice-result {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red-1, #ff5252);
+  margin-bottom: 6px;
+  min-height: 20px;
+}
+
+/* VS 分隔 */
+.miku-dice-vs {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(180, 150, 255, 0.6);
+  margin: 2px 0;
+}
+
+/* 豹子高亮 */
+.miku-die.yahtzee {
+  border-color: #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  color: #b8860b;
 }
