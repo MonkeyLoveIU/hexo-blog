@@ -4,7 +4,7 @@
  * 功能：
  *   A. 戳 Miku — canvas 上覆盖 3 个热区（头/身体/脚）
  *      点击升级台词 + 侧边栏统计
- *   B. 猜拳 — 和 Miku 玩石头剪刀布
+ *   B. 猜拳 — 和 Miku 玩石头剪刀布（星空按钮 + 粒子 + VS）
  * ============================================ */
 
 (() => {
@@ -17,6 +17,7 @@
   const RPS_EMOJI = { rock: '✊', scissors: '✌️', paper: '✋' };
   const RPS_NAME = { rock: '石头', scissors: '剪刀', paper: '布' };
   const RPS_BEATS = { rock: 'scissors', scissors: 'paper', paper: 'rock' };
+  const RPS_CHOICES = Object.keys(RPS_EMOJI);
 
   /* ========== localStorage 工具 ========== */
   const loadPoke = () => {
@@ -53,6 +54,35 @@
         }, timeout || 5000);
       }
     } catch { /* noop */ }
+  };
+
+  /* ========== 粒子爆发 ========== */
+  const spawnParticles = (originEl, count) => {
+    count = count || 12;
+    const rect = originEl.getBoundingClientRect();
+    if (!rect) return;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const colors = ['#B19CD9', '#F8EEFF', '#7B68EE', '#E6D3FF', '#C4A0FF', '#FFFFFF'];
+    const particles = [];
+
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'rps-particle';
+      const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+      const dist = 40 + Math.random() * 50;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist;
+      const size = 4 + Math.random() * 4;
+      const c = colors[Math.floor(Math.random() * colors.length)];
+      p.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;--dx:${dx}px;--dy:${dy}px;background:${c};box-shadow:0 0 4px ${c};`;
+      particles.push(p);
+    }
+
+    const frag = document.createDocumentFragment();
+    particles.forEach((p) => frag.appendChild(p));
+    document.body.appendChild(frag);
+    setTimeout(() => particles.forEach((p) => p.remove()), 700);
   };
 
   /* ========== A: 热区系统 ========== */
@@ -99,7 +129,6 @@
     });
 
     plugin.appendChild(container);
-    // 事件委托绑定
     container.addEventListener('click', onHitzoneClick);
   };
 
@@ -118,7 +147,6 @@
     const idx = Math.min(Math.floor(data.total / 10), msgs.length - 1);
     let msg = msgs[idx].replace('{total}', data.total);
 
-    // 里程碑
     if (data.total > 0 && data.total % 10 === 0 && data.total <= 50) {
       msg += '<br><span style="font-size:11px;opacity:0.7;">🎯 里程碑：{total} 次达成！</span>'.replace('{total}', data.total);
     }
@@ -132,22 +160,8 @@
   /* ========== B: 猜拳系统 ========== */
   let rpsUIVisible = false;
 
-  const playRPS = (playerChoice) => {
-    const mikuChoice = ZONES[Math.floor(Math.random() * 3)];
-    let result;
-    if (playerChoice === mikuChoice) result = 'tie';
-    else if (RPS_BEATS[playerChoice] === mikuChoice) result = 'win';
-    else result = 'lose';
-
-    const data = loadRps();
-    data.total++;
-    if (result === 'win') { data.wins++; data.streak++; data.bestStreak = Math.max(data.bestStreak, data.streak); }
-    else if (result === 'lose') { data.losses++; data.streak = 0; }
-    else data.ties++;
-    saveRps(data);
-    updateRpsDisplay(data);
-
-    // 对话
+  /** 生成结果文字 + Miku 说话 */
+  const showRpsResult = (playerChoice, mikuChoice, result, data) => {
     const mikuEmoji = RPS_EMOJI[mikuChoice];
     const mikuName = RPS_NAME[mikuChoice];
     const playerEmoji = RPS_EMOJI[playerChoice];
@@ -175,6 +189,64 @@
     }
     msg += `<br><span style="font-size:11px;opacity:0.6;">${playerEmoji} ${playerName} vs ${mikuEmoji} ${mikuName}</span>`;
     mikuSay(msg, 6000);
+  };
+
+  const playRPS = (playerChoice, btnEl) => {
+    // 视觉反馈：闪光 + 粒子
+    btnEl.classList.add('miku-rps-flash');
+    spawnParticles(btnEl);
+    setTimeout(() => btnEl.classList.remove('miku-rps-flash'), 120);
+
+    // 计算结果
+    const mikuChoice = RPS_CHOICES[Math.floor(Math.random() * 3)];
+    let result;
+    if (playerChoice === mikuChoice) result = 'tie';
+    else if (RPS_BEATS[playerChoice] === mikuChoice) result = 'win';
+    else result = 'lose';
+
+    const data = loadRps();
+    data.total++;
+    if (result === 'win') { data.wins++; data.streak++; data.bestStreak = Math.max(data.bestStreak, data.streak); }
+    else if (result === 'lose') { data.losses++; data.streak = 0; }
+    else data.ties++;
+    saveRps(data);
+    updateRpsDisplay(data);
+
+    // VS 动画
+    const row = btnEl.closest('.miku-rps-row');
+    const buttons = row ? row.querySelectorAll('.miku-rps-choice') : [];
+    const overlay = document.getElementById('miku-vs-overlay');
+    if (!overlay || !row) {
+      showRpsResult(playerChoice, mikuChoice, result, data);
+      return;
+    }
+
+    const playerEmoji = RPS_EMOJI[playerChoice];
+    const mikuEmoji = RPS_EMOJI[mikuChoice];
+
+    buttons.forEach((b) => { b.style.display = 'none'; });
+    overlay.style.display = 'flex';
+
+    // Phase 1: 玩家出拳
+    overlay.innerHTML = `<span style="font-size:36px;animation:vsPop 0.3s ease;">${playerEmoji}</span>`;
+
+    // Phase 2: VS
+    const t2 = setTimeout(() => {
+      overlay.innerHTML = `<span style="font-size:22px;font-weight:800;color:#F8EEFF;text-shadow:0 0 15px rgba(177,156,217,0.9);animation:vsPop 0.3s ease;">VS</span>`;
+    }, 400);
+
+    // Phase 3: Miku 出拳
+    const t3 = setTimeout(() => {
+      overlay.innerHTML = `<span style="font-size:36px;animation:vsPop 0.3s ease;">${mikuEmoji}</span>`;
+    }, 800);
+
+    // Phase 4: 恢复 + 结果
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      overlay.innerHTML = '';
+      buttons.forEach((b) => { b.style.display = ''; });
+      showRpsResult(playerChoice, mikuChoice, result, data);
+    }, 1200);
   };
 
   /* ========== 侧边栏面板 ========== */
@@ -232,21 +304,22 @@
     });
     html += '</div>';
 
-    // --- 分隔 ---
+    // 分隔
     html += '<div style="height:1px;background:var(--red-5, rgba(255,228,228,0.3));margin:10px 0;"></div>';
 
     // --- 猜拳 ---
     html += '<div>';
     html += '<button id="miku-rps-btn" class="miku-game-btn" onclick="window.__toggleRPS && window.__toggleRPS()">🎮 和 Miku 玩猜拳</button>';
-    html += '<div id="miku-rps-ui" style="display:none;margin-top:8px;">';
-    html += '<div style="display:flex;justify-content:center;gap:8px;margin-bottom:6px;">';
-    html += '<button class="miku-rps-choice" data-choice="rock" style="width:48px;height:48px;border-radius:50%;border:1px solid var(--red-3,#ffafaf);background:var(--red-6,#fff7f7);font-size:22px;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.transform=\'scale(1.15)\'" onmouseout="this.style.transform=\'scale(1)\'">✊</button>';
-    html += '<button class="miku-rps-choice" data-choice="scissors" style="width:48px;height:48px;border-radius:50%;border:1px solid var(--red-3,#ffafaf);background:var(--red-6,#fff7f7);font-size:22px;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.transform=\'scale(1.15)\'" onmouseout="this.style.transform=\'scale(1)\'">✌️</button>';
-    html += '<button class="miku-rps-choice" data-choice="paper" style="width:48px;height:48px;border-radius:50%;border:1px solid var(--red-3,#ffafaf);background:var(--red-6,#fff7f7);font-size:22px;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.transform=\'scale(1.15)\'" onmouseout="this.style.transform=\'scale(1)\'">✋</button>';
-    html += '</div>';
+    html += '<div id="miku-rps-ui" style="display:none;margin-top:10px;">';
+    // 按钮行 + VS overlay
+    html += '<div class="miku-rps-row" style="display:flex;justify-content:center;gap:10px;margin-bottom:6px;position:relative;">';
+    html += '<button class="miku-rps-choice" data-choice="rock">✊</button>';
+    html += '<button class="miku-rps-choice" data-choice="scissors">✌️</button>';
+    html += '<button class="miku-rps-choice" data-choice="paper">✋</button>';
+    html += '<div id="miku-vs-overlay" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;gap:12px;z-index:5;background:rgba(30,20,55,0.85);border-radius:12px;backdrop-filter:blur(4px);">';
+    html += '</div></div>';
     html += '<div id="miku-rps-score" style="font-size:12px;opacity:0.7;">胜 ' + rps.wins + ' / 负 ' + rps.losses + ' / 平 ' + rps.ties + '</div>';
-    html += '</div>';
-    html += '</div>';
+    html += '</div></div>';
 
     html += '</div></div>';
 
@@ -254,7 +327,7 @@
     temp.innerHTML = html;
     const widget = temp.firstElementChild;
 
-    // 注入到 sidebar
+    // 注入 sidebar
     const widgetArea = sidebar.querySelector('.sidebar-widget');
     if (widgetArea) {
       widgetArea.appendChild(widget);
@@ -268,7 +341,7 @@
 
     // 绑定猜拳事件
     widget.querySelectorAll('.miku-rps-choice').forEach((btn) => {
-      btn.addEventListener('click', () => playRPS(btn.dataset.choice));
+      btn.addEventListener('click', (e) => playRPS(btn.dataset.choice, btn));
     });
   };
 
@@ -281,6 +354,8 @@
     const widget = document.getElementById('miku-game-widget');
     if (widget) widget.remove();
     widgetInjected = false;
+    // 清理残留粒子
+    document.querySelectorAll('.rps-particle').forEach((el) => el.remove());
   };
 
   /* ========== 启动 ========== */
