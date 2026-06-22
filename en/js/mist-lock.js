@@ -43,10 +43,15 @@
     } catch { /* noop */ }
   };
 
-  /** 解析日期字符串：支持 "2026-01-01" 或 "2026-01-01 16:30" */
+  /** 解析日期字符串：支持 "2026-01-01" 或 "2026-01-01 16:30" 或 ISO 格式 */
   const parseDate = (str) => {
     if (!str) return null;
     const dt = str.trim();
+    // Hexo 可能输出 ISO 格式如 "2030-12-31T16:00:00.000Z" → 直接传 Date 构造
+    if (dt.includes('T') || dt.includes('Z')) {
+      const d = new Date(dt);
+      return isNaN(d.getTime()) ? null : d;
+    }
     // "2026-01-01 16:30" 格式
     if (/^\d{4}-\d{2}-\d{2}\s+\d{1,2}:\d{2}$/.test(dt)) {
       return new Date(dt.replace(' ', 'T') + ':00');
