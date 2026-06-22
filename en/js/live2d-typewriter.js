@@ -58,8 +58,8 @@
     },
   };
 
-  /* ----- 守护精灵模式 ----- */
-  let guardianState = null; // 'happy' | 'sad' | 'angry'
+  /* ----- 守护精灵 ----- */
+  let guardianState = null;
 
   const getGuardianState = (days) => {
     if (days <= 3) return { mood: 'happy', icon: '🕺', msg: '最近更新了！好开心～要一起努力哦！', face: '正常' };
@@ -67,6 +67,42 @@
     if (days <= 14) return { mood: 'worried', icon: '😟', msg: '已经一周没更新了...主人是不是太忙了？', face: '正常' };
     if (days <= 30) return { mood: 'sad', icon: '😞', msg: '快半个月了…主人不要我了吗？', face: '伤心' };
     return { mood: 'angry', icon: '😤', msg: '一个月不更新！太过分了！哼！', face: '生气' };
+  };
+
+  /* ----- 每周不同主题 ----- */
+  const WEEKLY_THEMES = [
+    { keywords: ['旅行','山','嵩山','泰山','Mount'], msg: '这周是旅行周！想看看主人爬过的每一座山 🏔️' },
+    { keywords: ['技术','Hexo','前端','搜索','图床'], msg: '技术周！这周我们来聊聊代码和折腾 🛠️' },
+    { keywords: ['随笔','小感','日记','碎碎念'], msg: '日常周！听听主人最近的碎碎念 📝' },
+    { keywords: ['电影','剧','纸钞屋','韩国'], msg: '影视周！主人好像又熬夜看剧了 📺' },
+    { keywords: ['数学','高考','论文','Pandoc','学'], msg: '学习周！一起努力变强吧 💪' },
+  ];
+
+  const getWeeklyTheme = () => {
+    const week = Math.floor((Date.now() / 604800000) % WEEKLY_THEMES.length);
+    return WEEKLY_THEMES[week];
+  };
+
+  const initWeeklyTheme = () => {
+    const theme = getWeeklyTheme();
+    const sidebar = document.querySelector('aside#sidebar');
+    if (!sidebar) return;
+
+    // 在已发表的随机文章中找一篇匹配主题的
+    fetch('/site-meta.json')
+      .then(r => r.json())
+      .then(() => {
+        const el = document.createElement('div');
+        el.style.cssText = 'margin-top:8px;padding:8px 12px;border-radius:8px;font-size:12px;text-align:center;background:rgba(255,78,106,0.06);border:1px solid rgba(255,78,106,0.15);opacity:0.8;';
+        el.innerHTML = `📌 本周主题：${theme.msg}`;
+        const insertAfter = () => {
+          const badge = document.getElementById('guardian-badge') || document.getElementById('miku-game-widget');
+          if (badge && badge.parentNode) badge.parentNode.insertBefore(el, badge.nextSibling);
+          else { const wa = sidebar.querySelector('.sidebar-widget'); if (wa) wa.appendChild(el); else sidebar.appendChild(el); }
+        };
+        setTimeout(insertAfter, 2000);
+      })
+      .catch(() => {});
   };
 
   const initGuardian = () => {
@@ -195,6 +231,7 @@
     initNightCheck();
     initStayTimer();
     initGuardian();
+    initWeeklyTheme();
     setTimeout(initPageGreeting, 2000);
   };
 
