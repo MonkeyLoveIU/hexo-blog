@@ -1,0 +1,104 @@
+/* ============================================
+ * Miku 互动小游戏 — 样式
+ *
+ * 包含：热区定位、侧边栏面板、猜拳按钮
+ * ============================================ */
+
+/* ---- 热区容器（覆盖在 canvas 上） ---- */
+#live2d-hit-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 90;
+}
+
+/* ---- 各部位热区（透明不可见） ---- */
+.miku-hitzone {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#live2d-hit-head {
+  top: 5%;
+  left: 25%;
+  width: 50%;
+  height: 28%;
+  border-radius: 50%;
+}
+
+#live2d-hit-body {
+  top: 32%;
+  left: 15%;
+  width: 70%;
+  height: 38%;
+}
+
+#live2d-hit-feet {
+  top: 68%;
+  left: 25%;
+  width: 50%;
+  height: 25%;
+}
+
+/* ---- 侧边栏统计行 ---- */
+.miku-stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.miku-stat-row .miku-stat-val {
+  color: var(--red-1, #ff5252);
+  font-weight: 700;
+  font-family: monospace;
+}
+
+/* ---- 猜拳按钮 ---- */
+.miku-game-btn {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, var(--red-1, #ff5252), #ff8a65);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 78, 106, 0.25);
+}
+
+.miku-game-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 78, 106, 0.4);
+}
+
+.miku-game-btn:active {
+  transform: translateY(0);
+}
+
+/* ---- 猜拳选择按钮 ---- */
+.miku-rps-choice {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--red-3, #ffafaf) !important;
+  background: var(--red-6, #fff7f7) !important;
+  font-size: 22px !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.miku-rps-choice:hover {
+  border-color: var(--red-1, #ff5252) !important;
+  box-shadow: 0 0 12px rgba(255, 82, 82, 0.3);
+}
