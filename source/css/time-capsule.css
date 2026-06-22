@@ -1,0 +1,50 @@
+/* ============================================
+ * 留言时空胶囊 — 样式
+ * ============================================ */
+
+.time-capsule {
+  margin: 20px 0;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,.8) 1px, transparent 2px),
+    radial-gradient(circle at 70% 20%, rgba(255,255,255,.6) 1px, transparent 2px),
+    linear-gradient(135deg, rgba(55,35,90,.92), rgba(30,20,55,.95));
+  border: 1px solid rgba(180, 150, 255, 0.3);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
+  color: #F8EEFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.time-capsule::before {
+  content: '📜';
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  font-size: 32px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.time-capsule-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-capsule-message {
+  font-size: 14px;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+.time-capsule-date {
+  font-size: 11px;
+  opacity: 0.5;
+  margin-top: 8px;
+  text-align: right;
+}

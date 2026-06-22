@@ -7,6 +7,9 @@ Categories: Travel
 Tags:
   - Mount Tai
   - Hiking
+latitude: 36.2558
+longitude: 117.1065
+location: Tai'an, Shandong·Mount Tai
 Excerpt: Journey to Mount Tai
 lang: en
 ---

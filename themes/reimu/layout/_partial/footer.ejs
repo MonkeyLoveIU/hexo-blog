@@ -65,5 +65,26 @@
         <span id="busuanzi_container_site_uv"><%= __('busuanzi.uv') %>&nbsp;<span id="busuanzi_value_site_uv"></span></span>
       </div>
     <% } %>
+    <div>
+      <span class="icon-heart" style="color:var(--red-1);"></span>
+      <span id="blog-age">计算中...</span>
+    </div>
   </div>
 </footer>
+<script>
+(function() {
+  var birth = new Date('2025-01-01T00:00:00');
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var diff = Date.now() - birth.getTime();
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var el = document.getElementById('blog-age');
+    if (el) el.textContent = '博客已运行 ' + d + ' 天 ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>

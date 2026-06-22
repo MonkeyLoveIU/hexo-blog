@@ -15,6 +15,9 @@ menu:
   - name: about
     url: /about
     icon: 'e647'
+  - name: travel
+    url: /travel-map
+    icon: 'e64d'
   - name: friend
     url: /friend
     icon: 'e604'
@@ -86,7 +89,7 @@ injector:
   head_begin: # Inject code snippet right after <head>
   head_end: # Inject code snippet right before </head>
   body_begin: # Inject code snippet right after <body>
-  body_end: <link rel="stylesheet" href="/css/moments.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script>
+  body_end: <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script>
   sidebar_begin: # Inject code snippet right after <aside>
   sidebar_end: # Inject code snippet right before </aside>
 
@@ -273,7 +276,7 @@ math:
 # mermaid url https://github.com/knsv/mermaid
 # need https://github.com/webappdevelp/hexo-filter-mermaid-diagrams
 mermaid:
-  enable: false
+  enable: true
 
 code_block:
   # whether to expand the code block by default
@@ -605,7 +608,7 @@ pjax:
 # Experimental
 # https://github.com/GoogleChromeLabs/quicklink
 quicklink:
-  enable: false
+  enable: true
   # The `requestIdleCallback` timeout, in milliseconds.
   timeout: 3000
   # Whether or not the URLs within the options.el container should be treated as high priority.
@@ -621,7 +624,7 @@ pace:
 
 # Experimental
 service_worker:
-  enable: false
+  enable: true
 
 # Experimental
 live2d:

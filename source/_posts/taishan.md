@@ -7,6 +7,9 @@ categories: 旅行
 tags:
   - 泰山
   - 爬山
+latitude: 36.2558
+longitude: 117.1065
+location: 山东泰安·泰山
 excerpt: 泰山之行
 ---
 

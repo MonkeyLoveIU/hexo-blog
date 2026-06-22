@@ -7,6 +7,9 @@ categories: Travel
 tags:
   - Mount Song
   - Hiking
+latitude: 34.5103
+longitude: 113.0495
+location: Dengfeng, Henan·Mount Song
 excerpt: A trip to Mount Song
 lang: en
 ---

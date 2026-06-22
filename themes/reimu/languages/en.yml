@@ -26,6 +26,7 @@ friend: Friend
 diary: Diary
 archives: Archives
 gallery: Gallery
+travel: Travel
 
 sidebar:
   post: Post

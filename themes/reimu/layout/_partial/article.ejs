@@ -1,4 +1,13 @@
-<article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting"
+  <% if (post.unlock_date) { %>data-unlock-date="<%= post.unlock_date %>"<% } %>
+  <% if (post.read_required) { %>data-read-required="<%= post.read_required %>"<% } %>
+  <% if (post.mist_title) { %>data-mist-title="<%= post.mist_title %>"<% } %>
+  <% if (post.fake_content) { %>data-has-fake="true"<% } %>
+  <% if (post.clues) { %>data-clues="<%- encodeURIComponent(JSON.stringify(post.clues)) %>"<% } %>
+  <% if (post.quiz_question) { %>data-quiz="<%- encodeURIComponent(JSON.stringify({question: post.quiz_question, answer: post.quiz_answer, password: post.quiz_password})) %>"<% } %>
+  <% if (post.burn_after_reading) { %>data-burn="true"<% } %>
+  <% if (post.burn_duration) { %>data-burn-duration="<%= post.burn_duration %>"<% } %>
+  <% if (post.dual_password) { %>data-dual-password="true"<% } %>>
   <div class="article-inner" data-aos="<%= theme.animation.options.article.whole %>">
     <div class="article-meta">
       <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
@@ -20,6 +29,7 @@
         <%- post.content %>
       <% } %>
     </div>
+    <% if (post.fake_content) { %><div id="hbe-fake-content" style="display:none"><%- post.fake_content %></div><% } %>
     <footer class="article-footer">
       <% if (post.copyright === true) { %>
         <%- articleCopyright(post) %>

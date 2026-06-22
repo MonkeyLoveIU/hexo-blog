@@ -7,6 +7,9 @@ categories: 旅行
 tags:
   - 嵩山
   - 爬山
+latitude: 34.5103
+longitude: 113.0495
+location: 河南登封·嵩山
 excerpt: 嵩山之行
 ---
 

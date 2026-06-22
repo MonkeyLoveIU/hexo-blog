@@ -211,7 +211,17 @@
 <% if (theme.live2d.enable) { %>
   <script>
     function initLive2d() {
-      live2d.init("<%- vendorCdn(theme.vendor.js.live2d.base)[0] %>", {themeTipsPath: ""});
+      live2d.init("<%- vendorCdn(theme.vendor.js.live2d.base)[0] %>", {
+        themeTipsPath: "/live2d-tips.json",
+        tipsPath: "/live2d-tips.json",
+        firstOpenSite: true,
+        backSite: true,
+        openConsole: true,
+        copyContent: true,
+        backSiteTip: "欢迎回来！等你半天了呢～",
+        openConsoleTip: "哎呀，被发现了！控制台里可没有我的秘密哦～",
+        copyContentTip: "复制带走可以，记得注明出处哦！"
+      });
     }
   </script>
   <%- js({src: vendorCdn(theme.vendor.js.live2d.js)[0], onload: "initLive2d && initLive2d()", async: true})%>

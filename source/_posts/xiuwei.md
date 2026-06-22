@@ -1,3 +1,4 @@
+---
 title: 修为散尽
 date: 2024-01
 cover: https://img.monkeyiu.icu/{year}/{month}/{md5}.{extName}/seven.webp
