@@ -226,24 +226,20 @@
 
     buttons.forEach((b) => { b.style.display = 'none'; });
     overlay.style.display = 'flex';
+    overlay.style.gap = '10px';
 
-    // Phase 1: 玩家出拳
-    overlay.innerHTML = `<span style="font-size:36px;animation:vsPop 0.3s ease;">${playerEmoji}</span>`;
+    // 同时显示：玩家 emoji → VS → Miku emoji
+    overlay.innerHTML = `
+      <span style="font-size:32px;animation:vsPop 0.3s ease;">${playerEmoji}</span>
+      <span style="font-size:16px;font-weight:800;color:#F8EEFF;text-shadow:0 0 15px rgba(177,156,217,0.9);animation:vsPop 0.3s ease 0.1s both;">VS</span>
+      <span style="font-size:32px;animation:vsPop 0.3s ease 0.2s both;">${mikuEmoji}</span>
+    `;
 
-    // Phase 2: VS
-    const t2 = setTimeout(() => {
-      overlay.innerHTML = `<span style="font-size:22px;font-weight:800;color:#F8EEFF;text-shadow:0 0 15px rgba(177,156,217,0.9);animation:vsPop 0.3s ease;">VS</span>`;
-    }, 400);
-
-    // Phase 3: Miku 出拳
-    const t3 = setTimeout(() => {
-      overlay.innerHTML = `<span style="font-size:36px;animation:vsPop 0.3s ease;">${mikuEmoji}</span>`;
-    }, 800);
-
-    // Phase 4: 恢复 + 结果
+    // 恢复 + 结果
     setTimeout(() => {
       overlay.style.display = 'none';
       overlay.innerHTML = '';
+      overlay.style.gap = '';
       buttons.forEach((b) => { b.style.display = ''; });
       showRpsResult(playerChoice, mikuChoice, result, data);
     }, 1200);
