@@ -195,13 +195,11 @@
   const watchCountdown = (el, state) => {
     if (!state.locked) return;
 
-    const prefix = state.inForbid ? 'cd' : 'cd';
-    // 需要知道用 forbid_end 还是 unlockDate 作为目标
     const target = state.inForbid ? state.forbidTarget : state.unlockDate;
     if (!target) return;
 
-    // 初始化显示
-    updateCountdown(target, prefix);
+    // 初始化显示 (ID 固定为 cd-days/cd-hours/cd-minutes/cd-seconds)
+    updateCountdown(target, 'cd');
 
     const timer = setInterval(() => {
       // 重新获取完整状态（因为可能跨过了 forbid 窗口）
@@ -211,10 +209,8 @@
         clearInterval(timer);
         return;
       }
-
-      // 选择正确的目标
       const t = fresh.inForbid ? fresh.forbidTarget : fresh.unlockDate;
-      updateCountdown(t, prefix);
+      updateCountdown(t, 'cd');
     }, 1000);
   };
 

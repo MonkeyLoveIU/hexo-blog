@@ -452,7 +452,7 @@
     badge.id = 'hbe-badge';
     badge.className = 'widget-wrap';
     badge.style.cssText =
-      'padding: 12px 16px; border-radius: 12px; ' +
+      'padding: 12px 16px; border-radius: 12px; margin: 0 0 12px 0; ' +
       'background: var(--red-5-5, rgba(255,228,228,0.15)); ' +
       'border: 1px solid var(--red-5, rgba(255,228,228,0.15)); ' +
       'font-size: 13px; line-height: 1.6; ' +
@@ -461,8 +461,17 @@
     renderBadge(loadAchievements());
 
     const widgetArea = sidebar.querySelector('.sidebar-widget');
-    if (widgetArea) widgetArea.appendChild(badge);
-    else sidebar.appendChild(badge);
+    if (widgetArea) {
+      widgetArea.appendChild(badge);
+    } else {
+      // 文章页：sidebar-widget 不存在，插入到 sidebar 底部
+      const wrap = sidebar.querySelector('.sidebar-wrapper-container');
+      if (wrap && wrap.parentNode) {
+        wrap.parentNode.insertBefore(badge, wrap.nextSibling);
+      } else {
+        sidebar.appendChild(badge);
+      }
+    }
   };
 
   /* ========== 启动 ========== */
