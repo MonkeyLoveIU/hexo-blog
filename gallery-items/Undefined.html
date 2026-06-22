@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>18岁 · 宇宙权限已开启 · 程诺怡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;500;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+:root{
+  --bg:#050508;
+  --gold:#b89a6e;
+  --gold-dim:#7a6a4e;
+  --cream:#e8e0d4;
+  --text:#d4d0c8;
+  --accent:#6b7a8e;
+  --purple:#6c5b7b;
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Noto Sans SC',PingFang SC,-apple-system,BlinkMacSystemFont,sans-serif;
+  overflow-x:hidden;min-height:100vh;
+  cursor:default;
+}
+
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:1px}
+
+#star-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.5}
+#interactive-canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+/* ════════════════════════════════════
+   PHASE 0 – 黑屏等待
+   ════════════════════════════════════ */
+#phase-0{
+  position:fixed;inset:0;z-index:100;
+  background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:opacity 1.2s ease;
+}
+#phase-0.fade{opacity:0;pointer-events:none}
+
+#phase-0 .click-ring{
+  width:64px;height:64px;border-radius:50%;
+  border:1px solid rgba(184,154,110,0.12);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:32px;
+  position:relative;
+  animation:ring-breathe 3s ease-in-out infinite;
+}
+
+#phase-0 .click-ring::before,
+#phase-0 .click-ring::after{
+  content:'';position:absolute;border-radius:50%;
+  border:1px solid rgba(184,154,110,0.06);
+  width:64px;height:64px;
+  animation:ring-expand 3s ease-out infinite;
+}
+#phase-0 .click-ring::after{
+  animation-delay:1s;
+}
+
+@keyframes ring-breathe{
+  0%,100%{border-color:rgba(184,154,110,0.08);transform:scale(1)}
+  50%{border-color:rgba(184,154,110,0.18);transform:scale(1.03)}
+}
+@keyframes ring-expand{
+  0%{transform:scale(1);opacity:0.5}
+  100%{transform:scale(2.5);opacity:0}
+}
+
+#phase-0 .init-num{
+  font-size:clamp(32px,5vw,56px);font-weight:300;
+  color:rgba(184,154,110,0.15);
+  letter-spacing:16px;
+  font-family:'Noto Serif SC',serif;
+  animation:breathe-star 3s ease-in-out infinite;
+}
+
+@keyframes breathe-star{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.08)}
+}
+
+#phase-0 .hint{
+  color:rgba(232,224,212,0.25);
+  font-size:13px;
+  letter-spacing:6px;
+  font-family:'Noto Sans SC',sans-serif;
+  margin-top:40px;
+  animation:pulse-hint 2.8s ease-in-out infinite;
+}
+
+@keyframes pulse-hint{
+  0%,100%{opacity:0.25}
+  50%{opacity:0.55}
+}
+
+/* ════════════════════════════════════
+   PHASE 1 – 系统启动日志
+   ════════════════════════════════════ */
+#phase-1{
+  position:fixed;inset:0;z-index:90;
+  background:#000;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity 0.8s ease;pointer-events:none;
+}
+#phase-1.show{opacity:1;pointer-events:auto}
+#phase-1 .log-window{
+  max-width:520px;width:90vw;
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:clamp(12px,1.8vw,16px);font-weight:300;
+  color:rgba(255,255,255,0.5);line-height:2;
+}
+#phase-1 .log-line{
+  opacity:0;transform:translateY(6px);
+  transition:all 0.5s ease;
+}
+#phase-1 .log-line.reveal{opacity:1;transform:translateY(0)}
+#phase-1 .log-line .hl{color:var(--gold);font-weight:500}
+#phase-1 .log-line .green{color:rgba(120,200,140,0.6)}
+#phase-1 .log-line .arrow{color:var(--gold-dim);margin-right:12px}
+#phase-1 .cursor-line::after{
+  content:'▌';color:var(--gold-dim);
+  animation:term-blink 0.8s step-end infinite;
+}
+@keyframes term-blink{50%{opacity:0}}
+
+#phase-1 .progress-bar{
+  margin-top:24px;width:100%;height:1px;background:rgba(255,255,255,0.04);
+  border-radius:1px;overflow:hidden;
+}
+#phase-1 .progress-bar .fill{
+  height:100%;width:0;background:var(--gold-dim);
+  transition:width 0.3s ease;
+}
+
+/* ════════════════════════════════════
+   PHASE 2 – 正文滚动
+   ════════════════════════════════════ */
+#phase-2{
+  opacity:0;transition:opacity 1.5s ease;position:relative;z-index:10;
+}
+#phase-2.show{opacity:1}
+
+.content{position:relative;z-index:5;max-width:700px;margin:0 auto;padding:0 30px}
+
+/* ─── hero 标题 ─── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:100px 0 80px;position:relative;
+}
+.hero .label{
+  font-size:12px;letter-spacing:8px;color:var(--gold-dim);margin-bottom:30px;
+  text-transform:uppercase;font-family:sans-serif;
+  opacity:0;animation:fadeSlideUp 1s ease 0.5s forwards;
+}
+.hero h1{
+  font-family:'Noto Serif SC',Georgia,Garamond,serif;
+  font-size:clamp(44px,9vw,96px);font-weight:900;line-height:1.1;margin-bottom:10px;
+  opacity:0;animation:fadeSlideUp 1.2s ease 0.8s forwards;
+}
+.hero h1 .gold{
+  color:var(--gold);
+  background:linear-gradient(135deg,var(--gold),#d4b896,var(--gold));
+  background-size:200% 200%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 6s ease infinite;
+}
+@keyframes shimmer{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+.hero .sub{
+  font-size:clamp(14px,2.2vw,22px);color:var(--accent);font-weight:300;
+  letter-spacing:6px;margin-top:20px;line-height:1.8;
+  opacity:0;animation:fadeSlideUp 1s ease 1.2s forwards;
+}
+@keyframes fadeSlideUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.scroll-hint{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:fadeIn 1s ease 2s forwards;
+}
+.scroll-hint .arrow-down{
+  width:1px;height:30px;background:linear-gradient(to bottom,var(--gold-dim),transparent);
+  animation:scroll-bounce 2s ease-in-out infinite;
+}
+.scroll-hint .scroll-text{
+  font-size:10px;color:var(--gold-dim);letter-spacing:4px;
+}
+@keyframes scroll-bounce{
+  0%,100%{transform:translateY(0);opacity:0.3}
+  50%{transform:translateY(8px);opacity:0.8}
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ─── section 通用入场 ─── */
+.section{opacity:0;transform:translateY(40px);transition:all 0.9s cubic-bezier(0.22,1,0.36,1);margin-bottom:40px}
+.section.visible{opacity:1;transform:translateY(0)}
+
+/* ─── 正文 ─── */
+.body-text{font-family:'Noto Serif SC',Georgia,Garamond,serif;font-size:clamp(15px,2.2vw,19px);line-height:2.3;color:var(--cream);padding:40px 0}
+.body-text p{margin-bottom:30px}
+.body-text .gold{color:var(--gold)}
+.body-text .mute{color:var(--accent);font-size:0.85em}
+.body-text .big{font-size:1.15em;font-weight:700}
+.body-text .gap{margin-top:10px}
+
+/* ─── 引用 ─── */
+.quote-lines{
+  border-left:1px solid rgba(201,169,110,0.15);padding:20px 0 20px 36px;margin:30px 0;
+  position:relative;
+}
+.quote-lines::before{
+  content:'';position:absolute;left:-1px;top:0;width:1px;height:0;
+  background:var(--gold);transition:height 1.5s ease;
+}
+.section.visible .quote-lines::before{height:100%}
+.quote-lines p{color:var(--gold-dim);font-size:clamp(14px,2vw,17px);line-height:2;margin-bottom:8px}
+.quote-lines p:last-child{margin-bottom:0}
+
+/* ─── 年龄计数器 ─── */
+.age-counter{
+  text-align:center;margin:60px 0;padding:40px;
+  border:1px solid rgba(255,255,255,0.03);
+  background:rgba(255,255,255,0.01);border-radius:2px;
+}
+.age-counter .counter-label{
+  font-size:11px;color:var(--gold-dim);letter-spacing:6px;margin-bottom:16px;
+  text-transform:uppercase;
+}
+.age-counter .counter-num{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(48px,10vw,80px);font-weight:900;
+  color:var(--gold);line-height:1;
+  text-shadow:0 0 60px rgba(184,154,110,0.08);
+}
+.age-counter .counter-unit{
+  font-size:14px;color:var(--accent);margin-top:8px;letter-spacing:4px;
+}
+.age-counter .counter-detail{
+  margin-top:16px;font-size:12px;color:rgba(255,255,255,0.15);
+  font-family:sans-serif;letter-spacing:2px;line-height:2;
+}
+
+/* ─── 时间线 ─── */
+.timeline{
+  margin:60px 0;padding:0;list-style:none;position:relative;
+}
+.timeline::before{
+  content:'';position:absolute;left:12px;top:0;bottom:0;
+  width:1px;background:rgba(201,169,110,0.08);
+}
+.timeline-item{
+  padding-left:40px;margin-bottom:30px;position:relative;
+  opacity:0;transform:translateX(-10px);
+  transition:all 0.6s ease;
+}
+.timeline-item.show{opacity:1;transform:translateX(0)}
+.timeline-item::before{
+  content:'';position:absolute;left:8px;top:8px;
+  width:9px;height:9px;border-radius:50%;
+  border:1px solid var(--gold-dim);background:var(--bg);
+  transition:all 0.4s ease;
+}
+.timeline-item.show::before{
+  background:var(--gold-dim);box-shadow:0 0 8px rgba(184,154,110,0.2);
+}
+.timeline-item .tl-year{
+  font-size:11px;color:var(--gold-dim);letter-spacing:4px;margin-bottom:4px;
+}
+.timeline-item .tl-text{
+  font-size:clamp(13px,1.6vw,15px);color:var(--cream);line-height:1.8;
+}
+
+/* ─── 宇宙检测系统 ─── */
+.detect-box{
+  margin:50px 0;padding:40px;border:1px solid rgba(201,169,110,0.1);
+  background:rgba(201,169,110,0.02);text-align:center;border-radius:2px;
+  position:relative;overflow:hidden;
+}
+.detect-box::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(184,154,110,0.03),transparent 70%);
+  pointer-events:none;
+}
+.detect-box .icon{
+  font-size:28px;margin-bottom:16px;opacity:0.4;
+  animation:detect-rotate 8s linear infinite;
+}
+@keyframes detect-rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.detect-box .prompt{font-size:13px;color:var(--accent);letter-spacing:4px;margin-bottom:20px}
+.detect-btn{
+  padding:16px 40px;border:1px solid rgba(201,169,110,0.2);
+  background:transparent;color:var(--gold);font-family:'Noto Sans SC',PingFang SC,-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:13px;letter-spacing:4px;cursor:pointer;border-radius:2px;
+  transition:all 0.5s ease;-webkit-user-select:none;user-select:none;
+  position:relative;overflow:hidden;
+}
+.detect-btn::after{
+  content:'';position:absolute;top:50%;left:50%;width:0;height:0;
+  background:rgba(184,154,110,0.1);border-radius:50%;
+  transform:translate(-50%,-50%);transition:width 0.6s,height 0.6s;
+}
+.detect-btn:hover::after{width:300px;height:300px}
+.detect-btn:hover{background:rgba(201,169,110,0.06);border-color:var(--gold)}
+.detect-btn:active{transform:scale(0.97)}
+.detect-result{
+  margin-top:24px;font-size:clamp(13px,1.6vw,15px);color:var(--cream);
+  min-height:40px;line-height:2;opacity:0;transition:opacity 0.6s ease;
+}
+.detect-result.show{opacity:1}
+.detect-result .scan-line{color:var(--accent);font-size:12px;font-family:sans-serif;letter-spacing:2px}
+.detect-result .verdict{color:var(--gold);font-size:1.1em;font-weight:700;margin-top:12px}
+
+.scan-bar{
+  width:100%;height:2px;background:rgba(255,255,255,0.04);
+  margin-top:16px;border-radius:1px;overflow:hidden;display:none;
+}
+.scan-bar.active{display:block}
+.scan-bar .fill{
+  height:100%;width:0;background:linear-gradient(90deg,var(--gold-dim),var(--gold));
+  transition:width 0.5s ease;
+}
+
+/* ─── 权限开启 ─── */
+.permissions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:40px 0}
+.permit{
+  padding:18px 20px;border:1px solid rgba(255,255,255,0.04);
+  background:rgba(255,255,255,0.02);border-radius:2px;
+  display:flex;align-items:center;gap:14px;
+  font-size:clamp(12px,1.5vw,14px);color:var(--accent);
+  transition:all 0.5s ease;
+  cursor:default;
+}
+.permit .check{
+  color:rgba(120,200,140,0.5);font-size:10px;
+  opacity:0;transform:scale(0);
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.permit.unlocked{color:var(--cream);border-color:rgba(120,200,140,0.08);background:rgba(120,200,140,0.02)}
+.permit.unlocked .check{opacity:1;transform:scale(1)}
+.permit:hover{border-color:rgba(201,169,110,0.15)}
+@media(max-width:500px){.permissions{grid-template-columns:1fr}}
+
+/* ─── 时间胶囊 ─── */
+.capsule-box{
+  margin:60px 0;padding:40px;border:1px solid rgba(255,255,255,0.04);
+  background:rgba(255,255,255,0.01);border-radius:2px;
+  position:relative;
+}
+.capsule-box::before{
+  content:'✦';position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  font-size:16px;color:var(--gold-dim);opacity:0.3;
+  background:var(--bg);padding:0 12px;
+}
+.capsule-box .cap-title{font-size:12px;color:var(--gold-dim);letter-spacing:4px;margin-bottom:6px}
+.capsule-box .cap-desc{font-size:14px;color:var(--accent);margin-bottom:24px}
+.capsule-box textarea{
+  width:100%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
+  padding:16px;color:var(--cream);font-family:'Noto Serif SC',serif;font-size:15px;line-height:1.8;
+  resize:none;outline:none;border-radius:2px;transition:border-color 0.3s;min-height:100px;
+}
+.capsule-box textarea::placeholder{color:rgba(255,255,255,0.15)}
+.capsule-box textarea:focus{border-color:var(--gold-dim);box-shadow:0 0 20px rgba(184,154,110,0.03)}
+.capsule-box .char-count{
+  text-align:right;font-size:11px;color:rgba(255,255,255,0.1);margin-top:4px;
+  transition:color 0.3s;
+}
+.capsule-box .char-count.warn{color:rgba(255,120,120,0.4)}
+.capsule-box .cap-actions{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+.cap-btn{
+  padding:12px 28px;border:1px solid rgba(255,255,255,0.08);
+  background:transparent;color:var(--text);font-family:'Noto Sans SC',sans-serif;
+  font-size:12px;letter-spacing:2px;cursor:pointer;border-radius:2px;
+  transition:all 0.3s ease;
+}
+.cap-btn:hover{background:rgba(255,255,255,0.04)}
+.cap-btn:active{transform:scale(0.97)}
+.cap-btn.primary{border-color:var(--gold-dim);color:var(--gold)}
+.cap-btn.primary:hover{background:rgba(201,169,110,0.06)}
+.cap-saved{font-size:12px;color:rgba(120,200,140,0.6);margin-top:12px;opacity:0;transition:opacity 0.5s}
+.cap-saved.show{opacity:1}
+.cap-old{
+  margin-top:20px;padding:16px;background:rgba(255,255,255,0.02);border-radius:2px;
+  font-size:14px;line-height:1.8;color:var(--gold-dim);display:none;
+  border:1px solid rgba(201,169,110,0.06);
+}
+
+/* ─── 签名 ─── */
+.signature{
+  margin:80px 0 100px;padding-top:50px;border-top:1px solid rgba(255,255,255,0.03);
+  position:relative;
+}
+.signature::before{
+  content:'';position:absolute;top:-1px;left:0;width:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);
+  transition:width 2s ease;
+}
+.section.visible .signature::before{width:100%}
+.signature .big-name{
+  font-family:'Noto Serif SC',serif;font-size:clamp(28px,4vw,40px);
+  color:var(--gold);font-weight:900;margin-bottom:4px;
+}
+.signature .tagline{font-size:clamp(13px,1.6vw,16px);color:var(--accent);font-weight:300;letter-spacing:4px}
+.signature .footnote{font-size:12px;color:rgba(255,255,255,0.12);margin-top:30px;letter-spacing:3px}
+
+/* ════════════════════════════════════
+   PHASE 3 – 终屏
+   ════════════════════════════════════ */
+#phase-3{
+  position:relative;z-index:5;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 30px;
+  opacity:0;transition:opacity 1.8s ease;
+}
+#phase-3.show{opacity:1}
+#phase-3 .final-line{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(28px,5vw,56px);font-weight:900;
+  color:var(--gold);
+  text-shadow:0 0 80px rgba(201,169,110,0.06);
+  line-height:1.3;
+  opacity:0;transform:scale(0.9);transition:all 1.2s cubic-bezier(0.22,1,0.36,1);
+}
+#phase-3 .final-line.show{opacity:1;transform:scale(1)}
+#phase-3 .final-sub{
+  font-size:clamp(12px,1.6vw,16px);color:rgba(255,255,255,0.4);
+  margin-top:20px;letter-spacing:8px;
+  opacity:0;transition:all 1.5s ease 1s;
+}
+#phase-3 .final-sub.show{opacity:1}
+#phase-3 .final-sub:hover{color:rgba(255,255,255,0.8);text-shadow:0 0 10px rgba(255,255,255,0.3)}
+#phase-3 .final-ps{
+  font-size:12px;color:rgba(255,255,255,0.2);margin-top:50px;letter-spacing:6px;
+  opacity:0;transition:all 1.5s ease 2s;
+}
+#phase-3 .final-ps.show{opacity:1}
+#phase-3 .final-ps:hover{color:rgba(255,255,255,0.8);text-shadow:0 0 10px rgba(255,255,255,0.3)}
+#phase-3 .restart-btn{
+  margin-top:60px;padding:12px 32px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:transparent;color:rgba(255,255,255,0.1);
+  font-size:11px;letter-spacing:4px;cursor:pointer;border-radius:2px;
+  transition:all 0.5s ease;font-family:'Noto Sans SC',sans-serif;
+  opacity:0;
+}
+#phase-3 .restart-btn.show{opacity:1}
+#phase-3 .restart-btn:hover{color:var(--gold-dim);border-color:rgba(201,169,110,0.15)}
+
+/* ─── 粒子 ─── */
+.particle{
+  position:fixed;z-index:99;pointer-events:none;border-radius:50%;
+  opacity:0;
+}
+.particle.float{
+  animation:partFloat var(--dur) ease-out forwards;
+}
+@keyframes partFloat{
+  0%{opacity:0;transform:translate(0,0) scale(0)}
+  15%{opacity:0.5;transform:translate(calc(var(--tx)*0.15),calc(var(--ty)*0.15)) scale(1)}
+  100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}
+}
+
+/* ─── 流星 ─── */
+.meteor{
+  position:fixed;z-index:1;pointer-events:none;opacity:0;
+  width:2px;height:2px;background:#fff;border-radius:50%;
+  animation:meteorFall var(--dur) linear forwards;
+}
+.meteor::after{
+  content:'';position:absolute;top:0;left:0;width:50px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),rgba(255,255,255,0.5));
+}
+@keyframes meteorFall{
+  0%{opacity:0;transform:translate(0,0)}
+  5%{opacity:1}
+  100%{opacity:0;transform:translate(var(--tx),var(--ty))}
+}
+
+/* ─── 通知弹窗 ─── */
+.notification-modal{
+  position:fixed;inset:0;z-index:80;
+  background:rgba(0,0,0,0.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  display:none;align-items:center;justify-content:center;padding:30px;
+}
+.notification-modal.open{display:flex}
+.notification-modal .modal-box{
+  max-width:440px;width:100%;padding:40px;border:1px solid rgba(201,169,110,0.12);
+  background:rgba(20,18,22,0.95);border-radius:2px;
+  animation:modal-in 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes modal-in{
+  from{opacity:0;transform:scale(0.95) translateY(10px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+.modal-box .modal-icon{font-size:32px;margin-bottom:16px;opacity:0.3}
+.modal-box .modal-title{font-family:'Noto Serif SC',serif;font-size:20px;color:var(--cream);margin-bottom:8px}
+.modal-box .modal-body{font-size:14px;color:var(--accent);line-height:2;margin-bottom:24px}
+.modal-box .modal-close{
+  padding:10px 24px;border:1px solid rgba(255,255,255,0.08);
+  background:transparent;color:var(--text);font-size:12px;letter-spacing:3px;cursor:pointer;
+  border-radius:2px;transition:all 0.3s;font-family:'Noto Sans SC',sans-serif;
+}
+.modal-box .modal-close:hover{background:rgba(255,255,255,0.04)}
+
+/* ─── 进度条（顶部） ─── */
+#reading-progress{
+  position:fixed;top:0;left:0;width:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-dim),var(--gold));
+  z-index:90;transition:width 0.15s linear;
+  pointer-events:none;
+}
+
+/* ─── 音乐按钮 ─── */
+#music-btn{
+  position:fixed;top:24px;right:24px;z-index:95;
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.02);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:rgba(255,255,255,0.2);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.6s ease;font-family:sans-serif;letter-spacing:0;
+  opacity:0;pointer-events:none;
+}
+#music-btn.visible{opacity:1;pointer-events:auto}
+#music-btn:hover{border-color:rgba(201,169,110,0.2);color:var(--gold-dim)}
+#music-btn.playing{
+  color:var(--gold);border-color:rgba(201,169,110,0.15);
+  box-shadow:0 0 20px rgba(201,169,110,0.04);
+  animation:music-pulse 2s ease-in-out infinite;
+}
+@keyframes music-pulse{
+  0%,100%{box-shadow:0 0 20px rgba(201,169,110,0.04)}
+  50%{box-shadow:0 0 30px rgba(201,169,110,0.08)}
+}
+#music-btn .tip{
+  position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);
+  font-size:11px;color:var(--gold-dim);white-space:nowrap;
+  opacity:0;transition:opacity 0.3s;pointer-events:none;
+}
+#music-btn:hover .tip{opacity:1}
+
+#audio-spectrum{
+  position:fixed;bottom:24px;right:24px;z-index:95;
+  display:none;width:120px;height:40px;
+  opacity:0.4;
+}
+#audio-spectrum.show{display:block}
+
+/* ─── responsive ─── */
+@media(max-width:600px){
+  .content{padding:0 16px}
+  .hero{padding:60px 0 50px}
+  .hero .sub{font-size:clamp(13px,3.5vw,17px);letter-spacing:3px}
+  .hero .label{font-size:11px;letter-spacing:5px}
+  .body-text{font-size:clamp(16px,4.2vw,18px);line-height:2.2}
+  .body-text p{margin-bottom:24px}
+  .quote-lines{padding-left:20px}
+  .quote-lines p{font-size:clamp(14px,3.8vw,16px)}
+  .detect-box{padding:24px 18px}
+  .capsule-box{padding:24px 18px}
+  .permissions{gap:6px}
+  .permit{padding:14px 16px;font-size:clamp(13px,3.2vw,15px)}
+  .signature .big-name{font-size:clamp(24px,7vw,34px)}
+  #phase-3 .final-line{font-size:clamp(26px,7vw,40px)}
+  #phase-1 .log-window{font-size:clamp(12px,3vw,15px)}
+  .signature .tagline{font-size:clamp(12px,3vw,15px);letter-spacing:2px}
+  .detect-box .prompt{font-size:12px}
+  .detect-btn{font-size:12px;padding:14px 28px}
+  .capsule-box .cap-desc{font-size:13px}
+  .capsule-box textarea{font-size:15px;padding:14px;min-height:90px}
+  #phase-3 .final-sub{font-size:clamp(11px,2.8vw,14px);letter-spacing:5px}
+  #phase-3 .final-ps{font-size:11px;letter-spacing:4px}
+  .scroll-hint{bottom:24px}
+  .age-counter .counter-num{font-size:clamp(40px,12vw,64px)}
+  .timeline-item{padding-left:32px}
+  #music-btn{top:16px;right:16px;width:36px;height:36px}
+}
+
+/* ─── 减少动画偏好 ─── */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
+  .meteor,.particle{display:none !important}
+}
+</style>
+</head>
+<body>
+
+<!-- Canvas 背景 -->
+<canvas id="star-canvas"></canvas>
+<canvas id="interactive-canvas"></canvas>
+
+<!-- 阅读进度条 -->
+<div id="reading-progress"></div>
+
+<!-- ══════ PHASE 0: 黑屏等待 ══════ -->
+<div id="phase-0" role="button" tabindex="0" aria-label="点击或按Enter键解锁">
+  <div class="click-ring">
+    <span class="init-num">✦</span>
+  </div>
+  <div class="hint">轻触任意处，开启宇宙</div>
+</div>
+
+<!-- ══════ PHASE 1: 系统启动 ══════ -->
+<div id="phase-1">
+  <div class="log-window" id="logWindow">
+    <div class="progress-bar"><div class="fill" id="logProgress"></div></div>
+  </div>
+</div>
+
+<!-- ══════ 音乐按钮 ══════ -->
+<button id="music-btn" aria-label="切换背景音乐" role="button">
+  ◌
+  <div class="tip">音乐</div>
+</button>
+<canvas id="audio-spectrum"></canvas>
+
+<!-- ══════ PHASE 2: 正文 ══════ -->
+<div id="phase-2">
+  <div class="content">
+
+    <!-- HERO -->
+    <div class="hero section" data-delay="0">
+      <div class="label">MMXXVI · VI · XXIII</div>
+      <h1>
+        宇宙向你<br>
+        <span class="gold">开放权限</span>
+      </h1>
+      <div class="sub">18岁 · 试点运行 · 允许成为任何人</div>
+      <div class="scroll-hint">
+        <div class="scroll-text">向下滑动</div>
+        <div class="arrow-down"></div>
+      </div>
+    </div>
+
+    <!-- 年龄计数器 -->
+    <div class="section" data-delay="0.1">
+      <div class="age-counter">
+        <div class="counter-label">已在地球运行</div>
+        <div class="counter-num" id="ageCounter">18</div>
+        <div class="counter-unit">年</div>
+        <div class="counter-detail" id="ageDetail"></div>
+      </div>
+    </div>
+
+    <!-- 卷一 -->
+    <div class="section" data-delay="0.2">
+      <div class="body-text">
+        <p>严格来说，<br>
+        今天是编号 7 样本被投放到地球的<span class="gold">第18年</span>。</p>
+
+        <p>宇宙档案显示：<br>
+        你从很早开始就表现出<span class="mute">「不适合被归类」</span>的特征——<br>
+        会为一颗好看的石头停下脚步、<br>
+        会在深夜思考宇宙有没有尽头、<br>
+        会在别人都往前走的时候突然拐进一条小巷。</p>
+
+        <p>这种人类。<br>
+        不适合被祝福<span class="mute">「前程似锦，万事顺遂」</span>。</p>
+      </div>
+    </div>
+
+    <!-- 引用 -->
+    <div class="section" data-delay="0.4">
+      <div class="quote-lines">
+        <p>世界正在尝试定义你。</p>
+        <p>请谨慎同意。</p>
+      </div>
+    </div>
+
+    <!-- 时间线 -->
+    <div class="section" data-delay="0.5">
+      <div class="body-text" style="padding-bottom:20px">
+        <p><span class="mute">[ 系统日志 · 节选 ]</span></p>
+      </div>
+      <ul class="timeline" id="timeline">
+        <li class="timeline-item">
+          <div class="tl-year">2008</div>
+          <div class="tl-text">样本投放完成。初始化正常。</div>
+        </li>
+        <li class="timeline-item">
+          <div class="tl-year">2014</div>
+          <div class="tl-text">首次表现出「对世界充满好奇」异常。</div>
+        </li>
+        <li class="timeline-item">
+          <div class="tl-year">2020</div>
+          <div class="tl-text">独立思考模块启动。开始质疑标准答案。</div>
+        </li>
+        <li class="timeline-item">
+          <div class="tl-year">2026</div>
+          <div class="tl-text">系统升级完成。<span style="color:var(--gold)">成年权限已开放。</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 卷二 -->
+    <div class="section" data-delay="0.6">
+      <div class="body-text">
+        <p>所以今天，<br>
+        我们不祝你「变成大人」。</p>
+
+        <p>18岁不是一道门。<br>
+        是一张<span class="gold">「允许你成为任何人」</span>的通行证。</p>
+
+        <p>你可以成为——<br>
+        冷静的、疯狂的、温柔的、固执的、<br>
+        或者偶尔对宇宙翻一个白眼。<span class="mute">都可以。</span></p>
+      </div>
+    </div>
+
+
+    <!-- 引语：俏皮高级 -->
+    <div class="section" data-delay="0.7">
+      <div class="quote-lines">
+        <p>你不是在故意可爱。</p>
+        <p>你只是让无聊这件事，很难靠近自己。</p>
+      </div>
+    </div>
+
+    <!-- 卷三：关于俏皮 -->
+    <div class="section" data-delay="0.8">
+      <div class="body-text">
+        <p>你身上还有一种很特别的东西：<br>
+        <span class="gold">一种不动声色的俏皮。</span></p>
+
+        <p>不是吵闹，<br>
+        也不是刻意制造存在感。<br>
+        而是你总能在太过一本正经的空气里，<br>
+        轻轻地，替生活松一下领口。</p>
+
+        <p>会在大家都急着给出标准答案的时候，<br>
+        偏要保留一点自己的弧度；<br>
+        会在平平无奇的日子里，<br>
+        硬是看出一点值得偷笑的小细节；<br>
+        也会在别人都沿着直线往前走的时候，<br>
+        顺手给世界拐一个小弯。</p>
+
+        <p>这种俏皮，不是幼稚。<br>
+        是你明明懂规矩，<br>
+        却不愿意把灵气一起交出去。</p>
+      </div>
+    </div>
+
+    <!-- 引语：灵气 -->
+    <div class="section" data-delay="1.0">
+      <div class="quote-lines">
+        <p>有些人负责把事情做好。</p>
+        <p>有些人顺便把空气变得可爱一点。</p>
+      </div>
+    </div>
+
+    <!-- 卷四：关于可爱 -->
+    <div class="section" data-delay="1.2">
+      <div class="body-text">
+        <p>你身上的可爱，<br>
+        也不是那种摆在表面的东西。</p>
+
+        <p>它更像一种反应，<br>
+        一种眼睛里忽然亮起来的光，<br>
+        一种说话时不小心藏进去的小机关；<br>
+        是你明明很清醒，<br>
+        却还是愿意对生活保留一点调皮，<br>
+        对世界保留一点兴致。</p>
+
+        <p>这很难得。<br>
+        因为很多人长大以后，<br>
+        会先失去锋芒，<br>
+        再失去好奇，<br>
+        最后连有趣也一起失去。</p>
+
+        <p>但你没有。<br>
+        你还保留着一种很稀有的本事：<br>
+        不把自己活成标准答案，<br>
+        也不把日子过成统一格式。</p>
+      </div>
+    </div>
+
+    <!-- 引语：不无聊 -->
+    <div class="section" data-delay="1.4">
+      <div class="quote-lines">
+        <p>你不一定负责惊天动地。</p>
+        <p>但你很擅长，让普通时刻不要太普通。</p>
+      </div>
+    </div>
+
+    <!-- 卷五：关于十八岁之后 -->
+    <div class="section" data-delay="1.6">
+      <div class="body-text">
+        <p>所以十八岁以后，<br>
+        系统决定额外保留你的一部分隐藏程序：</p>
+
+        <p><span class="gold">不按无聊方式生活的权限。</span><br>
+        <span class="gold">对平庸气氛自动免疫的权限。</span><br>
+        <span class="gold">在清醒里继续保有可爱的权限。</span></p>
+
+        <p>你当然可以长大。<br>
+        但不必长成那种<br>
+        只剩下正确、稳妥、和毫无惊喜的大人。</p>
+
+        <p>你可以继续眨眼，<br>
+        继续保留一点坏笑，<br>
+        继续在太单调的世界里，<br>
+        做那个偷偷把光线拨乱一点的人。</p>
+      </div>
+    </div>
+
+    <!-- 权限系统 -->
+    <div class="section" data-delay="0.8">
+      <div class="body-text">
+        <p>系统已默认开启以下权限：</p>
+      </div>
+      <div class="permissions" id="permBox">
+        <div class="permit"><span class="check">✔</span>自我选择权</div>
+        <div class="permit"><span class="check">✔</span>熬夜自由</div>
+        <div class="permit"><span class="check">✔</span>怀疑世界权限</div>
+        <div class="permit"><span class="check">✔</span>保持天真 · 未被关闭</div>
+        <div class="permit"><span class="check">✔</span>犯错并原谅自己</div>
+        <div class="permit"><span class="check">✔</span>不必向任何人解释</div>
+      </div>
+    </div>
+
+    <!-- 宇宙检测系统 -->
+    <div class="section" data-delay="1.0">
+      <div class="body-text">
+        <p>不过，在放你进入这个世界之前——<br>
+        系统需要做最后一次扫描。</p>
+      </div>
+      <div class="detect-box">
+        <div class="icon">◎</div>
+        <div class="prompt">点击启动 · 灵魂检测</div>
+        <button class="detect-btn" id="detectBtn" aria-label="扫描18岁灵魂">► 开始扫描 18岁灵魂</button>
+        <div class="scan-bar" id="scanBar"><div class="fill" id="scanFill"></div></div>
+        <div class="detect-result" id="detectResult"></div>
+      </div>
+    </div>
+
+    <!-- 卷三 -->
+    <div class="section" data-delay="1.2">
+      <div class="body-text">
+        <p>别急着被世界修正。</p>
+        <p>这颗星球上不缺「正常人」。</p>
+        <p style="margin-top:36px">缺的是一个<br>
+        <span class="big gold">程诺怡</span>。</p>
+      </div>
+    </div>
+
+    <!-- 引用 2 -->
+    <div class="section" data-delay="1.4">
+      <div class="quote-lines">
+        <p>你不需要发光才能被看见。</p>
+        <p>你的存在本身就是一种坐标。</p>
+      </div>
+    </div>
+
+    <!-- 时间胶囊 -->
+    <div class="section" data-delay="1.6">
+      <div class="body-text"><p>最后——<br>
+      给未来的自己留一句话吧。</p></div>
+      <div class="capsule-box">
+        <div class="cap-title">✦ 时间胶囊</div>
+        <div class="cap-desc">写给 24 岁的程诺怡。六年后回来看看。</div>
+        <textarea id="capsuleInput" placeholder="写点什么……不必很长。" maxlength="500"></textarea>
+        <div class="char-count"><span id="charNum">0</span> / 500</div>
+        <div class="cap-actions">
+          <button class="cap-btn primary" id="capsuleSave" aria-label="保存时间胶囊内容">封存</button>
+          <button class="cap-btn" id="capsuleOpen" aria-label="打开之前的时间胶囊">打开已封存的</button>
+        </div>
+        <div class="cap-saved" id="capsuleSaved">✔ 已封存至本地宇宙</div>
+        <div class="cap-old" id="capsuleOld"></div>
+      </div>
+    </div>
+
+    <!-- 签名 -->
+    <div class="section" data-delay="1.8">
+      <div class="signature">
+        <div class="big-name">程诺怡</div>
+        <div class="tagline">18岁 · 地球居民 · 未被归类</div>
+        <div class="footnote">宇宙观测中心 · 档案编号 7</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ PHASE 3: 终屏 ══════ -->
+<div id="phase-3">
+  <div class="final-line" id="finalLine">世界很吵。<br>但你不用变成它。</div>
+  <div class="final-sub" id="finalSub">宇宙已阅</div>
+  <div class="final-ps" id="finalPS">✦ 批准你的一生 ✦</div>
+  <button class="restart-btn" id="restartBtn" onclick="location.reload()">重新体验</button>
+</div>
+
+<!-- ══════ 通知弹窗 ══════ -->
+<div class="notification-modal" id="notifModal">
+  <div class="modal-box">
+    <div class="modal-icon">◎</div>
+    <div class="modal-title" id="notifTitle">宇宙通知</div>
+    <div class="modal-body" id="notifBody"></div>
+    <button class="modal-close" id="modalCloseBtn">知道了</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 0. 初始化变量
+// ============================================================
+const p0=document.getElementById('phase-0');
+const p1=document.getElementById('phase-1');
+const p2=document.getElementById('phase-2');
+const p3=document.getElementById('phase-3');
+let unlocked=false;
+const STORAGE_KEY='capsule_cny_2026';
+
+// 关闭弹窗
+document.getElementById('modalCloseBtn').addEventListener('click',()=>{
+  document.getElementById('notifModal').classList.remove('open');
+});
+document.getElementById('notifModal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('notifModal')){
+    document.getElementById('notifModal').classList.remove('open');
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.getElementById('notifModal').classList.remove('open');
+  }
+});
+
+// ============================================================
+// 1. 星空 Canvas
+// ============================================================
+const starCanvas=document.getElementById('star-canvas');
+const starCtx=starCanvas.getContext('2d');
+let stars=[];
+
+function resizeStars(){
+  starCanvas.width=window.innerWidth;
+  starCanvas.height=window.innerHeight;
+}
+resizeStars();
+
+let resizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(()=>{
+    resizeStars();
+    resizeIC();
+    stars.forEach(s=>{
+      s.x=Math.random()*starCanvas.width;
+      s.y=Math.random()*starCanvas.height;
+    });
+  },150);
+});
+
+const starCount=Math.min(150,Math.floor(window.innerWidth*window.innerHeight/8000));
+for(let i=0;i<starCount;i++){
+  stars.push({
+    x:Math.random()*starCanvas.width,y:Math.random()*starCanvas.height,
+    r:0.3+Math.random()*1.5,alpha:0.15+Math.random()*0.5,
+    speed:0.02+Math.random()*0.06,phase:Math.random()*Math.PI*2
+  });
+}
+
+function drawStars(){
+  starCtx.clearRect(0,0,starCanvas.width,starCanvas.height);
+  const t=performance.now()*0.001;
+  for(let i=0;i<stars.length;i++){
+    const s=stars[i];
+    const flick=0.5+0.5*Math.sin(t*s.speed+s.phase);
+    const a=s.alpha*flick;
+    starCtx.beginPath();starCtx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    starCtx.fillStyle=`rgba(255,255,255,${a})`;starCtx.fill();
+  }
+  requestAnimationFrame(drawStars);
+}
+drawStars();
+
+// 交互层 Canvas
+const ic=document.getElementById('interactive-canvas');
+const ictx=ic.getContext('2d');
+let trail=[];
+
+function resizeIC(){ic.width=window.innerWidth;ic.height=window.innerHeight}
+resizeIC();
+
+document.addEventListener('mousemove',e=>{
+  trail.push({x:e.clientX,y:e.clientY,a:1,t:performance.now()});
+  if(trail.length>40)trail.shift();
+});
+document.addEventListener('touchmove',e=>{
+  const t=e.touches[0];
+  trail.push({x:t.clientX,y:t.clientY,a:1,t:performance.now()});
+  if(trail.length>40)trail.shift();
+},{passive:true});
+
+function drawTrail(){
+  ictx.clearRect(0,0,ic.width,ic.height);
+  const now=performance.now();
+  for(let i=0;i<trail.length;i++){
+    const p=trail[i];
+    const age=(now-p.t)/1000;
+    const alpha=Math.max(0,0.3*(1-age/0.8));
+    if(alpha<=0)continue;
+    ictx.beginPath();ictx.arc(p.x,p.y,1.5,0,Math.PI*2);
+    ictx.fillStyle=`rgba(201,169,110,${alpha})`;
+    ictx.fill();
+  }
+  trail=trail.filter(p=>(now-p.t)<800);
+  requestAnimationFrame(drawTrail);
+}
+drawTrail();
+
+// ============================================================
+// 2. PHASE 0 → 1
+// ============================================================
+function handleUnlock(){
+  if(unlocked)return;unlocked=true;
+  p0.classList.add('fade');
+  setTimeout(()=>p0.style.display='none',1200);
+  setTimeout(startPhase1,600);
+}
+
+p0.addEventListener('click',handleUnlock);
+p0.addEventListener('touchend',e=>{e.preventDefault();handleUnlock()});
+document.addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ')&&!unlocked){
+    e.preventDefault();handleUnlock();
+  }
+});
+
+// ============================================================
+// 3. PHASE 1 → 系统日志
+// ============================================================
+function startPhase1(){
+  p1.classList.add('show');
+  const progressFill=document.getElementById('logProgress');
+
+  const lines=[
+    {html:'<span class="arrow">></span> <span class="hl">宇宙观测中心</span> · 系统启动',delay:300,progress:8},
+    {html:'<span class="arrow">></span> 正在加载编号 7 样本档案……',delay:800,progress:16},
+    {html:'<span class="arrow">></span> 时段: <span class="hl">2008 — 2026</span>',delay:1300,progress:25},
+    {html:'<span class="arrow">></span> 状态: <span class="green">少女版本更新完成</span>',delay:1800,progress:35},
+    {html:'<span class="arrow">></span> 新增功能:',delay:2300,progress:45},
+    {html:'&nbsp;&nbsp;&nbsp;• 独立思考',delay:2700,progress:52},
+    {html:'&nbsp;&nbsp;&nbsp;• 情绪宇宙',delay:3000,progress:58},
+    {html:'&nbsp;&nbsp;&nbsp;• 不向世界低头',delay:3300,progress:65},
+    {html:'<span class="arrow">></span> 修复问题:',delay:3700,progress:72},
+    {html:'&nbsp;&nbsp;&nbsp;• 过度在意别人评价 <span class="green">[已修复]</span>',delay:4000,progress:80},
+    {html:'<span class="arrow">></span> <span class="green">✓ 系统就绪</span>',delay:4500,progress:92},
+    {html:'<span class="arrow">></span> <span class="hl">宇宙权限</span> 已开放 · 等待确认……',delay:5000,progress:100},
+    {html:'<span class="cursor-line"></span>',delay:5500,progress:100},
+  ];
+
+  const win=document.getElementById('logWindow');
+  const progressBar=win.querySelector('.progress-bar');
+  lines.forEach(l=>{
+    setTimeout(()=>{
+      const d=document.createElement('div');d.className='log-line';
+      d.innerHTML=l.html;
+      win.insertBefore(d,progressBar);
+      requestAnimationFrame(()=>{
+        d.classList.add('reveal');
+        if(progressFill)progressFill.style.width=l.progress+'%';
+      });
+    },l.delay);
+  });
+
+  setTimeout(()=>{
+    p1.style.transition='opacity 1s ease';
+    p1.style.opacity='0';
+    setTimeout(()=>{
+      p1.style.display='none';
+      startPhase2();
+    },1000);
+  },7000);
+}
+
+// ============================================================
+// 4. PHASE 2 → 滚动内容
+// ============================================================
+function startPhase2(){
+  p2.classList.add('show');
+  document.getElementById('music-btn').classList.add('visible');
+  initScrollReveal();
+  initReadingProgress();
+  spawnMeteors();
+  initPermissions();
+  initDetect();
+  initCapsule();
+  initTimeline();
+  initAgeCounter();
+  initFinalTrigger();
+}
+
+// 阅读进度条
+function initReadingProgress(){
+  const bar=document.getElementById('reading-progress');
+  window.addEventListener('scroll',()=>{
+    const scrollTop=window.scrollY;
+    const docHeight=document.documentElement.scrollHeight-window.innerHeight;
+    const progress=docHeight>0?(scrollTop/docHeight)*100:0;
+    bar.style.width=Math.min(100,progress)+'%';
+  },{passive:true});
+}
+
+// 滚动入场
+function initScrollReveal(){
+  const sections=document.querySelectorAll('.section');
+  const ob=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        ob.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+  sections.forEach(s=>ob.observe(s));
+}
+
+// 时间线动画
+function initTimeline(){
+  const items=document.querySelectorAll('.timeline-item');
+  const ob=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+        ob.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.3});
+  items.forEach((item,i)=>{
+    item.style.transitionDelay=(i*0.2)+'s';
+    ob.observe(item);
+  });
+}
+
+// 年龄计数器
+function initAgeCounter(){
+  const counter=document.getElementById('ageCounter');
+  const detail=document.getElementById('ageDetail');
+  if(!counter)return;
+
+  const birthday=new Date(2008,5,23);
+  const now=new Date();
+  const diffMs=now-birthday;
+  const days=Math.floor(diffMs/(1000*60*60*24));
+  const hours=Math.floor(diffMs/(1000*60*60));
+
+  detail.innerHTML=`≈ ${days.toLocaleString()} 天 · ${hours.toLocaleString()} 小时`;
+
+  const ob=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        let current=0;
+        const target=18;
+        const duration=1500;
+        const start=performance.now();
+        function animate(time){
+          const elapsed=time-start;
+          const progress=Math.min(elapsed/duration,1);
+          const eased=1-Math.pow(1-progress,3);
+          current=Math.round(eased*target);
+          counter.textContent=current;
+          if(progress<1)requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+        ob.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.5});
+  ob.observe(counter.closest('.age-counter'));
+}
+
+// 流星
+let meteorInterval;
+function spawnMeteors(){
+  function createMeteor(){
+    if(!p2.classList.contains('show'))return;
+    const m=document.createElement('div');m.className='meteor';
+    const sx=Math.random()*window.innerWidth*0.7;
+    const sy=Math.random()*window.innerHeight*0.3;
+    const ang=-25+(Math.random()-0.5)*15;
+    const rad=ang*Math.PI/180;
+    const dist=180+Math.random()*250;
+    m.style.left=sx+'px';m.style.top=sy+'px';
+    m.style.setProperty('--tx',Math.cos(rad)*dist+'px');
+    m.style.setProperty('--ty',Math.sin(rad)*dist+'px');
+    m.style.setProperty('--dur',(0.6+Math.random()*0.5)+'s');
+    document.body.appendChild(m);
+    setTimeout(()=>m.remove(),1500);
+  }
+
+  function scheduleNext(){
+    const delay=3000+Math.random()*7000;
+    meteorInterval=setTimeout(()=>{
+      createMeteor();
+      scheduleNext();
+    },delay);
+  }
+  scheduleNext();
+}
+
+// 权限逐个解锁
+function initPermissions(){
+  const permBox=document.getElementById('permBox');
+  const ob=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const permits=permBox.querySelectorAll('.permit');
+        permits.forEach((p,i)=>{
+          setTimeout(()=>{
+            p.classList.add('unlocked');
+            if(navigator.vibrate)navigator.vibrate(15);
+          },(i+1)*400);
+        });
+        ob.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.3});
+  ob.observe(permBox);
+}
+
+// 宇宙检测
+function initDetect(){
+  const btn=document.getElementById('detectBtn');
+  const res=document.getElementById('detectResult');
+  const scanBar=document.getElementById('scanBar');
+  const scanFill=document.getElementById('scanFill');
+  let detecting=false;
+
+  btn.addEventListener('click',function(){
+    if(detecting)return;detecting=true;
+    res.classList.remove('show');res.innerHTML='';
+    scanBar.classList.add('active');scanFill.style.width='0%';
+    this.textContent='扫描中……';this.setAttribute('aria-busy','true');
+    this.style.opacity='0.4';this.style.pointerEvents='none';
+    if(navigator.vibrate)navigator.vibrate(100);
+
+    const steps=[
+      {txt:'扫描 18岁灵魂……',delay:400,progress:'20%'},
+      {txt:'检测中 · 观测异常值',delay:1000,progress:'45%'},
+      {txt:'分析中 · 无法归入常规分类',delay:1700,progress:'70%'},
+      {txt:'判定完成',delay:2400,progress:'100%'},
+    ];
+
+    let html='';
+    steps.forEach(s=>{
+      setTimeout(()=>{
+        html+=`<div class="scan-line">▸ ${s.txt}</div>`;
+        res.innerHTML=html;
+        scanFill.style.width=s.progress;
+      },s.delay);
+    });
+
+    setTimeout(()=>{
+      html+=`<div class="verdict">不适合被困在普通人生里。</div>`;
+      res.innerHTML=html;
+      res.classList.add('show');
+      scanBar.classList.remove('active');
+      btn.textContent='✓ 检测已完成';btn.setAttribute('aria-busy','false');
+      btn.style.opacity='0.6';btn.style.pointerEvents='none';
+      if(navigator.vibrate)navigator.vibrate([30,20,30]);
+      detecting=false;
+
+      const rect=btn.getBoundingClientRect();
+      for(let i=0;i<12;i++){
+        spawnParticle(rect.left+rect.width/2,rect.top+rect.height/2);
+      }
+    },2900);
+  });
+}
+
+function spawnParticle(cx,cy){
+  const pt=document.createElement('div');pt.className='particle';
+  const sz=2+Math.random()*3;
+  pt.style.width=sz+'px';pt.style.height=sz+'px';
+  pt.style.left=cx+'px';pt.style.top=cy+'px';
+  const ang=Math.random()*Math.PI*2;
+  const dist=30+Math.random()*80;
+  pt.style.setProperty('--tx',Math.cos(ang)*dist+'px');
+  pt.style.setProperty('--ty',Math.sin(ang)*dist+'px');
+  pt.style.setProperty('--dur',(0.5+Math.random()*0.6)+'s');
+  pt.style.background=['#b89a6e','#e8e0d4','#6b7a8e','#fff'][Math.floor(Math.random()*4)];
+  document.body.appendChild(pt);
+  requestAnimationFrame(()=>pt.classList.add('float'));
+  setTimeout(()=>pt.remove(),1200);
+}
+
+// ============================================================
+// 5. 时间胶囊
+// ============================================================
+function initCapsule(){
+  const input=document.getElementById('capsuleInput');
+  const saveBtn=document.getElementById('capsuleSave');
+  const openBtn=document.getElementById('capsuleOpen');
+  const savedMsg=document.getElementById('capsuleSaved');
+  const oldDiv=document.getElementById('capsuleOld');
+  const charNum=document.getElementById('charNum');
+
+  input.addEventListener('input',()=>{
+    const len=input.value.length;
+    charNum.textContent=len;
+    charNum.parentElement.classList.toggle('warn',len>450);
+  });
+
+  saveBtn.addEventListener('click',()=>{
+    const val=input.value.trim();
+    if(!val){
+      input.focus();
+      input.style.borderColor='rgba(255,120,120,0.3)';
+      setTimeout(()=>input.style.borderColor='',1000);
+      return;
+    }
+    const data={text:val,date:new Date().toISOString().split('T')[0],age:18};
+    try{
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+      savedMsg.classList.add('show');
+      if(navigator.vibrate)navigator.vibrate([50,30,50]);
+      setTimeout(()=>savedMsg.classList.remove('show'),2500);
+      input.value='';
+      charNum.textContent='0';
+
+      const rect=saveBtn.getBoundingClientRect();
+      for(let i=0;i<8;i++){
+        spawnParticle(rect.left+rect.width/2,rect.top+rect.height/2);
+      }
+    }catch(e){
+      if(e.name==='QuotaExceededError'){
+        alert('存储空间已满，无法保存。请清除浏览器缓存后重试。');
+      }else{
+        alert('保存失败：'+e.message);
+      }
+    }
+  });
+
+  openBtn.addEventListener('click',()=>{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw){
+      oldDiv.textContent='还没有封存过内容。写点什么吧。';
+      oldDiv.style.display='block';
+      return;
+    }
+    try{
+      const data=JSON.parse(raw);
+      const div=document.createElement('div');
+      div.textContent=data.text;
+      const safeText=div.innerHTML;
+      oldDiv.innerHTML=`<div style="font-size:11px;color:var(--gold-dim);margin-bottom:8px">✦ 封存于 ${data.age}岁 · ${data.date}</div>
+        <div style="color:var(--cream)">${safeText}</div>`;
+      oldDiv.style.display='block';
+    }catch(e){
+      oldDiv.textContent='读取失败。';
+      oldDiv.style.display='block';
+    }
+  });
+}
+
+// ============================================================
+// 6. 终屏触发
+// ============================================================
+function initFinalTrigger(){
+  const ob=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        p3.classList.add('show');
+        setTimeout(()=>document.getElementById('finalLine').classList.add('show'),400);
+        setTimeout(()=>document.getElementById('finalSub').classList.add('show'),1400);
+        setTimeout(()=>document.getElementById('finalPS').classList.add('show'),2400);
+        setTimeout(()=>document.getElementById('restartBtn').classList.add('show'),3000);
+
+        setTimeout(()=>{
+          for(let i=0;i<50;i++){
+            setTimeout(()=>{
+              spawnParticle(
+                (Math.random()*0.6+0.2)*window.innerWidth,
+                (Math.random()*0.6+0.2)*window.innerHeight
+              );
+            },i*30);
+          }
+        },600);
+        ob.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.3});
+  ob.observe(p3);
+}
+
+// ============================================================
+// 7. 宇宙通知
+// ============================================================
+const NOTICES=[
+  '恭喜。<br>你终于到了可以合法叛逆的年纪。',
+  '请继续对庸俗保持警惕。',
+  '不适合平庸。<br>系统判定。',
+  '世界很庞大。<br>但你不必活成统一答案。',
+  '你不是长大。<br>是开始拥有选择。',
+  '十八岁是系统更新，不是格式化。',
+  '允许成为奇怪的大人。<br>批准。',
+  '普通人生拒绝签收。<br>已拦截。',
+  '无需成为谁。<br>存在本身已经足够。',
+  '愿你长成自己的坐标系。',
+  '偶尔迷路也是一种导航。',
+  '你的时区只属于你自己。',
+];
+
+let lastNoticeIdx=-1;
+function showCosmicNotice(){
+  let idx;
+  do{idx=Math.floor(Math.random()*NOTICES.length)}while(idx===lastNoticeIdx&&NOTICES.length>1);
+  lastNoticeIdx=idx;
+  document.getElementById('notifTitle').textContent='✦ 宇宙通知';
+  document.getElementById('notifBody').innerHTML=NOTICES[idx];
+  document.getElementById('notifModal').classList.add('open');
+}
+
+document.addEventListener('click',e=>{
+  if(!unlocked||!p2.classList.contains('show'))return;
+  if(e.target.closest('.capsule-box')||e.target.closest('.detect-box')||
+     e.target.closest('#notifModal')||e.target.closest('.notification-modal')||
+     e.target.closest('#music-btn')||e.target.closest('button')||
+     e.target.closest('textarea')||e.target.closest('#phase-0'))return;
+  if(Math.random()<0.12)showCosmicNotice();
+});
+
+let lastClickTime=0;
+document.addEventListener('click',e=>{
+  const now=Date.now();
+  if(now-lastClickTime<300&&unlocked){
+    if(Math.random()<0.5)showCosmicNotice();
+  }
+  lastClickTime=now;
+});
+
+// ============================================================
+// 8. Console 彩蛋
+// ============================================================
+console.log('%c ═══════════════════════════════ ',
+  'background:#050508;color:#b89a6e;font-size:8px');
+console.log('%c   宇宙向你开放权限 · 程诺怡 ',
+  'background:#050508;color:#b89a6e;font-size:18px;padding:8px 12px;border:1px solid #b89a6e');
+console.log('%c   18岁 · 不适合被困在普通人生里 ',
+  'background:#050508;color:#d4d0c8;font-size:13px;padding:6px 12px');
+console.log('%c ═══════════════════════════════ ',
+  'background:#050508;color:#b89a6e;font-size:8px');
+
+window.cny=()=>{showCosmicNotice();return '✦ 宇宙已收到你的信号'};
+
+// ============================================================
+// 9. 背景音乐
+// ============================================================
+(function(){
+  let ctx=null,playing=false,gainNode=null,analyser=null;
+  let droneNodes=[];
+  let harmonicTimer=null,pulseTimer=null,dustTimer=null;
+  const btn=document.getElementById('music-btn');
+  const specCanvas=document.getElementById('audio-spectrum');
+  const specCtx=specCanvas?specCanvas.getContext('2d'):null;
+
+  function initAudio(){
+    if(ctx)return;
+    ctx=new(window.AudioContext||window.webkitAudioContext)();
+    gainNode=ctx.createGain();
+    gainNode.gain.value=0;
+    analyser=ctx.createAnalyser();
+    analyser.fftSize=256;
+    gainNode.connect(analyser);
+    analyser.connect(ctx.destination);
+  }
+
+  function drawSpectrum(){
+    if(!specCtx||!analyser||!playing)return;
+    const dataArray=new Uint8Array(analyser.frequencyBinCount);
+    analyser.getByteFrequencyData(dataArray);
+    specCtx.clearRect(0,0,specCanvas.width,specCanvas.height);
+    const barWidth=(specCanvas.width/dataArray.length)*2.5;
+    let x=0;
+    for(let i=0;i<dataArray.length;i++){
+      const barHeight=(dataArray[i]/255)*specCanvas.height;
+      specCtx.fillStyle=`hsla(36,${50+dataArray[i]/4}%,60%,0.6)`;
+      specCtx.fillRect(x,specCanvas.height-barHeight,barWidth-1,barHeight);
+      x+=barWidth;
+    }
+    requestAnimationFrame(drawSpectrum);
+  }
+
+  function startMusic(){
+    if(!ctx)initAudio();
+    if(ctx.state==='suspended')ctx.resume();
+    if(playing)return;
+    playing=true;
+    btn.textContent='◉';
+    btn.classList.add('playing');
+    if(specCanvas){specCanvas.classList.add('show');drawSpectrum();}
+
+    const freqs=[
+      {f:55,type:'sine',vol:0.18},
+      {f:82.5,type:'sine',vol:0.12},
+      {f:110.5,type:'sine',vol:0.08},
+      {f:165,type:'sine',vol:0.04},
+    ];
+
+    freqs.forEach(cfg=>{
+      const osc=ctx.createOscillator();
+      osc.type=cfg.type;osc.frequency.value=cfg.f;
+      const g=ctx.createGain();g.gain.value=cfg.vol;
+      osc.connect(g);g.connect(gainNode);
+      osc.start();droneNodes.push({osc,gain:g});
+    });
+
+    gainNode.gain.setValueAtTime(0,ctx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.35,ctx.currentTime+4);
+
+    function spawnHarmonic(){
+      if(!playing)return;
+      const h=ctx.createOscillator();
+      h.type='sine';
+      const base=[65.4,98,130.8,164.8,196,220,261.6,329.6][Math.floor(Math.random()*8)];
+      h.frequency.value=base+(Math.random()-0.5)*0.5;
+      const hg=ctx.createGain();hg.gain.value=0;
+      const now=ctx.currentTime;
+      hg.gain.setValueAtTime(0,now);
+      hg.gain.linearRampToValueAtTime(0.06+Math.random()*0.05,now+1.2);
+      hg.gain.linearRampToValueAtTime(0,now+3+Math.random()*3);
+      h.connect(hg);hg.connect(gainNode);
+      h.start(now);h.stop(now+7);
+      harmonicTimer=setTimeout(spawnHarmonic,1200+Math.random()*2800);
+    }
+    harmonicTimer=setTimeout(spawnHarmonic,1000);
+
+    function pulse(){
+      if(!playing)return;
+      const p=ctx.createOscillator();
+      p.type='triangle';p.frequency.value=55;
+      const pg=ctx.createGain();pg.gain.value=0;
+      const t=ctx.currentTime;
+      pg.gain.setValueAtTime(0,t);
+      pg.gain.linearRampToValueAtTime(0.15,t+0.4);
+      pg.gain.linearRampToValueAtTime(0.06,t+0.8);
+      pg.gain.linearRampToValueAtTime(0,t+1.5);
+      p.connect(pg);pg.connect(gainNode);
+      p.start(t);p.stop(t+2);
+      pulseTimer=setTimeout(pulse,5000+Math.random()*6000);
+    }
+    pulseTimer=setTimeout(pulse,3000);
+
+    function dust(){
+      if(!playing)return;
+      const d=ctx.createOscillator();
+      d.type='sine';
+      d.frequency.value=600+Math.random()*1800;
+      const dg=ctx.createGain();dg.gain.value=0;
+      const t=ctx.currentTime;
+      dg.gain.setValueAtTime(0,t);
+      dg.gain.linearRampToValueAtTime(0.03+Math.random()*0.04,t+0.15);
+      dg.gain.linearRampToValueAtTime(0,t+0.6+Math.random()*0.4);
+      d.connect(dg);dg.connect(gainNode);
+      d.start(t);d.stop(t+1.5);
+      dustTimer=setTimeout(dust,1000+Math.random()*3500);
+    }
+    dustTimer=setTimeout(dust,2000);
+  }
+
+  function stopMusic(){
+    if(!playing)return;
+    playing=false;
+    btn.classList.remove('playing');
+    btn.textContent='◌';
+    if(specCanvas)specCanvas.classList.remove('show');
+
+    clearTimeout(harmonicTimer);
+    clearTimeout(pulseTimer);
+    clearTimeout(dustTimer);
+
+    if(gainNode&&ctx){
+      try{
+        gainNode.gain.setValueAtTime(gainNode.gain.value,ctx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0,ctx.currentTime+1.5);
+      }catch(e){}
+    }
+
+    setTimeout(()=>{
+      droneNodes.forEach(n=>{try{n.osc.stop()}catch(e){}});
+      droneNodes=[];
+      try{if(ctx){ctx.close();ctx=null;gainNode=null;analyser=null;}}catch(e){}
+    },2000);
+  }
+
+  btn.addEventListener('click',()=>{
+    if(playing)stopMusic();
+    else startMusic();
+  });
+
+  document.addEventListener('visibilitychange',()=>{
+    if(!ctx||!gainNode||!playing)return;
+    try{
+      if(document.hidden){
+        gainNode.gain.linearRampToValueAtTime(0.06,ctx.currentTime+1);
+      }else{
+        gainNode.gain.linearRampToValueAtTime(0.35,ctx.currentTime+2);
+      }
+    }catch(e){}
+  });
+
+  function autoPlay(){
+    if(playing||!unlocked)return;
+    setTimeout(()=>{
+      if(!playing)startMusic();
+    },500);
+    document.removeEventListener('click',autoPlay);
+    document.removeEventListener('touchstart',autoPlay);
+  }
+  document.addEventListener('click',autoPlay);
+  document.addEventListener('touchstart',autoPlay,{passive:true});
+})();
+
+// ============================================================
+// 10. 定期清理离屏元素
+// ============================================================
+setInterval(()=>{
+  document.querySelectorAll('.meteor,.particle').forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top>window.innerHeight*2||rect.bottom<-200||
+       rect.left>window.innerWidth*2||rect.right<-200){
+      el.remove();
+    }
+  });
+},5000);
+</script>
+</body>
+</html>
