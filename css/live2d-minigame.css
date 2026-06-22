@@ -210,32 +210,11 @@
   100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(0); }
 }
 
-/* ============================================
- * 骰子游戏
- * ============================================ */
+/* 骰子游戏
+   ============================================ */
 
-/* 骰子本体 */
-.miku-die {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  margin: 0 3px;
-  border-radius: 6px;
-  background: #fff;
-  border: 1.5px solid rgba(180, 150, 255, 0.5);
-  color: #333;
-  font-size: 18px;
-  font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: all 0.1s ease;
-}
-
-/* 摇骰动画：旋转 + 缩放抖动 */
-.miku-die.rolling {
-  animation: diceRoll 0.1s infinite alternate;
-}
+.miku-die { display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin:0 3px;border-radius:6px;background:#fff;border:1.5px solid rgba(180,150,255,0.5);color:#333;font-size:18px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+.miku-die.rolling { animation:diceRoll 0.1s infinite alternate; }
 
 @keyframes diceRoll {
   0%   { transform: rotate(-10deg) scale(1); }
@@ -245,46 +224,49 @@
   100% { transform: rotate(0deg) scale(1); }
 }
 
-/* 骰子区域 */
-.miku-dice-section {
-  margin-bottom: 8px;
-}
+.miku-dice-section { margin-bottom:6px; }
+.miku-dice-area { display:flex;justify-content:center;gap:4px;margin:4px 0;min-height:38px;align-items:center; }
+.miku-dice-label { font-size:11px;opacity:0.6;font-weight:600;margin-bottom:2px; }
+.miku-dice-result { font-size:14px;font-weight:700;color:var(--red-1,#ff5252);margin-bottom:6px;min-height:20px; }
+.miku-dice-vs { font-size:11px;font-weight:800;color:rgba(180,150,255,0.6);margin:2px 0; }
+.miku-die.yahtzee { border-color:#ffd700;box-shadow:0 0 10px rgba(255,215,0,0.5);color:#b8860b; }
 
-.miku-dice-area {
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-  margin: 4px 0;
-  min-height: 38px;
-  align-items: center;
-}
+/* 老虎机
+   ============================================ */
 
-.miku-dice-label {
-  font-size: 11px;
-  opacity: 0.6;
-  font-weight: 600;
-  margin-bottom: 2px;
+.miku-slot-machine { margin-bottom:8px; }
+.miku-slot-display { display:flex;justify-content:center;gap:6px;margin:8px 0; }
+.miku-slot-reel {
+  width:44px;height:48px;border-radius:8px;
+  background: linear-gradient(135deg, rgba(55,35,90,0.85), rgba(30,20,55,0.92));
+  border:1.5px solid rgba(180,150,255,0.5);
+  color:#F8EEFF;
+  font-size:24px;line-height:48px;text-align:center;
+  box-shadow:0 0 10px rgba(138,43,226,0.3);
+  overflow:hidden;
+  position:relative;
 }
-
-.miku-dice-result {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--red-1, #ff5252);
-  margin-bottom: 6px;
-  min-height: 20px;
+.miku-slot-reel.rolling { animation:slotSpin 0.1s infinite linear; }
+@keyframes slotSpin {
+  0%   { transform:translateY(-2px); }
+  50%  { transform:translateY(2px); }
+  100% { transform:translateY(-2px); }
 }
-
-/* VS 分隔 */
-.miku-dice-vs {
-  font-size: 11px;
-  font-weight: 800;
-  color: rgba(180, 150, 255, 0.6);
-  margin: 2px 0;
+.miku-slot-reel.win-highlight {
+  border-color:#ffd700;
+  box-shadow:0 0 20px rgba(255,215,0,0.6);
+  animation:slotWin 0.5s ease 3;
 }
-
-/* 豹子高亮 */
-.miku-die.yahtzee {
-  border-color: #ffd700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  color: #b8860b;
+@keyframes slotWin {
+  0%,100% { transform:scale(1); }
+  50% { transform:scale(1.15); }
+}
+.miku-slot-prize {
+  font-size:13px;font-weight:700;margin:6px 0;min-height:20px;
+}
+.miku-slot-chances {
+  font-size:11px;opacity:0.6;margin-bottom:6px;
+}
+.miku-slot-free-msg {
+  font-size:12px;opacity:0.6;margin:4px 0;
 }
