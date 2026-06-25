@@ -1,0 +1,149 @@
+/* ============================================
+ * 留言精选墙 — 样式
+ *
+ * 瀑布流卡片布局，适配博客红色主题
+ * ============================================ */
+
+/* ---- 页面头部 ---- */
+#messages-wall {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.messages-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.messages-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--red-1, #ff5252);
+  margin: 0 0 8px;
+}
+
+.messages-subtitle {
+  font-size: 14px;
+  color: var(--highlight-comment, #999);
+  margin: 0;
+}
+
+/* ---- 加载/空状态 ---- */
+.messages-loading,
+.messages-error,
+.messages-empty {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 14px;
+  color: var(--highlight-comment, #999);
+}
+
+.messages-empty {
+  color: var(--red-3, #ffafaf);
+}
+
+/* ---- 瀑布流容器 ---- */
+.messages-container {
+  column-count: 3;
+  column-gap: 16px;
+  padding: 0;
+}
+
+@media (max-width: 960px) {
+  .messages-container { column-count: 2; }
+}
+@media (max-width: 600px) {
+  .messages-container { column-count: 1; }
+}
+
+/* ---- 留言卡片 ---- */
+.message-card {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--color-wrap, #fff);
+  border: 1px solid var(--red-5, rgba(255,228,228,0.3));
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: messageFadeIn 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.message-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+@keyframes messageFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- 卡片头部：头像 + 名称 + 时间 ---- */
+.message-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.message-card-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--red-4, #ffd0d0);
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.message-card-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--red-2, #ff7c7c);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message-card-time {
+  font-size: 11px;
+  color: var(--highlight-comment, #999);
+  white-space: nowrap;
+}
+
+/* ---- 卡片正文 ---- */
+.message-card-content {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--highlight-foreground, #666);
+  word-break: break-word;
+  margin-bottom: 10px;
+}
+
+.message-card-content p {
+  margin: 0;
+}
+
+/* ---- 来源链接 ---- */
+.message-card-source {
+  font-size: 12px;
+  color: var(--highlight-comment, #999);
+  border-top: 1px solid var(--red-6, rgba(255,247,247,0.5));
+  padding-top: 8px;
+}
+
+.message-card-source a {
+  color: var(--red-1, #ff5252);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.message-card-source a:hover {
+  text-decoration: underline;
+}
