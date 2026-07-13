@@ -1,11 +1,19 @@
 import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
 
 // Waline 评论初始化配置
-const WALINE_SERVER = 'https://waline-text-six.vercel.app';
+const DEFAULT_WALINE_SERVER = 'https://waline.monkeyiu.icu';
 
-document.addEventListener('DOMContentLoaded', () => {
+const getWalineServer = () => {
+  const server = window.REIMU_CONFIG?.waline_server || DEFAULT_WALINE_SERVER;
+  return String(server).replace(/\/+$/, '');
+};
+
+const initMoments = () => {
   // 点赞功能
   document.querySelectorAll('.moments-like-btn').forEach(btn => {
+    if (btn.dataset.momentsLikeBound === 'true') return;
+    btn.dataset.momentsLikeBound = 'true';
+
     const momentId = btn.dataset.momentId;
     const countSpan = btn.querySelector('.moments-like-count');
     const iconPath = btn.querySelector('.moments-like-icon path');
@@ -48,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 评论展开/收起
   document.querySelectorAll('.moments-comment-toggle').forEach(btn => {
+    if (btn.dataset.momentsCommentBound === 'true') return;
+    btn.dataset.momentsCommentBound = 'true';
+
     btn.addEventListener('click', () => {
       const targetId = btn.dataset.target;
       const wrapper = document.querySelector(`#${targetId} .moments-comments-wrapper`);
@@ -62,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (walineEl) {
           init({
             el: `#${walineEl.id}`,
-            serverURL: WALINE_SERVER,
+            serverURL: getWalineServer(),
             path: `/moments/${targetId}`,
             comment: true,
             reaction: ['❤️'],
@@ -76,4 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMoments, { once: true });
+} else {
+  initMoments();
+}
+
+document.addEventListener('pjax:complete', initMoments);
+document.addEventListener('pjax:end', initMoments);

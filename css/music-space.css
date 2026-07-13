@@ -1,0 +1,499 @@
+/* ============================================================
+   Music Space — an instrument, not a webpage
+   Language: MineRadio restraint · Apple Music polish ·
+   Spotify immersion · Arc modernity · Linear minimalism ·
+   Notion whitespace · Nothing OS micro-detail
+   Principle: 第一眼克制，第二眼惊艳，长期使用舒适
+   ============================================================ */
+
+:root {
+  --ms-ink: #f6f5f2;
+  --ms-ink-2: rgba(246, 245, 242, 0.56);
+  --ms-ink-3: rgba(246, 245, 242, 0.32);
+  --ms-hair: rgba(255, 255, 255, 0.09);
+  --ms-hair-2: rgba(255, 255, 255, 0.14);
+  --ms-liked: #ff4d6d;
+  --ms-glow: 0.42;
+  --ms-lyric-color: #f3e7cf;
+  /* motion tokens — one physical system */
+  --ms-ease: cubic-bezier(0.22, 1, 0.36, 1);      /* settle */
+  --ms-ease-out: cubic-bezier(0.16, 1, 0.3, 1);   /* decel */
+  --ms-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoot */
+  --ms-fast: 140ms;
+  --ms-mid: 320ms;
+  --ms-slow: 560ms;
+}
+
+/* ---- host reset: edge to edge, no chrome ---- */
+body:has(.music-space-shell) #content { max-width: none; padding-top: 0; }
+body:has(.music-space-shell) #main { padding: 0; width: 100%; }
+body:has(.music-space-shell) article,
+body:has(.music-space-shell) .article-entry { padding: 0 !important; margin: 0 !important; }
+body.has-music-space { background: #000; overflow: hidden; height: 100vh; }
+
+.music-space-shell { color: var(--ms-ink); }
+
+.music-space-noscript {
+  min-height: 66vh; display: grid; place-content: center; gap: 10px;
+  padding: 56px 24px; text-align: center; color: #fff;
+  background: radial-gradient(120% 80% at 50% 120%, rgba(158,216,255,.16), transparent 60%), #06070c;
+  border-radius: 24px;
+}
+.music-space-noscript__kicker { text-transform: uppercase; letter-spacing: .3em; color: #9ed8ff; font-size: 11px; }
+
+.music-space-engine {
+  position: absolute !important; width: 1px !important; height: 1px !important;
+  opacity: 0 !important; overflow: hidden !important; pointer-events: none !important;
+}
+
+/* ============================================================
+   Root — pure black void
+   ============================================================ */
+.music-space {
+  --album-primary: #9ed8ff;
+  --album-secondary: #cbacff;
+  --album-auto: #d9c7a6;
+  --ms-cine: 0.5;
+  position: relative;
+  isolation: isolate;
+  height: 100vh;
+  height: 100svh;
+  color: var(--ms-ink);
+  background: #05060a;
+  font-family: "SF Pro Display", Inter, -apple-system, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Background layers
+   ============================================================ */
+/* WebGL cosmos — the subject, not the backdrop */
+.ms-universe {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 0; display: block; touch-action: none;
+  cursor: grab;
+}
+.ms-universe.is-grabbing { cursor: grabbing; }
+
+.ms-ambient, .ms-ambient__glow, .ms-ambient__grain { position: fixed; inset: 0; pointer-events: none; }
+/* deep-space gradient sits BEHIND the webgl canvas */
+.ms-ambient { z-index: -1; background: radial-gradient(140% 120% at 50% 8%, #0a0c14 0%, #06070d 46%, #020307 100%); }
+/* album light bleeding up from the transport, like a screen glow */
+.ms-ambient__glow {
+  top: auto; height: 62%; bottom: 0; z-index: 1;
+  background:
+    radial-gradient(60% 100% at 50% 130%, color-mix(in srgb, var(--album-primary) 30%, transparent), transparent 70%),
+    radial-gradient(50% 90% at 22% 128%, color-mix(in srgb, var(--album-secondary) 20%, transparent), transparent 72%);
+  opacity: .42; filter: blur(24px);
+  transition: opacity var(--ms-slow) ease;
+  animation: ms-breathe 9s ease-in-out infinite;
+}
+.music-space.is-paused .ms-ambient__glow { opacity: .24; }
+.ms-ambient__grain {
+  z-index: 1; opacity: .035; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* cinematic vignette — strength driven by --ms-cine (0..1) from the console */
+.music-space::after {
+  content: ""; position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(120% 100% at 50% 46%, transparent 42%, rgba(0,0,0,0.55) 100%);
+  opacity: var(--ms-cine, 0.5);
+  transition: opacity var(--ms-slow) ease;
+}
+
+/* ============================================================
+   Stage — the quiet, breathing center
+   ============================================================ */
+.ms-stage {
+  position: relative; z-index: 2;
+  height: 100vh; height: 100svh;
+  display: grid; grid-template-rows: auto 1fr auto;
+  width: min(1200px, calc(100% - 64px));
+  margin: 0 auto;
+  padding: clamp(20px, 3.5vh, 40px) 0 clamp(96px, 14vh, 140px);
+  transition: transform var(--ms-slow) var(--ms-ease), filter var(--ms-slow) ease;
+  cursor: grab;
+}
+.ms-stage.is-grabbing { cursor: grabbing; }
+/* interactive children keep their own cursors above the orbit surface */
+.ms-stage button, .ms-stage a, .ms-stage input, .ms-stage label { cursor: pointer; }
+.ms-stage .ms-seek { cursor: pointer; }
+.ms-stage .ms-vol input { cursor: ew-resize; }
+/* when a side panel opens, the stage recedes — depth, focus */
+.music-space.has-panel .ms-stage { transform: scale(0.985); filter: brightness(0.8); cursor: default; }
+
+/* ---- top whisper bar ---- */
+.ms-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.ms-top__brand { display: flex; align-items: center; gap: 11px; }
+.ms-top__mark {
+  width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px;
+  color: var(--album-auto); background: rgba(255,255,255,.04); border: 1px solid var(--ms-hair);
+}
+.music-space.is-playing .ms-top__mark svg { animation: ms-spin 8s linear infinite; }
+.ms-top__name { font-size: 14px; font-weight: 600; letter-spacing: .01em; color: var(--ms-ink); }
+
+.ms-status {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; letter-spacing: .12em; color: var(--ms-ink-2);
+  padding: 6px 13px; border-radius: 999px;
+  background: rgba(255,255,255,.03); border: 1px solid var(--ms-hair);
+  transition: color var(--ms-mid) ease, border-color var(--ms-mid) ease;
+}
+.ms-status__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .5; transition: .3s; }
+.ms-status.is-live { color: color-mix(in srgb, var(--album-primary) 70%, #fff); border-color: color-mix(in srgb, var(--album-primary) 30%, transparent); }
+.ms-status.is-live .ms-status__dot { opacity: 1; background: color-mix(in srgb, var(--album-primary) 80%, #fff); box-shadow: 0 0 10px var(--album-primary); animation: ms-pulse 2s ease-in-out infinite; }
+.ms-status__mood { color: var(--ms-ink-3); border-left: 1px solid var(--ms-hair); padding-left: 8px; }
+
+/* ============================================================
+   Lyrics — now rendered INSIDE the 3D universe (music-universe.js).
+   The DOM copy is sr-only for accessibility, and only becomes
+   visible as a graceful fallback when WebGL is unavailable.
+   ============================================================ */
+.ms-lyrics-dom {
+  align-self: center;
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+/* fallback: no WebGL universe → show DOM lyrics as a calm centered stack */
+.music-space:not(.has-universe) .ms-lyrics-dom,
+.ms-lyrics-dom.is-fallback {
+  position: static; width: auto; height: auto; overflow: visible;
+  clip: auto; clip-path: none; white-space: normal;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: clamp(12px, 2vh, 26px); text-align: center; padding: 4vh 0;
+}
+.ms-lyrics-dom.is-fallback .ms-lyric-dom,
+.music-space:not(.has-universe) .ms-lyric-dom {
+  margin: 0; max-width: min(920px, 90%);
+  font-family: "LXGW WenKai Screen", "Source Han Serif SC", "Noto Serif SC", "Songti SC", Georgia, serif;
+  color: rgba(246,245,242,.28); font-size: clamp(15px, 1.6vw, 21px);
+  transition: all var(--ms-mid) ease;
+}
+.ms-lyrics-dom.is-fallback .ms-lyric-dom.is-current,
+.music-space:not(.has-universe) .ms-lyric-dom.is-current {
+  color: var(--ms-lyric-color); font-weight: 620;
+  font-size: clamp(30px, 4.6vw, 60px); line-height: 1.24;
+  text-shadow: 0 0 calc(40px * var(--ms-glow)) color-mix(in srgb, var(--ms-lyric-color) 60%, transparent);
+}
+/* cursor hint: over the orbit surface, lyrics are pickable but the whole stage grabs */
+.ms-stage.is-lyric-hover { cursor: pointer; }
+
+/* ============================================================
+   Dock — coverflow + transport, floating at the base
+   ============================================================ */
+.ms-dock { align-self: end; display: grid; gap: clamp(14px, 2.4vh, 26px); justify-items: center; }
+
+/* ---- cover flow: dim at rest, wakes on hover ---- */
+.ms-flow {
+  position: relative; height: clamp(96px, 12vh, 132px); width: 100%;
+  display: flex; align-items: center; justify-content: center;
+  perspective: 1400px; transform-style: preserve-3d;
+  opacity: .68; transition: opacity var(--ms-mid) ease;
+}
+.ms-flow:hover { opacity: 1; }
+.ms-flow__item {
+  --rel: 0; --abs: 0;
+  position: absolute; border: 0; background: none; padding: 0; cursor: pointer;
+  width: clamp(72px, 9vh, 104px); aspect-ratio: 1;
+  transform:
+    translateX(calc(var(--rel) * clamp(52px, 6vw, 82px)))
+    translateZ(calc(var(--abs) * -100px))
+    rotateY(calc(var(--rel) * -38deg))
+    scale(calc(1 - var(--abs) * 0.09));
+  opacity: calc(1 - var(--abs) * 0.26);
+  transition: transform var(--ms-slow) var(--ms-ease), opacity var(--ms-mid) ease, filter var(--ms-mid) ease;
+  filter: brightness(calc(1 - var(--abs) * 0.16));
+}
+.ms-flow__item:hover { filter: brightness(1.08); }
+.ms-flow__item.is-active { filter: none; }
+.ms-flow__item.is-active:hover { transform:
+    translateX(0) translateZ(0) rotateY(0) scale(1.04); }
+.ms-flow__img, .ms-flow__disc {
+  position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 12px; object-fit: cover;
+  border: 1px solid var(--ms-hair-2);
+  box-shadow: 0 20px 44px rgba(0,0,0,.55);
+}
+.ms-flow__img--empty, .ms-flow__disc { background: linear-gradient(135deg, var(--album-primary), var(--album-secondary)); }
+.ms-flow__disc { display: none; }
+.ms-flow__reflect {
+  position: absolute; left: 0; right: 0; top: 100%; height: 44%; border-radius: 12px;
+  background: linear-gradient(rgba(255,255,255,.12), transparent 70%);
+  transform: scaleY(-1); opacity: .3; filter: blur(1px);
+  -webkit-mask-image: linear-gradient(rgba(0,0,0,.5), transparent 62%);
+          mask-image: linear-gradient(rgba(0,0,0,.5), transparent 62%);
+  pointer-events: none;
+}
+/* vinyl mode — active cover becomes a spinning record */
+.ms-flow--vinyl .ms-flow__item.is-active .ms-flow__disc {
+  display: block;
+  background:
+    repeating-radial-gradient(circle, rgba(255,255,255,.045) 0 1px, transparent 1px 4px),
+    radial-gradient(circle, #0b0c12 0 24%, #191b24 25% 100%);
+}
+.ms-flow--vinyl .ms-flow__item.is-active .ms-flow__img { inset: 26%; border-radius: 50%; box-shadow: none; }
+.ms-flow--vinyl.is-playing .ms-flow__item.is-active .ms-flow__img,
+.ms-flow--vinyl.is-playing .ms-flow__item.is-active .ms-flow__disc { animation: ms-spin 13s linear infinite; }
+
+/* ============================================================
+   Transport — the floating glass instrument
+   ============================================================ */
+.ms-transport {
+  position: relative;
+  width: min(940px, 100%);
+  border-radius: 20px;
+  padding: 4px 14px 12px;
+}
+.ms-glass {
+  background: rgba(14, 16, 24, 0.5);
+  border: 1px solid var(--ms-hair-2);
+  box-shadow: 0 20px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(30px) saturate(1.4);
+  -webkit-backdrop-filter: blur(30px) saturate(1.4);
+}
+@supports not (backdrop-filter: blur(10px)) { .ms-glass { background: rgba(12, 14, 22, .94); } }
+
+/* progress — thin hairline that thickens on hover */
+.ms-seek { position: relative; height: 18px; display: flex; align-items: center; cursor: pointer; margin: 2px 2px 0; touch-action: none; }
+.ms-seek__track { position: absolute; left: 0; right: 0; height: 3px; border-radius: 999px; background: rgba(255,255,255,.12); transition: height var(--ms-fast) ease; }
+.ms-seek__fill {
+  position: absolute; left: 0; right: 0; height: 3px; border-radius: 999px; transform-origin: left; will-change: transform;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--album-secondary) 90%, #fff), var(--album-primary));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--album-primary) 55%, transparent);
+  transition: height var(--ms-fast) ease;
+}
+.ms-seek__knob {
+  position: absolute; top: 50%; width: 11px; height: 11px; border-radius: 50%; background: #fff; margin-left: -5px;
+  transform: translateY(-50%) scale(0); transition: transform var(--ms-fast) var(--ms-spring);
+  box-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+.ms-seek:hover .ms-seek__track, .ms-seek:hover .ms-seek__fill { height: 5px; }
+.ms-seek:hover .ms-seek__knob { transform: translateY(-50%) scale(1); }
+
+.ms-transport__grid {
+  display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 14px; margin-top: 6px;
+}
+
+/* now-playing cluster */
+.ms-np { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.ms-np__cover {
+  width: 42px; height: 42px; flex: none; border-radius: 10px;
+  background: linear-gradient(135deg, var(--album-primary), var(--album-secondary));
+  background-size: cover; background-position: center;
+  border: 1px solid var(--ms-hair-2); box-shadow: 0 6px 18px rgba(0,0,0,.45);
+}
+.ms-np__text { min-width: 0; }
+.ms-np__title { font-size: 13.5px; font-weight: 620; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ms-np__artist { color: var(--ms-ink-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+
+.ms-controls { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.ms-tools { display: flex; align-items: center; justify-content: flex-end; gap: 2px; }
+.ms-time { color: var(--ms-ink-2); font-size: 11.5px; font-variant-numeric: tabular-nums; white-space: nowrap; margin-right: 4px; display: inline-flex; gap: 5px; }
+.ms-time i { color: var(--ms-ink-3); font-style: normal; }
+
+/* button — real physical feedback */
+.ms-btn {
+  position: relative; display: inline-grid; place-items: center;
+  width: 36px; height: 36px; flex: none;
+  border: 0; border-radius: 11px; cursor: pointer; color: var(--ms-ink);
+  background: transparent; -webkit-tap-highlight-color: transparent;
+  transition: transform var(--ms-fast) var(--ms-ease), background var(--ms-mid) ease, color var(--ms-mid) ease;
+}
+.ms-btn::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(255,255,255,.16), transparent 70%);
+  opacity: 0; transform: scale(.6); transition: opacity var(--ms-fast) ease, transform var(--ms-mid) var(--ms-ease);
+}
+.ms-btn:hover { background: rgba(255,255,255,.07); }
+.ms-btn:hover::before { opacity: 1; transform: scale(1); }
+.ms-btn:active { transform: scale(.88); }
+.ms-btn.is-on { color: var(--album-auto); }
+.ms-btn.is-on::before { opacity: .5; background: radial-gradient(circle, color-mix(in srgb, var(--album-primary) 40%, transparent), transparent 70%); }
+.ms-btn--text { width: auto; padding: 0 10px; font-size: 12px; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+
+.ms-like.is-liked { color: var(--ms-liked); }
+.ms-like.is-liked svg { fill: var(--ms-liked); stroke: var(--ms-liked); animation: ms-heart .52s var(--ms-spring); }
+
+/* the play button — the one element with real weight */
+.ms-play {
+  width: 50px; height: 50px; flex: none; display: grid; place-items: center; margin: 0 4px;
+  border: 0; border-radius: 50%; cursor: pointer; color: #08090e;
+  background: linear-gradient(180deg, #ffffff, #eceaea);
+  box-shadow: 0 8px 22px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.4) inset, 0 -2px 6px rgba(0,0,0,.15) inset;
+  transition: transform var(--ms-fast) var(--ms-spring), box-shadow var(--ms-mid) ease;
+}
+.ms-play svg { width: 22px; height: 22px; transform: translateX(0.5px); }
+.ms-play:hover { transform: scale(1.055); box-shadow: 0 12px 30px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.5) inset; }
+.ms-play:active { transform: scale(.92); }
+.music-space.is-playing.ms-beat .ms-play { animation: ms-beat 2s var(--ms-ease) infinite; }
+
+.ms-vol { display: inline-flex; align-items: center; }
+.ms-vol input { width: 0; opacity: 0; padding: 0; margin: 0; transition: width var(--ms-mid) var(--ms-ease), opacity var(--ms-mid) ease, margin var(--ms-mid) ease; accent-color: var(--album-primary); }
+.ms-vol:hover input, .ms-vol:focus-within input { width: 72px; opacity: 1; margin: 0 6px 0 2px; }
+
+/* ============================================================
+   Edge reveal zones + panels (hidden until intent)
+   ============================================================ */
+.ms-edge {
+  position: fixed; top: 0; bottom: 0; width: 26px; z-index: 18;
+  display: grid; place-items: center; pointer-events: auto;
+}
+.ms-edge--left { left: 0; }
+.ms-edge--right { right: 0; }
+.ms-edge__hint {
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-size: 10px; letter-spacing: .3em; color: var(--ms-ink-3);
+  padding: 10px 3px; border-radius: 0 8px 8px 0;
+  background: rgba(255,255,255,.03); border: 1px solid var(--ms-hair); border-left: 0;
+  opacity: 0; transform: translateX(-6px); transition: opacity var(--ms-mid) ease, transform var(--ms-mid) var(--ms-ease), color var(--ms-mid) ease;
+}
+.ms-edge--right .ms-edge__hint { border-left: 1px solid var(--ms-hair); border-right: 0; border-radius: 8px 0 0 8px; transform: translateX(6px); }
+.ms-edge:hover .ms-edge__hint { opacity: 1; transform: translateX(0); color: var(--ms-ink-2); }
+.music-space.has-panel .ms-edge { pointer-events: none; }
+
+.ms-scrim { position: fixed; inset: 0; z-index: 19; background: rgba(0,0,0,.28); backdrop-filter: blur(1px); animation: ms-fade var(--ms-mid) ease; }
+
+.ms-panel-wrap {
+  position: fixed; top: 0; bottom: 0; z-index: 20; width: min(392px, 88vw);
+  padding: 16px; pointer-events: none;
+}
+.ms-panel-wrap--left { left: 0; }
+.ms-panel-wrap--right { right: 0; }
+.ms-panel {
+  height: 100%; display: flex; flex-direction: column;
+  border-radius: 22px; padding: 20px; overflow: hidden;
+  opacity: 0; pointer-events: none;
+  transition: transform var(--ms-slow) var(--ms-ease-out), opacity var(--ms-mid) ease;
+}
+.ms-panel-wrap--left .ms-panel { transform: translateX(calc(-100% - 20px)); }
+.ms-panel-wrap--right .ms-panel { transform: translateX(calc(100% + 20px)); }
+.ms-panel-wrap.is-open { pointer-events: auto; }
+.ms-panel-wrap.is-open .ms-panel { transform: none; opacity: 1; pointer-events: auto; }
+
+.ms-panel__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.ms-panel__title { font-size: 16px; font-weight: 660; }
+.ms-panel__sub { font-size: 10px; letter-spacing: .2em; color: var(--ms-ink-3); margin-top: 3px; }
+.ms-panel__body { display: grid; gap: 12px; overflow-y: auto; padding-right: 2px; }
+.ms-panel__hint { color: var(--ms-ink-3); font-size: 12px; line-height: 1.6; margin: 4px 2px 0; }
+
+/* queue rows */
+.ms-queue { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; margin: -4px; padding: 4px; }
+.ms-queue__row {
+  display: grid; grid-template-columns: 26px 40px 1fr auto; align-items: center; gap: 12px;
+  padding: 8px; border: 0; border-radius: 13px; cursor: pointer; text-align: left;
+  color: var(--ms-ink); background: transparent;
+  transition: background var(--ms-fast) ease, transform var(--ms-fast) var(--ms-ease);
+}
+.ms-queue__row:hover { background: rgba(255,255,255,.05); }
+.ms-queue__row:active { transform: scale(.99); }
+.ms-queue__row.is-active { background: rgba(255,255,255,.07); }
+.ms-queue__idx { font-size: 12px; color: var(--ms-ink-3); font-variant-numeric: tabular-nums; text-align: center; }
+.ms-queue__row.is-active .ms-queue__idx { color: var(--album-auto); }
+.ms-queue__cover { width: 40px; height: 40px; border-radius: 9px; object-fit: cover; background: linear-gradient(135deg, var(--album-primary), var(--album-secondary)); border: 1px solid var(--ms-hair); }
+.ms-queue__meta { min-width: 0; display: grid; }
+.ms-queue__title { font-size: 13.5px; font-weight: 560; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ms-queue__artist { font-size: 12px; color: var(--ms-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+.ms-queue__dur { font-size: 11px; color: var(--ms-ink-3); font-variant-numeric: tabular-nums; }
+/* now-playing equalizer bars */
+.ms-queue__eq { display: inline-flex; gap: 2px; height: 12px; align-items: flex-end; justify-content: center; }
+.ms-queue__eq i { width: 2px; background: var(--album-auto); border-radius: 2px; height: 40%; animation: ms-eq 900ms var(--ms-ease) infinite; }
+.ms-queue__eq i:nth-child(2) { animation-delay: .2s; height: 100%; }
+.ms-queue__eq i:nth-child(3) { animation-delay: .4s; height: 65%; }
+.music-space.is-paused .ms-queue__eq i { animation-play-state: paused; }
+
+/* console */
+.ms-tabs { display: flex; gap: 4px; padding: 4px; border-radius: 13px; background: rgba(0,0,0,.3); margin-bottom: 16px; }
+.ms-tabs__t { flex: 1; border: 0; cursor: pointer; padding: 8px 4px; border-radius: 9px; color: var(--ms-ink-2); background: transparent; font-size: 13px; transition: color var(--ms-fast) ease, background var(--ms-fast) ease; }
+.ms-tabs__t.is-active { color: #fff; background: rgba(255,255,255,.1); }
+
+.ms-toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; padding: 13px 15px; border-radius: 14px; cursor: pointer; font-size: 14px;
+  color: var(--ms-ink); background: rgba(255,255,255,.04); border: 1px solid var(--ms-hair);
+  transition: background var(--ms-fast) ease, border-color var(--ms-mid) ease, transform var(--ms-fast) var(--ms-ease);
+}
+.ms-toggle:hover { background: rgba(255,255,255,.07); }
+.ms-toggle:active { transform: scale(.99); }
+.ms-toggle.is-on { border-color: color-mix(in srgb, var(--album-primary) 45%, transparent); background: color-mix(in srgb, var(--album-primary) 10%, rgba(255,255,255,.03)); }
+.ms-toggle__dot { width: 34px; height: 20px; flex: none; border-radius: 999px; background: rgba(255,255,255,.14); position: relative; transition: background var(--ms-mid) ease; }
+.ms-toggle__dot::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform var(--ms-mid) var(--ms-spring); box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+.ms-toggle.is-on .ms-toggle__dot { background: color-mix(in srgb, var(--album-primary) 65%, transparent); }
+.ms-toggle.is-on .ms-toggle__dot::after { transform: translateX(14px); }
+
+.ms-field { display: grid; gap: 11px; padding: 14px 2px; }
+.ms-field__row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--ms-ink-2); }
+.ms-field__v { color: #fff; font-variant-numeric: tabular-nums; }
+.ms-range { width: 100%; accent-color: var(--album-primary); }
+.ms-swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+.ms-swatch {
+  aspect-ratio: 1; border-radius: 10px; cursor: pointer; background: var(--sw, #888);
+  border: 1px solid rgba(255,255,255,.16); font-size: 10px; font-weight: 700; color: rgba(0,0,0,.55);
+  display: grid; place-items: center;
+  transition: transform var(--ms-fast) var(--ms-ease), box-shadow var(--ms-mid) ease;
+}
+.ms-swatch--auto { background: conic-gradient(from 0deg, #9ed8ff, #cbacff, #ffa9c9, #f2c777, #a6f0da, #9ed8ff); color: #fff; }
+.ms-swatch:hover { transform: translateY(-2px); }
+.ms-swatch.is-active { box-shadow: 0 0 0 2px #05060a, 0 0 0 4px #fff; }
+
+/* ============================================================
+   Console control extras — group titles, slider value + reset
+   ============================================================ */
+.ms-group {
+  margin: 6px 2px 2px; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ms-ink-3); font-weight: 600;
+}
+.ms-group:first-child { margin-top: 0; }
+.ms-field__meta { display: inline-flex; align-items: center; gap: 8px; }
+.ms-field__reset {
+  width: 22px; height: 22px; display: inline-grid; place-items: center; flex: none;
+  border: 0; border-radius: 7px; cursor: pointer; color: var(--ms-ink-3);
+  background: rgba(255,255,255,.05);
+  transition: color var(--ms-fast) ease, background var(--ms-fast) ease, transform var(--ms-fast) var(--ms-ease);
+}
+.ms-field__reset svg { width: 13px; height: 13px; }
+.ms-field__reset:hover { color: var(--ms-ink); background: rgba(255,255,255,.12); }
+.ms-field__reset:active { transform: scale(.88) rotate(-30deg); }
+
+/* ============================================================
+   Motion keyframes
+   ============================================================ */
+@keyframes ms-spin { to { transform: rotate(360deg); } }
+@keyframes ms-pulse { 50% { opacity: .45; } }
+@keyframes ms-breathe { 50% { opacity: .62; } }
+@keyframes ms-heart { 40% { transform: scale(1.28); } 70% { transform: scale(.92); } }
+@keyframes ms-beat { 0%, 100% { box-shadow: 0 8px 22px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.4) inset; } 50% { box-shadow: 0 8px 30px color-mix(in srgb, var(--album-primary) 55%, rgba(0,0,0,.4)), 0 0 0 1px rgba(255,255,255,.5) inset; } }
+@keyframes ms-eq { 0%, 100% { transform: scaleY(.4); } 50% { transform: scaleY(1); } }
+@keyframes ms-fade { from { opacity: 0; } }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 720px) {
+  .ms-stage { width: calc(100% - 32px); padding-bottom: clamp(88px, 12vh, 120px); }
+  .ms-status__mood { display: none; }
+  .ms-flow { height: 92px; }
+  .ms-edge { display: none; }               /* touch: no hover reveal — use transport buttons */
+  .ms-transport { width: 100%; }
+  .ms-transport__grid { grid-template-columns: 1fr auto; grid-template-areas: "np tools" "controls controls"; row-gap: 8px; }
+  .ms-np { grid-area: np; } .ms-tools { grid-area: tools; } .ms-controls { grid-area: controls; }
+  .ms-time { display: none; } .ms-btn--text { display: none; }
+  .ms-vol input { display: none; }
+  .ms-panel-wrap { width: 100vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-space * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+  .ms-stage, .ms-lyric-dom, .ms-flow__item, .ms-panel, .ms-btn, .ms-toggle__dot::after { transition-duration: .12s !important; }
+}
+
+/* Fallback deep-space when WebGL is unavailable (canvas absent) */
+.music-space:not(.has-universe) .ms-ambient {
+  background:
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 85% 60%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,.5), transparent),
+    radial-gradient(140% 120% at 50% 8%, #0a0c14 0%, #06070d 46%, #020307 100%);
+}
+.music-space:not(.has-universe) .ms-stage { cursor: default; }

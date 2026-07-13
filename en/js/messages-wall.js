@@ -9,7 +9,12 @@
 (() => {
   'use strict';
 
-  const WALINE_SERVER = 'https://waline-text-six.vercel.app';
+  const DEFAULT_WALINE_SERVER = 'https://waline.monkeyiu.icu';
+
+  const getWalineServer = () => {
+    const server = window.REIMU_CONFIG?.waline_server || DEFAULT_WALINE_SERVER;
+    return String(server).replace(/\/+$/, '');
+  };
 
   /** 相对时间 */
   const relativeTime = (iso) => {
@@ -26,10 +31,38 @@
     return `${Math.floor(months / 12)} 年前`;
   };
 
-  /** 安全截断 HTML */
-  const truncate = (text, max = 300) => {
+  /** 将评论 HTML 降级为纯文本后截断 */
+  const htmlToText = (html) => {
+    const template = document.createElement('template');
+    template.innerHTML = String(html || '');
+    return template.content.textContent || '';
+  };
+
+  const truncate = (value, max = 300) => {
+    const text = htmlToText(value).trim();
     if (text.length <= max) return text;
     return text.slice(0, max) + '...';
+  };
+
+  const normalizePath = (path) => {
+    const rawPath = String(path || '').trim();
+    if (!rawPath) return '#';
+
+    try {
+      const url = new URL(rawPath, window.location.origin);
+      if (url.origin !== window.location.origin) return '#';
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch (_) {
+      return `/${rawPath.replace(/^\/+/, '')}`;
+    }
+  };
+
+  const setStatus = (container, className, text) => {
+    container.replaceChildren();
+    const status = document.createElement('div');
+    status.className = className;
+    status.textContent = text;
+    container.appendChild(status);
   };
 
   /** Gravatar URL */
@@ -141,17 +174,16 @@
 
     // 并行请求
     Promise.all([
-      fetch(`${WALINE_SERVER}/api/comment?type=recent&count=50`).then((r) => r.json()),
+      fetch(`${getWalineServer()}/api/comment?type=recent&count=50`).then((r) => r.json()),
       fetch('/messages-data.json').then((r) => r.json()),
     ])
       .then(([comments, titleMap]) => {
         if (!Array.isArray(comments) || comments.length === 0) {
-          container.innerHTML =
-            '<div class="messages-empty">🌱 还没有留言，快来发表第一条留言吧！</div>';
+          setStatus(container, 'messages-empty', '还没有留言，快来发表第一条留言吧！');
           return;
         }
 
-        container.innerHTML = '';
+        container.replaceChildren();
         comments.forEach((c, i) => {
           const nick = c.nick || '匿名用户';
           const mail = c.mail || '';
@@ -163,25 +195,53 @@
           const card = document.createElement('div');
           card.className = 'message-card';
           card.style.animationDelay = `${i * 0.04}s`;
-          card.innerHTML = `
-            <div class="message-card-header">
-              <img class="message-card-avatar" src="${gravatar(mail)}" alt="${nick}" loading="lazy">
-              <span class="message-card-name">${nick}</span>
-              <span class="message-card-time">${time}</span>
-            </div>
-            <div class="message-card-content">${content}</div>
-            <div class="message-card-source">
-              来自: <a href="/${path}">${title}</a>
-            </div>
-          `;
+
+          const header = document.createElement('div');
+          header.className = 'message-card-header';
+
+          const avatar = document.createElement('img');
+          avatar.className = 'message-card-avatar';
+          avatar.src = gravatar(mail);
+          avatar.alt = nick;
+          avatar.loading = 'lazy';
+
+          const name = document.createElement('span');
+          name.className = 'message-card-name';
+          name.textContent = nick;
+
+          const timeEl = document.createElement('span');
+          timeEl.className = 'message-card-time';
+          timeEl.textContent = time;
+
+          header.append(avatar, name, timeEl);
+
+          const contentEl = document.createElement('div');
+          contentEl.className = 'message-card-content';
+          contentEl.textContent = content;
+
+          const source = document.createElement('div');
+          source.className = 'message-card-source';
+          source.append('来自: ');
+
+          const link = document.createElement('a');
+          link.href = normalizePath(path);
+          link.textContent = title;
+          source.appendChild(link);
+
+          card.append(header, contentEl, source);
           container.appendChild(card);
         });
       })
       .catch(() => {
-        container.innerHTML =
-          '<div class="messages-error">😿 留言加载失败了，请稍后再试</div>';
+        setStatus(container, 'messages-error', '留言加载失败了，请稍后再试');
       });
   };
+
+  if (!window.__messagesWallEventsBound) {
+    window.__messagesWallEventsBound = true;
+    document.addEventListener('pjax:complete', init);
+    document.addEventListener('pjax:end', init);
+  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

@@ -1,0 +1,119 @@
+/* ============================================
+ * Konami Code 彩蛋样式
+ * 触发条件：↑ ↑ ↓ ↓ ← → ← → B A
+ * ============================================ */
+
+/* --- 樱花 Canvas 覆盖层 --- */
+#konami-sakura-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  pointer-events: none; /* 不阻挡用户点击 */
+  opacity: 0;
+  animation: konami-fade-in 0.6s ease-out forwards;
+}
+
+/* --- 主题色彩虹旋转（添加到 html 元素） --- */
+html.konami-active {
+  animation: konami-hue 3s linear infinite;
+}
+
+@keyframes konami-hue {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* --- 弹窗卡片 --- */
+#konami-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  z-index: 100000;
+  padding: 36px 48px;
+  max-width: 420px;
+  text-align: center;
+
+  /* 毛玻璃 */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
+              0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+
+  /* 动画 */
+  opacity: 0;
+  animation: konami-popup-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+}
+
+[data-theme="dark"] #konami-popup {
+  background: rgba(40, 40, 40, 0.45);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+              0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+#konami-popup .konami-emoji {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 16px;
+  display: block;
+  animation: konami-bounce 1s ease infinite;
+}
+
+#konami-popup .konami-text {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #333;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] #konami-popup .konami-text {
+  color: #eee;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#konami-popup .konami-hint {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #999;
+}
+
+/* --- 动画关键帧 --- */
+@keyframes konami-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes konami-popup-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes konami-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* --- 淡出（JS 添加此 class 后触发） --- */
+#konami-sakura-canvas.konami-fade-out,
+#konami-popup.konami-fade-out {
+  animation: konami-fade-out-kf 0.8s ease forwards;
+}
+
+@keyframes konami-fade-out-kf {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
