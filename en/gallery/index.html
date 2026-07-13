@@ -291,6 +291,23 @@
           
         </span>
       
+        
+        <span class="main-nav-link-wrap ">
+          
+      <div class="main-nav-icon icon ">
+        
+          
+            &#xe699;
+          
+        
+      </div>
+    
+          
+            <a class="main-nav-link" href="/en/javascript:window.toggleHackerTerminal()">terminal</a>
+          
+          
+        </span>
+      
     
     <a id="main-nav-toggle" class="nav-icon"></a>
   </nav>
@@ -479,6 +496,10 @@
         
       
     
+      
+        
+      
+    
   
   
     
@@ -564,6 +585,18 @@
           
         </div>
         <div class="sidebar-menu-link">Gallery</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/javascript:window.toggleHackerTerminal()" aria-label="terminal"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">terminal</div>
       </div>
     
   
@@ -1612,6 +1645,18 @@ fetch('https://myip.ipip.net/')
 })();
 </script>
     
+      <div class="widget-wrap" data-aos="fade-up">
+  <h3 class="widget-title" style="font-weight:700;color:var(--red-1);display:flex;align-items:center;gap:6px;">
+    <i class="fas fa-pen-fancy"></i> 写作目标
+  </h3>
+  <div class="widget writing-goal-wrap">
+    <div id="writing-goal-widget">
+      <div class="writing-goal-loading">加载中...</div>
+    </div>
+  </div>
+</div>
+
+    
   
   </div>
   
@@ -1996,6 +2041,22 @@ fetch('https://myip.ipip.net/')
           </a>
         
       
+        
+        
+          <a class="mobile-menu-link mobile-menu-root" href="/en/javascript:window.toggleHackerTerminal()">
+            
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe699;
+        
+      
+    </span>
+  
+            <span>terminal</span>
+          </a>
+        
+      
     </div>
   
   <div class="sidebar-wrap">
@@ -2033,6 +2094,10 @@ fetch('https://myip.ipip.net/')
   
   
   
+    
+      
+        
+      
     
       
         
@@ -2147,6 +2212,18 @@ fetch('https://myip.ipip.net/')
           
         </div>
         <div class="sidebar-menu-link">Gallery</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/javascript:window.toggleHackerTerminal()" aria-label="terminal"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">terminal</div>
       </div>
     
   
@@ -2874,8 +2951,1055 @@ fetch('https://myip.ipip.net/')
 
 
 
+
+<script src="/js/audio-reactor.js" defer data-pjax></script>
+
+
+<script src="/js/ambient-synth.js" defer data-pjax></script>
+
+
+<script src="/js/matrix-saver.js" defer data-pjax></script>
+
+<style>
+#hacker-terminal-overlay {
+  position: fixed;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: #00ff00;
+  font-family: 'Courier New', Courier, monospace;
+  z-index: 999999;
+  transition: top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 5px 15px rgba(0,255,0,0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-shadow: 0 0 5px #00ff00;
+}
+#hacker-terminal-overlay.active {
+  top: 0;
+}
+#hacker-terminal-overlay::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+#ht-output {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+#ht-output::-webkit-scrollbar {
+  width: 8px;
+}
+#ht-output::-webkit-scrollbar-thumb {
+  background: #00ff00;
+}
+.ht-input-line {
+  display: flex;
+  align-items: center;
+}
+.ht-prompt {
+  margin-right: 10px;
+  color: #00ff00;
+}
+#ht-input {
+  background: transparent;
+  border: none;
+  color: #00ff00;
+  font-family: inherit;
+  font-size: 1rem;
+  flex-grow: 1;
+  outline: none;
+  text-shadow: 0 0 5px #00ff00;
+}
+.glitch-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: black;
+  z-index: 9999999;
+  display: none;
+  pointer-events: none;
+}
+.glitch-overlay.active {
+  display: block;
+  animation: glitch-anim 0.2s infinite;
+}
+@keyframes glitch-anim {
+  0% { transform: translate(0) }
+  20% { transform: translate(-5px, 5px) }
+  40% { transform: translate(-5px, -5px) }
+  60% { transform: translate(5px, 5px) }
+  80% { transform: translate(5px, -5px) }
+  100% { transform: translate(0) }
+}
+.glitch-text {
+  color: red;
+  font-size: 3rem;
+  font-weight: bold;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+</style>
+
+<div id="hacker-terminal-overlay">
+  <div id="ht-output">
+Welcome to MATRIX OS v1.0.1
+Type 'help' for a list of available commands.
+  </div>
+  <div class="ht-input-line">
+    <span class="ht-prompt">guest@matrix:~$</span>
+    <input type="text" id="ht-input" autocomplete="off" spellcheck="false" />
+  </div>
+</div>
+
+<div class="glitch-overlay" id="glitch-overlay">
+  <div class="glitch-text">CRITICAL SYSTEM FAILURE<br/>ERR_DATA_CORRUPTION</div>
+</div>
+
+<script>
+(function() {
+  const terminal = document.getElementById('hacker-terminal-overlay');
+  const output = document.getElementById('ht-output');
+  const input = document.getElementById('ht-input');
+  const glitch = document.getElementById('glitch-overlay');
+  let isOpen = false;
+
+  // Audio Context for synthetic sound
+  let audioCtx = null;
+  function playBeep(freq, type, duration) {
+    if (!audioCtx) {
+      try {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      } catch(e) { return; }
+    }
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + duration);
+  }
+
+  function playOpenSound() {
+    playBeep(440, 'square', 0.1);
+    setTimeout(() => playBeep(660, 'square', 0.15), 100);
+  }
+
+  function playScarySound() {
+    playBeep(100, 'sawtooth', 2);
+  }
+
+  window.toggleHackerTerminal = function toggleTerminal() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      terminal.classList.add('active');
+      playOpenSound();
+      setTimeout(() => input.focus(), 500);
+    } else {
+      terminal.classList.remove('active');
+      input.blur();
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '`' || e.key === '~' || e.key === 'F12') {
+      // Allow F12 to open dev tools if terminal is closed, but intercept if they want it for terminal.
+      // Actually user requested ~ or F12.
+      e.preventDefault();
+      toggleTerminal();
+    }
+  });
+
+  // Prevent terminal closing when clicking inside
+  terminal.addEventListener('click', function(e) {
+    input.focus();
+  });
+
+  const categories = [
     
-      <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><link rel="stylesheet" href="/css/konami.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script><script src="/js/konami.js" defer></script>
+      "少年旧事",
+    
+      "阅读",
+    
+      "Travel",
+    
+      "论文",
+    
+      "迷雾",
+    
+      "高考",
+    
+      "控件",
+    
+      "技术",
+    
+      "迷雾time",
+    
+      "旅行",
+    
+      "雪",
+    
+      "学生时代",
+    
+      "观影",
+    
+      "随笔",
+    
+  ];
+
+  function printOutput(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    output.appendChild(div);
+    output.scrollTop = output.scrollHeight;
+  }
+
+  function processCommand(cmd) {
+    printOutput("guest@matrix:~$ " + cmd);
+    const args = cmd.trim().split(/\s+/);
+    const command = args[0].toLowerCase();
+
+    switch(command) {
+      case 'help':
+        printOutput("Available commands:");
+        printOutput("  ls              - List categories");
+        printOutput("  cat about.txt   - Read self introduction");
+        printOutput("  music play/pause- Control background music");
+        printOutput("  gravity         - Trigger Gravity Collapse anomaly");
+        printOutput("  matrix          - Activate Matrix Digital Rain");
+        printOutput("  time <year>     - Time travel (1998, 2077, modern)");
+        printOutput("  ambient play/stop- Toggle telepathic ambient synth");
+        printOutput("  systeminfo      - View quantum anomaly status");
+        printOutput("  clear           - Clear terminal");
+        printOutput("  exit            - Close terminal");
+        break;
+      case 'ls':
+        if(categories.length > 0) {
+          printOutput(categories.join('  '));
+        } else {
+          printOutput("No categories found.");
+        }
+        break;
+      case 'cat':
+        if (args[1] === 'about.txt') {
+          printOutput("Hello! I am Monkey Love IU.");
+          printOutput("I love coding, music, and exploring the unknown.");
+          printOutput("Welcome to my digital garden.");
+        } else {
+          printOutput("cat: " + (args[1] || '') + ": No such file or directory");
+        }
+        break;
+      case 'music':
+        {
+          const action = args[1];
+          let ap = window.aplayers && window.aplayers[0];
+          if (!ap) {
+             const aplayerElement = document.querySelector('meting-js');
+             if (aplayerElement && aplayerElement.aplayer) ap = aplayerElement.aplayer;
+          }
+          if (ap) {
+            if (action === 'play') { ap.play(); printOutput("Music playing."); }
+            else if (action === 'pause') { ap.pause(); printOutput("Music paused."); }
+            else if (action === 'next') { ap.skipForward(); printOutput("Skipped to next track."); }
+            else { ap.toggle(); printOutput("Toggled music playback."); }
+          } else {
+            printOutput("Error: No music player found on this page.");
+          }
+        }
+        break;
+      case 'gravity':
+        printOutput("WARNING: Gravity constraints deactivated!");
+        playScarySound();
+        setTimeout(() => {
+          if (typeof window.triggerGravityCollapse === 'function') {
+            window.toggleHackerTerminal();
+            window.triggerGravityCollapse();
+          } else {
+            printOutput("Error: Gravity module not loaded.");
+          }
+        }, 1000);
+        break;
+      case 'matrix':
+        printOutput("Initializing Matrix overlay...");
+        setTimeout(() => {
+          if (typeof window.triggerMatrixSaver === 'function') {
+            window.toggleHackerTerminal();
+            window.triggerMatrixSaver();
+          } else {
+            printOutput("Error: Matrix module not found.");
+          }
+        }, 500);
+        break;
+      case 'time':
+        {
+          const year = args[1] || 'modern';
+          printOutput(`Initiating time jump to ${year}...`);
+          playBeep(800, 'sine', 0.5);
+          setTimeout(() => {
+            if (typeof window.switchYear === 'function') {
+              window.switchYear(year);
+              printOutput("Time jump successful.");
+            } else {
+              printOutput("Error: Time machine core offline.");
+            }
+          }, 800);
+        }
+        break;
+      case 'ambient':
+        {
+          const action = args[1];
+          if (typeof window.AmbientSynth !== 'undefined') {
+            if (action === 'play') {
+              window.AmbientSynth.start();
+              printOutput("Ambient Synth activated. Listen to the universe.");
+            } else if (action === 'stop') {
+              window.AmbientSynth.stop();
+              printOutput("Ambient Synth deactivated.");
+            } else {
+              printOutput("Usage: ambient play | ambient stop");
+            }
+          } else {
+            printOutput("Error: Ambient Synth module offline.");
+          }
+        }
+        break;
+      case 'systeminfo':
+        printOutput("==========================");
+        printOutput("QUANTUM ANOMALY STATUS");
+        printOutput("==========================");
+        printOutput("Gravity Constraint : " + (Math.random()*2 + 98).toFixed(2) + "%");
+        printOutput("Quantum Fluctuation: " + (Math.random()*0.5).toFixed(3) + " eV");
+        printOutput("Miku Mood Index    : " + Math.floor(Math.random()*20 + 80) + "%");
+        printOutput("Time Dilatation    : " + (1 + Math.random()*0.01).toFixed(4) + "x");
+        printOutput("==========================");
+        break;
+      case 'sudo':
+        if (args.slice(1).join(' ') === 'rm -rf /') {
+          printOutput("Initiating system purge...");
+          setTimeout(() => {
+            playScarySound();
+            glitch.classList.add('active');
+            let jumble = setInterval(() => {
+                document.body.style.filter = `hue-rotate(${Math.random()*360}deg)`;
+            }, 50);
+            setTimeout(() => {
+              clearInterval(jumble);
+              glitch.classList.remove('active');
+              document.body.style.filter = '';
+              printOutput("Just kidding! System restored.");
+            }, 3000);
+          }, 1000);
+        } else {
+          printOutput("Permission denied.");
+        }
+        break;
+      case 'clear':
+        output.innerHTML = '';
+        break;
+      case 'exit':
+        toggleTerminal();
+        break;
+      case '':
+        break;
+      default:
+        printOutput(command + ": command not found");
+    }
+  }
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      playBeep(300, 'square', 0.05);
+      const val = input.value;
+      input.value = '';
+      processCommand(val);
+    } else if (e.key !== 'Shift' && e.key !== 'Control' && e.key !== 'Alt' && e.key !== 'Meta') {
+      playBeep(800 + Math.random()*200, 'triangle', 0.02);
+    }
+  });
+})();
+</script>
+
+
+    <style>
+  /* Anomaly Control Center Styles */
+  #anomaly-control-center {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .anomaly-fab {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .anomaly-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+
+  .anomaly-fab-icon {
+    font-size: 24px;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+    animation: anomaly-glitch-anim 3s infinite alternate;
+  }
+
+  @keyframes anomaly-glitch-anim {
+    0% { transform: translate(0) skew(0deg); }
+    20% { transform: translate(-2px, 1px) skew(-2deg); }
+    40% { transform: translate(1px, -1px) skew(1deg); }
+    60% { transform: translate(-1px, 2px) skew(0deg); }
+    80% { transform: translate(2px, -2px) skew(2deg); }
+    100% { transform: translate(0) skew(0deg); }
+  }
+
+  .anomaly-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transform-origin: bottom center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(10, 10, 15, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 12px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255,255,255,0.02);
+  }
+
+  .anomaly-submenu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: none;
+  }
+  .anomaly-submenu.show {
+    display: flex;
+    animation: fadeIn 0.3s;
+  }
+  .anomaly-tm-btn {
+    font-size: 12px;
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+    padding: 6px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .anomaly-tm-btn:hover {
+    background: rgba(0, 150, 255, 0.4);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .anomaly-menu.hide {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px) scale(0.8);
+  }
+
+  .anomaly-item {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .anomaly-item:hover {
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .anomaly-item:nth-child(1):hover {
+    box-shadow: 0 0 15px rgba(0, 150, 255, 0.6);
+    border-color: rgba(0, 150, 255, 0.4);
+  }
+  
+  .anomaly-item:nth-child(2):hover {
+    box-shadow: 0 0 15px rgba(0, 255, 100, 0.6);
+    border-color: rgba(0, 255, 100, 0.4);
+  }
+
+  .anomaly-item.anomaly-danger {
+    background: rgba(255, 30, 30, 0.15);
+    border: 1px solid rgba(255, 30, 30, 0.3);
+  }
+
+  .anomaly-item.anomaly-danger:hover {
+    background: rgba(255, 30, 30, 0.3);
+    box-shadow: 0 0 20px rgba(255, 30, 30, 0.8);
+    animation: anomaly-danger-shake 0.5s infinite;
+  }
+
+  @keyframes anomaly-danger-shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+  #anomaly-time-reversal {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 200, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 200, 255, 0.5);
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.4);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+  }
+
+  #anomaly-time-reversal.show {
+    top: 40px;
+  }
+  
+  #anomaly-time-reversal:hover {
+    background: rgba(0, 200, 255, 0.4);
+    box-shadow: 0 0 30px rgba(0, 200, 255, 0.8);
+    transform: translateX(-50%) scale(1.05);
+  }
+
+  /* Matter Canvas Overlay */
+  #anomaly-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    pointer-events: none; /* Mouse constraint will handle specific pointer events */
+  }
+  
+  .anomaly-matter-active {
+    overflow: hidden !important; /* Disable scrolling when active */
+  }
+
+  /* Warning Overlay Cinematic Effects */
+  #anomaly-warning-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 10001;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 150px rgba(255, 0, 0, 0.8);
+    animation: anomaly-alert-flash 0.5s infinite alternate;
+  }
+  
+  #anomaly-warning-overlay.hide {
+    display: none;
+  }
+  
+  .anomaly-warning-text {
+    font-size: 4vw;
+    font-weight: 900;
+    color: #ff3333;
+    text-shadow: 0 0 20px #ff0000;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+    text-align: center;
+  }
+  
+  .anomaly-countdown {
+    font-size: 15vw;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 40px #ff0000, 0 0 10px #fff;
+    line-height: 1;
+  }
+  
+  @keyframes anomaly-alert-flash {
+    0% { box-shadow: inset 0 0 50px rgba(255, 0, 0, 0.2); }
+    100% { box-shadow: inset 0 0 200px rgba(255, 0, 0, 0.6); background: rgba(255, 0, 0, 0.05); }
+  }
+</style>
+
+<div id="anomaly-control-center">
+  <div class="anomaly-menu hide" id="anomaly-menu">
+    <div id="anomaly-quantum-stats" style="font-size:10px; color:#0f0; background:rgba(0,0,0,0.5); padding:8px; border-radius:8px; width:100%; box-sizing:border-box; margin-bottom:10px; font-family:monospace; line-height:1.4; text-shadow:0 0 3px #0f0; border:1px solid rgba(0,255,0,0.3);">
+      G-CONST: <span id="stat-grav">99.8%</span><br>
+      Q-FLUCT: <span id="stat-fluct">0.02eV</span><br>
+      T-DILAT: <span id="stat-time">1.000x</span>
+    </div>
+    <div id="anomaly-tm-submenu" class="anomaly-submenu">
+      <div class="anomaly-tm-btn" data-year="modern">🔙 现代 (Modern)</div>
+      <div class="anomaly-tm-btn" data-year="1998">💽 1998 (Win95)</div>
+      <div class="anomaly-tm-btn" data-year="2077">🌆 2077 (Cyber)</div>
+    </div>
+    <div class="anomaly-item" id="btn-time-machine" title="🕰️ 时光机 (Time Machine)">🕰️</div>
+    <div class="anomaly-item" id="btn-hacker-terminal" title="👨‍💻 极客终端 (Hacker Terminal)">👨‍💻</div>
+    <div class="anomaly-item anomaly-danger" id="btn-gravity-collapse" title="💥 重力崩塌 (Gravity Collapse)">💥</div>
+  </div>
+  <div class="anomaly-fab" id="anomaly-fab" title="Anomaly Control Center">
+    <div class="anomaly-fab-icon">⚠️</div>
+  </div>
+</div>
+
+<div id="anomaly-time-reversal">
+  <span>⏳ 逆转时间 (Time Reversal)</span>
+</div>
+
+<div id="anomaly-warning-overlay" class="hide">
+  <div class="anomaly-warning-text">警告：引力场约束已解除</div>
+  <div class="anomaly-countdown">3</div>
+</div>
+
+<script>
+(function() {
+  const fab = document.getElementById('anomaly-fab');
+  const menu = document.getElementById('anomaly-menu');
+  const btnTimeMachine = document.getElementById('btn-time-machine');
+  const btnHackerTerminal = document.getElementById('btn-hacker-terminal');
+  const btnGravity = document.getElementById('btn-gravity-collapse');
+  const btnTimeReversal = document.getElementById('anomaly-time-reversal');
+
+  let isMenuOpen = false;
+
+  // Quantum Stats Updater
+  setInterval(() => {
+    if (isMenuOpen && document.getElementById('stat-grav')) {
+      document.getElementById('stat-grav').innerText = (Math.random()*2 + 98).toFixed(2) + '%';
+      document.getElementById('stat-fluct').innerText = (Math.random()*0.5).toFixed(3) + 'eV';
+      document.getElementById('stat-time').innerText = (1 + Math.random()*0.01).toFixed(4) + 'x';
+    }
+  }, 2000);
+
+  // Toggle Menu
+  fab.addEventListener('click', () => {
+    isMenuOpen = !isMenuOpen;
+    if (isMenuOpen) {
+      menu.classList.remove('hide');
+    } else {
+      menu.classList.add('hide');
+      tmSubmenu.classList.remove('show');
+    }
+  });
+
+  // Time Machine Integration
+  const tmSubmenu = document.getElementById('anomaly-tm-submenu');
+  btnTimeMachine.addEventListener('click', () => {
+    tmSubmenu.classList.toggle('show');
+  });
+
+  document.querySelectorAll('.anomaly-tm-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const year = e.target.getAttribute('data-year');
+      if (typeof window.switchYear === 'function') {
+        window.switchYear(year);
+      } else {
+        alert('时光机核心组件加载中，请稍后再试！');
+      }
+      menu.classList.add('hide');
+      isMenuOpen = false;
+      tmSubmenu.classList.remove('show');
+    });
+  });
+
+  // Hacker Terminal Link
+  btnHackerTerminal.addEventListener('click', () => {
+    if (typeof window.toggleHackerTerminal === 'function') {
+      window.toggleHackerTerminal();
+      menu.classList.add('hide');
+      isMenuOpen = false;
+    } else {
+      alert('👨‍💻 终端模式加载中... (Booting OS...)');
+    }
+  });
+
+  // --- Gravity Collapse Implementation ---
+  let engine, render, runner, mouseConstraint;
+  let domBodiesMap = [];
+  let isGravityActive = false;
+  let isGravityTriggered = false; // prevents double trigger during countdown
+  let scrollYWhenTriggered = 0;
+  
+  // Audio context for sound effects
+  let audioCtx = null;
+  function initAudio() {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) {
+        audioCtx = new AudioContext();
+      }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  function playBeep(freq, type, duration, vol) {
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  }
+
+  function loadMatterJS(callback) {
+    if (window.Matter) {
+      callback();
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js';
+    script.onload = callback;
+    document.head.appendChild(script);
+  }
+
+  window.triggerGravityCollapse = function triggerGravityCollapse() {
+    if (isGravityTriggered) return;
+    isGravityTriggered = true;
+    
+    initAudio();
+    
+    // 1. Stop background music
+    document.querySelectorAll('audio, video').forEach(media => {
+      try { media.pause(); } catch(e){}
+    });
+    if (window.aplayers && window.aplayers.length > 0) {
+      window.aplayers.forEach(player => { try { player.pause(); } catch(e){} });
+    }
+    
+    // 2. UI Effects (Shake & Hide menu)
+    btnGravity.style.animation = 'anomaly-danger-shake 0.1s infinite';
+    document.body.style.transition = 'filter 1s';
+    
+    menu.classList.add('hide');
+    isMenuOpen = false;
+    
+    // 3. Cinematic Countdown
+    const overlay = document.getElementById('anomaly-warning-overlay');
+    const countdownEl = overlay.querySelector('.anomaly-countdown');
+    overlay.classList.remove('hide');
+    
+    let count = 3;
+    countdownEl.innerText = count;
+    playBeep(400, 'square', 0.5, 0.1); // Beep 3
+
+    const interval = setInterval(() => {
+      count--;
+      if (count > 0) {
+        countdownEl.innerText = count;
+        playBeep(400, 'square', 0.5, 0.1); // Beep 2, 1
+      } else {
+        clearInterval(interval);
+        countdownEl.innerText = "BOOM!";
+        playBeep(150, 'sawtooth', 1.5, 0.3); // Boom sound
+        setTimeout(() => {
+          overlay.classList.add('hide');
+          btnGravity.style.animation = '';
+          startPhysics();
+        }, 500);
+      }
+    }, 1000);
+  }
+
+  function startPhysics() {
+    isGravityActive = true;
+    scrollYWhenTriggered = window.scrollY;
+    document.documentElement.classList.add('anomaly-matter-active');
+    
+    const Engine = Matter.Engine,
+          Render = Matter.Render,
+          Runner = Matter.Runner,
+          Bodies = Matter.Bodies,
+          Composite = Matter.Composite,
+          Mouse = Matter.Mouse,
+          MouseConstraint = Matter.MouseConstraint,
+          Events = Matter.Events;
+
+    engine = Engine.create();
+    
+    // Create canvas overlay
+    const canvas = document.createElement('canvas');
+    canvas.id = 'anomaly-canvas';
+    document.body.appendChild(canvas);
+    
+    // We don't really render via Matter, but we need it for Mouse interactions
+    render = Render.create({
+      canvas: canvas,
+      engine: engine,
+      options: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        background: 'transparent',
+        wireframes: false,
+        showAngleIndicator: false
+      }
+    });
+    // Hide native render, we use DOM rendering
+    render.canvas.style.opacity = '0';
+    render.canvas.style.pointerEvents = 'auto'; // allow mouse to interact with canvas
+
+    // Select elements to collapse. Reimu specific ones:
+    const targetSelectors = '.post-wrapper, .widget, .sidebar-top-taichi, .mobile-nav, .site-search, img, h1, h2, p, a.article-title';
+    const elements = document.querySelectorAll(targetSelectors);
+    
+    domBodiesMap = [];
+
+    // Floor and walls (relative to viewport)
+    const wallOptions = { isStatic: true, render: { visible: false } };
+    const floor = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + 50, window.innerWidth * 2, 100, wallOptions);
+    const leftWall = Bodies.rectangle(-50, window.innerHeight / 2, 100, window.innerHeight * 2, wallOptions);
+    const rightWall = Bodies.rectangle(window.innerWidth + 50, window.innerHeight / 2, 100, window.innerHeight * 2, wallOptions);
+    
+    Composite.add(engine.world, [floor, leftWall, rightWall]);
+
+    // Create bodies for DOM elements
+    elements.forEach(el => {
+      // Avoid our own UI
+      if (el.closest('#anomaly-control-center') || el.closest('#anomaly-time-reversal') || el.closest('#anomaly-warning-overlay')) return;
+      
+      const rect = el.getBoundingClientRect();
+      if (rect.height === 0 || rect.width === 0) return;
+      if (window.getComputedStyle(el).display === 'none') return;
+      
+      // Calculate initial position in viewport
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      const body = Bodies.rectangle(x, y, rect.width, rect.height, {
+        restitution: 0.6, // Bounciness
+        friction: 0.1,
+        frictionAir: 0.02,
+        density: 0.005,
+        render: { visible: false }
+      });
+      
+      // Save initial styling to restore later
+      const initialStyle = el.getAttribute('style') || '';
+      const computed = window.getComputedStyle(el);
+      
+      // Important: prevent elements from wrapping text differently when we rotate them
+      el.style.width = computed.width;
+      el.style.height = computed.height;
+      el.style.boxSizing = 'border-box';
+      el.style.margin = '0'; // neutralize margin effect on transform
+      el.style.transformOrigin = 'center center';
+      
+      domBodiesMap.push({
+        el: el,
+        body: body,
+        initialStyle: initialStyle,
+        initialRect: rect
+      });
+
+      Composite.add(engine.world, body);
+    });
+
+    // Add Mouse Constraint
+    const mouse = Mouse.create(render.canvas);
+    mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: { visible: false }
+      }
+    });
+    Composite.add(engine.world, mouseConstraint);
+    render.mouse = mouse;
+
+    // DOM Rendering Loop
+    Events.on(engine, 'afterUpdate', function() {
+      domBodiesMap.forEach(item => {
+        // Calculate translation relative to original viewport position
+        const dx = item.body.position.x - (item.initialRect.left + item.initialRect.width / 2);
+        const dy = item.body.position.y - (item.initialRect.top + item.initialRect.height / 2);
+        const angle = item.body.angle;
+        
+        // We use transform so we don't mess up the document flow, making restoration easier
+        item.el.style.transform = `translate(${dx}px, ${dy}px) rotate(${angle}rad)`;
+        item.el.style.zIndex = '9997'; // ensure it's above background
+      });
+    });
+
+    // Collision Sounds
+    Events.on(engine, 'collisionStart', function(event) {
+      if (!audioCtx) return;
+      const pairs = event.pairs;
+      for (let i = 0; i < pairs.length; i++) {
+        const bodyA = pairs[i].bodyA;
+        const bodyB = pairs[i].bodyB;
+        const speed = Math.abs(bodyA.speed - bodyB.speed) + Math.abs(bodyA.angularVelocity - bodyB.angularVelocity);
+        if (speed > 1.5) {
+          // Play wood/glass tick sound
+          playBeep(Math.random() * 800 + 400, 'triangle', 0.1, Math.min(speed / 100, 0.15));
+        }
+      }
+    });
+
+    runner = Runner.create();
+    Runner.run(runner, engine);
+    Render.run(render);
+    
+    // Show Time Reversal Button
+    setTimeout(() => {
+      btnTimeReversal.classList.add('show');
+    }, 1000);
+  }
+
+  function reverseTime() {
+    if (!isGravityActive) return;
+    
+    initAudio();
+    playBeep(800, 'sine', 1.5, 0.1); // reverse sound
+    
+    // Hide button
+    btnTimeReversal.classList.remove('show');
+    
+    // 1. Stop the physics engine loop so we can manually animate them back
+    if (runner) {
+      Matter.Runner.stop(runner);
+    }
+    Matter.Events.off(engine, 'afterUpdate');
+    
+    // 2. Transition bodies back using CSS
+    document.body.style.transition = 'filter 1.5s';
+    document.body.style.filter = 'blur(5px) sepia(50%) hue-rotate(180deg)';
+    
+    domBodiesMap.forEach(item => {
+      item.el.style.transition = 'transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+      item.el.style.transform = 'translate(0px, 0px) rotate(0rad)';
+    });
+    
+    // 3. Wait for animation to finish, then clean up
+    setTimeout(() => {
+      // Stop engine & render completely
+      if (engine) Matter.Engine.clear(engine);
+      if (render) {
+        Matter.Render.stop(render);
+        render.canvas.remove();
+      }
+      
+      // Reset DOM elements to original state
+      domBodiesMap.forEach(item => {
+        item.el.style.transition = '';
+        item.el.style.transform = '';
+        item.el.style.zIndex = '';
+        item.el.style.width = '';
+        item.el.style.height = '';
+        item.el.style.boxSizing = '';
+        item.el.style.margin = '';
+        item.el.style.transformOrigin = '';
+        item.el.setAttribute('style', item.initialStyle);
+      });
+      
+      document.body.style.filter = '';
+      document.documentElement.classList.remove('anomaly-matter-active');
+      window.scrollTo(0, scrollYWhenTriggered);
+      isGravityActive = false;
+      isGravityTriggered = false;
+    }, 1500);
+  }
+
+  btnGravity.addEventListener('click', () => {
+    loadMatterJS(triggerGravityCollapse);
+  });
+  
+  btnTimeReversal.addEventListener('click', reverseTime);
+
+  // Konami Code for Gravity
+  let keys = [];
+  const gravityCode = ['g', 'r', 'a', 'v', 'i', 't', 'y'];
+  window.addEventListener('keydown', (e) => {
+    // Ignore if typing in an input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    
+    keys.push(e.key.toLowerCase());
+    if (keys.length > gravityCode.length) {
+      keys.shift();
+    }
+    if (keys.join('') === gravityCode.join('')) {
+      keys = [];
+      loadMatterJS(triggerGravityCollapse);
+    }
+  });
+
+})();
+</script>
+
+    
+      <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><link rel="stylesheet" href="/css/konami.css"><link rel="stylesheet" href="/css/time-machine.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script><script src="/js/konami.js" defer></script><script src="/js/time-machine.js" defer></script>
     
   </body>
   </html>

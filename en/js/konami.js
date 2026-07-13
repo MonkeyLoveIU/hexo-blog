@@ -124,6 +124,16 @@
     let w, h;
     let animId;
 
+    let musicEnergy = 0;
+    let musicTreble = 0;
+    const audioCallback = (data) => {
+      musicEnergy = data.energy || 0;
+      musicTreble = data.treble || 0;
+    };
+    if (window.AudioReactor) {
+      window.AudioReactor.subscribe(audioCallback);
+    }
+
     function resize() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
@@ -180,9 +190,9 @@
       ctx.clearRect(0, 0, w, h);
       for (let i = 0; i < petals.length; i++) {
         const p = petals[i];
-        p.y += p.speedY;
-        p.wobble += p.wobbleSpeed;
-        p.x += p.speedX + Math.sin(p.wobble) * 0.6;
+        p.y += p.speedY + (musicEnergy * 5.0);
+        p.wobble += p.wobbleSpeed + (musicTreble * 0.05);
+        p.x += p.speedX + Math.sin(p.wobble) * (0.6 + musicEnergy * 2.0);
         p.rotation += p.rotSpeed;
 
         if (p.y > h + 20) {
@@ -196,6 +206,9 @@
 
     const origRemove = canvas.remove.bind(canvas);
     canvas.remove = () => {
+      if (window.AudioReactor) {
+        window.AudioReactor.unsubscribe(audioCallback);
+      }
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', resize);
       origRemove();

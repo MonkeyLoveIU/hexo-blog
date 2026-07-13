@@ -1,0 +1,202 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+/* --- 时光机悬浮部件 --- */
+#time-machine-widget {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: sans-serif;
+}
+
+#tm-trigger {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--color-link);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  transition: transform 0.3s, background 0.3s;
+}
+
+#tm-trigger:hover {
+  transform: scale(1.1);
+  background: var(--red-0);
+}
+
+#tm-menu {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--color-wrap);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+  animation: tm-menu-in 0.3s ease-out;
+}
+
+#tm-menu.active {
+  display: flex;
+}
+
+.tm-btn {
+  padding: 8px 16px;
+  border: none;
+  background: var(--color-background);
+  color: var(--color-default);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.tm-btn:hover {
+  background: var(--color-link);
+  color: #fff;
+}
+
+@keyframes tm-menu-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 1998 Windows 95 Theme --- */
+html.tm-1998 {
+  --color-background: #008080 !important; /* Classic Win95 Teal */
+  --color-wrap: #c0c0c0 !important;
+  --color-default: #000000 !important;
+  --color-link: #0000ff !important;
+  --color-border: #808080 !important;
+  --color-header-background: #c0c0c0 !important;
+  --color-footer-background: #c0c0c0 !important;
+  
+  --shadow-card: none !important;
+  --shadow-card-hover: none !important;
+  --post-radius: 0 !important;
+  
+  font-family: 'VT323', monospace !important;
+  cursor: url('https://win98icons.alexmeub.com/icons/pointer.png'), auto !important;
+}
+
+html.tm-1998 a {
+  cursor: url('https://win98icons.alexmeub.com/icons/pointer.png'), pointer !important;
+}
+
+/* Specific Win95 structural overrides */
+html.tm-1998 #wrap {
+  border: 2px solid;
+  border-color: #dfdfdf #000000 #000000 #dfdfdf !important;
+  box-shadow: 1px 1px 0 #000 inset, -1px -1px 0 #dfdfdf inset !important;
+}
+
+html.tm-1998 #header {
+  background: #000080 !important; /* Win95 Title Bar Blue */
+  color: #ffffff !important;
+  border: 2px solid;
+  border-color: #dfdfdf #000000 #000000 #dfdfdf !important;
+  margin-bottom: 10px;
+}
+html.tm-1998 #header h1, html.tm-1998 #header a {
+  color: #fff !important;
+}
+
+html.tm-1998 .article, html.tm-1998 .widget {
+  background: #c0c0c0 !important;
+  border: 2px solid;
+  border-color: #dfdfdf #000000 #000000 #dfdfdf !important;
+  border-radius: 0 !important;
+  box-shadow: inset 1px 1px 0px #fff, inset -1px -1px 0px #808080 !important;
+  margin-bottom: 20px;
+}
+
+/* --- 2077 Cyberpunk Theme --- */
+html.tm-2077 {
+  --color-background: #050505 !important;
+  --color-wrap: #0a0a0c !important;
+  --color-default: #00ff41 !important; /* Matrix green / Neon */
+  --color-link: #fcee0a !important; /* Cyberpunk yellow */
+  --color-border: #f12566 !important; /* Neon pink */
+  --color-header-background: rgba(5,5,5,0.8) !important;
+  --color-footer-background: #050505 !important;
+  
+  --shadow-card: 0 0 10px rgba(241, 37, 102, 0.5) !important;
+  --shadow-card-hover: 0 0 20px rgba(241, 37, 102, 0.8) !important;
+  
+  font-family: 'Share Tech Mono', 'Orbitron', monospace !important;
+}
+
+html.tm-2077 body {
+  background-image: 
+    linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px) !important;
+  background-size: 20px 20px !important;
+}
+
+html.tm-2077 h1, html.tm-2077 h2, html.tm-2077 h3 {
+  color: #00ff41 !important;
+  text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41 !important;
+  font-family: 'Orbitron', sans-serif !important;
+  text-transform: uppercase;
+}
+
+html.tm-2077 a {
+  text-shadow: 0 0 5px #fcee0a !important;
+}
+
+/* Glitch effect for hover */
+html.tm-2077 a:hover {
+  animation: glitch 0.3s infinite;
+  color: #f12566 !important;
+  text-shadow: 0 0 8px #f12566 !important;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 1px) }
+  40% { transform: translate(-1px, -1px) }
+  60% { transform: translate(2px, 1px) }
+  80% { transform: translate(1px, -1px) }
+  100% { transform: translate(0) }
+}
+
+/* Scanlines */
+html.tm-2077::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 9999;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* --- Canvas Effects --- */
+#tm-matrix-canvas, #tm-glass-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+}
+
+#tm-glass-canvas {
+  z-index: 100000;
+}

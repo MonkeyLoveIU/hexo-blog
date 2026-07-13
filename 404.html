@@ -225,6 +225,23 @@
           
         </span>
       
+        
+        <span class="main-nav-link-wrap ">
+          
+      <div class="main-nav-icon icon ">
+        
+          
+            &#xe699;
+          
+        
+      </div>
+    
+          
+            <a class="main-nav-link" href="/javascript:window.toggleHackerTerminal()">terminal</a>
+          
+          
+        </span>
+      
     
     <a id="main-nav-toggle" class="nav-icon"></a>
   </nav>
@@ -650,8 +667,398 @@
 
 
 
+
+<script src="/js/audio-reactor.js" defer data-pjax></script>
+
+
+<script src="/js/ambient-synth.js" defer data-pjax></script>
+
+
+<script src="/js/matrix-saver.js" defer data-pjax></script>
+
+<style>
+#hacker-terminal-overlay {
+  position: fixed;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: #00ff00;
+  font-family: 'Courier New', Courier, monospace;
+  z-index: 999999;
+  transition: top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 5px 15px rgba(0,255,0,0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-shadow: 0 0 5px #00ff00;
+}
+#hacker-terminal-overlay.active {
+  top: 0;
+}
+#hacker-terminal-overlay::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+#ht-output {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+#ht-output::-webkit-scrollbar {
+  width: 8px;
+}
+#ht-output::-webkit-scrollbar-thumb {
+  background: #00ff00;
+}
+.ht-input-line {
+  display: flex;
+  align-items: center;
+}
+.ht-prompt {
+  margin-right: 10px;
+  color: #00ff00;
+}
+#ht-input {
+  background: transparent;
+  border: none;
+  color: #00ff00;
+  font-family: inherit;
+  font-size: 1rem;
+  flex-grow: 1;
+  outline: none;
+  text-shadow: 0 0 5px #00ff00;
+}
+.glitch-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: black;
+  z-index: 9999999;
+  display: none;
+  pointer-events: none;
+}
+.glitch-overlay.active {
+  display: block;
+  animation: glitch-anim 0.2s infinite;
+}
+@keyframes glitch-anim {
+  0% { transform: translate(0) }
+  20% { transform: translate(-5px, 5px) }
+  40% { transform: translate(-5px, -5px) }
+  60% { transform: translate(5px, 5px) }
+  80% { transform: translate(5px, -5px) }
+  100% { transform: translate(0) }
+}
+.glitch-text {
+  color: red;
+  font-size: 3rem;
+  font-weight: bold;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+</style>
+
+<div id="hacker-terminal-overlay">
+  <div id="ht-output">
+Welcome to MATRIX OS v1.0.1
+Type 'help' for a list of available commands.
+  </div>
+  <div class="ht-input-line">
+    <span class="ht-prompt">guest@matrix:~$</span>
+    <input type="text" id="ht-input" autocomplete="off" spellcheck="false" />
+  </div>
+</div>
+
+<div class="glitch-overlay" id="glitch-overlay">
+  <div class="glitch-text">CRITICAL SYSTEM FAILURE<br/>ERR_DATA_CORRUPTION</div>
+</div>
+
+<script>
+(function() {
+  const terminal = document.getElementById('hacker-terminal-overlay');
+  const output = document.getElementById('ht-output');
+  const input = document.getElementById('ht-input');
+  const glitch = document.getElementById('glitch-overlay');
+  let isOpen = false;
+
+  // Audio Context for synthetic sound
+  let audioCtx = null;
+  function playBeep(freq, type, duration) {
+    if (!audioCtx) {
+      try {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      } catch(e) { return; }
+    }
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + duration);
+  }
+
+  function playOpenSound() {
+    playBeep(440, 'square', 0.1);
+    setTimeout(() => playBeep(660, 'square', 0.15), 100);
+  }
+
+  function playScarySound() {
+    playBeep(100, 'sawtooth', 2);
+  }
+
+  window.toggleHackerTerminal = function toggleTerminal() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      terminal.classList.add('active');
+      playOpenSound();
+      setTimeout(() => input.focus(), 500);
+    } else {
+      terminal.classList.remove('active');
+      input.blur();
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '`' || e.key === '~' || e.key === 'F12') {
+      // Allow F12 to open dev tools if terminal is closed, but intercept if they want it for terminal.
+      // Actually user requested ~ or F12.
+      e.preventDefault();
+      toggleTerminal();
+    }
+  });
+
+  // Prevent terminal closing when clicking inside
+  terminal.addEventListener('click', function(e) {
+    input.focus();
+  });
+
+  const categories = [
+    
+      "少年旧事",
+    
+      "阅读",
+    
+      "Travel",
+    
+      "论文",
+    
+      "迷雾",
+    
+      "高考",
+    
+      "控件",
+    
+      "技术",
+    
+      "迷雾time",
+    
+      "旅行",
+    
+      "雪",
+    
+      "学生时代",
+    
+      "观影",
+    
+      "随笔",
+    
+  ];
+
+  function printOutput(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    output.appendChild(div);
+    output.scrollTop = output.scrollHeight;
+  }
+
+  function processCommand(cmd) {
+    printOutput("guest@matrix:~$ " + cmd);
+    const args = cmd.trim().split(/\s+/);
+    const command = args[0].toLowerCase();
+
+    switch(command) {
+      case 'help':
+        printOutput("Available commands:");
+        printOutput("  ls              - List categories");
+        printOutput("  cat about.txt   - Read self introduction");
+        printOutput("  music play/pause- Control background music");
+        printOutput("  gravity         - Trigger Gravity Collapse anomaly");
+        printOutput("  matrix          - Activate Matrix Digital Rain");
+        printOutput("  time <year>     - Time travel (1998, 2077, modern)");
+        printOutput("  ambient play/stop- Toggle telepathic ambient synth");
+        printOutput("  systeminfo      - View quantum anomaly status");
+        printOutput("  clear           - Clear terminal");
+        printOutput("  exit            - Close terminal");
+        break;
+      case 'ls':
+        if(categories.length > 0) {
+          printOutput(categories.join('  '));
+        } else {
+          printOutput("No categories found.");
+        }
+        break;
+      case 'cat':
+        if (args[1] === 'about.txt') {
+          printOutput("Hello! I am Monkey Love IU.");
+          printOutput("I love coding, music, and exploring the unknown.");
+          printOutput("Welcome to my digital garden.");
+        } else {
+          printOutput("cat: " + (args[1] || '') + ": No such file or directory");
+        }
+        break;
+      case 'music':
+        {
+          const action = args[1];
+          let ap = window.aplayers && window.aplayers[0];
+          if (!ap) {
+             const aplayerElement = document.querySelector('meting-js');
+             if (aplayerElement && aplayerElement.aplayer) ap = aplayerElement.aplayer;
+          }
+          if (ap) {
+            if (action === 'play') { ap.play(); printOutput("Music playing."); }
+            else if (action === 'pause') { ap.pause(); printOutput("Music paused."); }
+            else if (action === 'next') { ap.skipForward(); printOutput("Skipped to next track."); }
+            else { ap.toggle(); printOutput("Toggled music playback."); }
+          } else {
+            printOutput("Error: No music player found on this page.");
+          }
+        }
+        break;
+      case 'gravity':
+        printOutput("WARNING: Gravity constraints deactivated!");
+        playScarySound();
+        setTimeout(() => {
+          if (typeof window.triggerGravityCollapse === 'function') {
+            window.toggleHackerTerminal();
+            window.triggerGravityCollapse();
+          } else {
+            printOutput("Error: Gravity module not loaded.");
+          }
+        }, 1000);
+        break;
+      case 'matrix':
+        printOutput("Initializing Matrix overlay...");
+        setTimeout(() => {
+          if (typeof window.triggerMatrixSaver === 'function') {
+            window.toggleHackerTerminal();
+            window.triggerMatrixSaver();
+          } else {
+            printOutput("Error: Matrix module not found.");
+          }
+        }, 500);
+        break;
+      case 'time':
+        {
+          const year = args[1] || 'modern';
+          printOutput(`Initiating time jump to ${year}...`);
+          playBeep(800, 'sine', 0.5);
+          setTimeout(() => {
+            if (typeof window.switchYear === 'function') {
+              window.switchYear(year);
+              printOutput("Time jump successful.");
+            } else {
+              printOutput("Error: Time machine core offline.");
+            }
+          }, 800);
+        }
+        break;
+      case 'ambient':
+        {
+          const action = args[1];
+          if (typeof window.AmbientSynth !== 'undefined') {
+            if (action === 'play') {
+              window.AmbientSynth.start();
+              printOutput("Ambient Synth activated. Listen to the universe.");
+            } else if (action === 'stop') {
+              window.AmbientSynth.stop();
+              printOutput("Ambient Synth deactivated.");
+            } else {
+              printOutput("Usage: ambient play | ambient stop");
+            }
+          } else {
+            printOutput("Error: Ambient Synth module offline.");
+          }
+        }
+        break;
+      case 'systeminfo':
+        printOutput("==========================");
+        printOutput("QUANTUM ANOMALY STATUS");
+        printOutput("==========================");
+        printOutput("Gravity Constraint : " + (Math.random()*2 + 98).toFixed(2) + "%");
+        printOutput("Quantum Fluctuation: " + (Math.random()*0.5).toFixed(3) + " eV");
+        printOutput("Miku Mood Index    : " + Math.floor(Math.random()*20 + 80) + "%");
+        printOutput("Time Dilatation    : " + (1 + Math.random()*0.01).toFixed(4) + "x");
+        printOutput("==========================");
+        break;
+      case 'sudo':
+        if (args.slice(1).join(' ') === 'rm -rf /') {
+          printOutput("Initiating system purge...");
+          setTimeout(() => {
+            playScarySound();
+            glitch.classList.add('active');
+            let jumble = setInterval(() => {
+                document.body.style.filter = `hue-rotate(${Math.random()*360}deg)`;
+            }, 50);
+            setTimeout(() => {
+              clearInterval(jumble);
+              glitch.classList.remove('active');
+              document.body.style.filter = '';
+              printOutput("Just kidding! System restored.");
+            }, 3000);
+          }, 1000);
+        } else {
+          printOutput("Permission denied.");
+        }
+        break;
+      case 'clear':
+        output.innerHTML = '';
+        break;
+      case 'exit':
+        toggleTerminal();
+        break;
+      case '':
+        break;
+      default:
+        printOutput(command + ": command not found");
+    }
+  }
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      playBeep(300, 'square', 0.05);
+      const val = input.value;
+      input.value = '';
+      processCommand(val);
+    } else if (e.key !== 'Shift' && e.key !== 'Control' && e.key !== 'Alt' && e.key !== 'Meta') {
+      playBeep(800 + Math.random()*200, 'triangle', 0.02);
+    }
+  });
+})();
+</script>
+
+
   
-    <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><link rel="stylesheet" href="/css/konami.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script><script src="/js/konami.js" defer></script>
+    <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><link rel="stylesheet" href="/css/konami.css"><link rel="stylesheet" href="/css/time-machine.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script><script src="/js/konami.js" defer></script><script src="/js/time-machine.js" defer></script>
   
 </body>
 </html>
