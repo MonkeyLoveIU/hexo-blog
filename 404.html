@@ -93,6 +93,15 @@
 <!-- Live2D 自定义样式 & 打字机 -->
 <link rel="stylesheet" href="/css/live2d-custom.css">
 <script src="/js/live2d-typewriter.js" defer></script>
+<!-- Theme Switcher Init to prevent FOUC -->
+<script>
+  (function() {
+    try {
+      var colorTheme = localStorage.getItem('color-theme') || 'warm';
+      document.documentElement.setAttribute('data-color-theme', colorTheme);
+    } catch (e) {}
+  })();
+</script>
 <meta name="generator" content="Hexo 7.3.0"></head>
 
 <body>
@@ -102,210 +111,230 @@
       <div id="header-nav">
   <nav id="main-nav">
     
-    
-    
-    
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
-        
-          
-            &#xea1f;
-          
-        
-      </div>
-    
-          
+          <span class="main-nav-link-wrap">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xea1f;
+                
+               
+            </div>
             <a class="main-nav-link" href="/">首页</a>
-          
-          
-        </span>
+          </span>
+        
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe699;
+                
+               
+            </div>
+            <a class="main-nav-link" href="/archives">文章</a>
+          </span>
         
-          
-            &#xe699;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/archives">归档</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe64d;
+                
+               
+            </div>
+            <a class="main-nav-link" href="/categories">网站导航</a>
+          </span>
         
-          
-            &#xe647;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/about">关于</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe60b;
+                
+               
+            </div>
+            <a class="main-nav-link" href="/diary">动态</a>
+          </span>
         
-          
-            &#xe64d;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/travel-map">足迹</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap has-children">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe699;
+                
+               
+            </div>
+            <a class="main-nav-link">记录</a>
+            <div class="main-nav-dropdown">
+              
+                <a class="main-nav-dropdown-link" href="/books">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  书架
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/movies">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  影视与游戏
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/music/">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  音乐
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/changelog">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  更新日志
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/calendar">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  日历
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/plan">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  规划
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/travel-map">
+                  
+                    <div class="main-nav-icon icon">&#xe64d;</div>
+                  
+                  足迹
+                </a>
+              
+            </div>
+          </span>
         
-          
-            &#xe604;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/friend">友链</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap has-children">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe647;
+                
+               
+            </div>
+            <a class="main-nav-link">关于</a>
+            <div class="main-nav-dropdown">
+              
+                <a class="main-nav-dropdown-link" href="/about">
+                  
+                    <div class="main-nav-icon icon">&#xe647;</div>
+                  
+                  关于我
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/friend">
+                  
+                    <div class="main-nav-icon icon">&#xe604;</div>
+                  
+                  友链
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/gallery">
+                  
+                    <div class="main-nav-icon icon">&#xe65f;</div>
+                  
+                  图库
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/javascript:window.toggleHackerTerminal()">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  终端
+                </a>
+              
+            </div>
+          </span>
         
-          
-            &#xe60b;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/diary">碎碎念</a>
-          
-          
-        </span>
-      
-        
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
-        
-          
-            &#xe65f;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/gallery">画廊</a>
-          
-          
-        </span>
-      
-        
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
-        
-          
-            &#xe699;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/javascript:window.toggleHackerTerminal()">terminal</a>
-          
-          
-        </span>
       
     
     <a id="main-nav-toggle" class="nav-icon"></a>
   </nav>
-  <nav id="sub-nav" aria-label="Tools">
+  <nav id="sub-nav">
     
       <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" target="_blank"></a>
     
     
-    
       <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
     
-  </nav>
-  
     
-    <nav id="i18n-nav">
-      <div class="custom-dropdown">
-        <div class="select-selected" id="select-selected">
-          <span id="nav-language-btn" class="nav-icon" style="padding: 0 20px 0 0"></span>
-          <span id="selected-lang">简体中文</span>
+      
+      <div id="i18n-nav" style="display: flex; align-items: center;">
+        <div class="custom-dropdown">
+          <div class="select-selected" id="select-selected" style="padding: 5px;">
+            <span id="selected-lang">中</span>
+          </div>
+          <ul class="select-items" id="select-items" style="right: 0;">
+            
+              <li data-value="zh-CN" class="selected">中</li>
+            
+              <li data-value="en" >EN</li>
+            
+          </ul>
         </div>
-        <ul class="select-items" id="select-items">
-          
-            <li data-value="zh-CN" class="selected">简体中文</li>
-          
-            <li data-value="en" >English</li>
-          
-        </ul>
-      </div>
-      <script>
-        var selectSelected = document.getElementById("select-selected");
-        var selectedLang = document.getElementById("selected-lang");
-        var selectItems = document.getElementById("select-items");
-        var selectOptions = selectItems.querySelectorAll("li");
+        <script>
+          var selectSelected = document.getElementById("select-selected");
+          var selectedLang = document.getElementById("selected-lang");
+          var selectItems = document.getElementById("select-items");
+          var selectOptions = selectItems.querySelectorAll("li");
 
-        selectSelected.addEventListener("click", () => {
-          selectItems.classList.toggle("show");
-        });
-
-        selectOptions.forEach((item) => {
-          item.addEventListener("click", () => {
-            const langMap = {};
-            
-              langMap['zh-CN'] = '/404';
-            
-              langMap['en'] = '/en/404';
-            
-            selectedLang.textContent = item.textContent;
-            selectItems.classList.remove("show");
-            selectOptions.forEach((option) => {
-              option.classList.remove("selected");
-            });
-            item.classList.add("selected");
-            window.location = langMap[item.dataset.value];
+          selectSelected.addEventListener("click", () => {
+            selectItems.classList.toggle("show");
           });
-        });
 
-        document.addEventListener("click", (event) => {
-          if (!event.target.closest(".custom-dropdown")) {
-            selectItems.classList.remove("show");
-          }
-        });
-      </script>
-    </nav>
-  
+          selectOptions.forEach((item) => {
+            item.addEventListener("click", () => {
+              const langMap = {};
+              
+                langMap['zh-CN'] = '/404';
+              
+                langMap['en'] = '/en/404';
+              
+              selectedLang.textContent = item.textContent;
+              selectItems.classList.remove("show");
+              selectOptions.forEach((option) => {
+                option.classList.remove("selected");
+              });
+              item.classList.add("selected");
+              window.location = langMap[item.dataset.value];
+            });
+          });
+
+          document.addEventListener("click", (event) => {
+            if (!event.target.closest("#i18n-nav .custom-dropdown")) {
+              selectItems.classList.remove("show");
+            }
+          });
+        </script>
+      </div>
+    
+  </nav>
 </div>
 <header id="header">
   
@@ -364,6 +393,9 @@
 
 
 <script src="/js/script.js"></script>
+
+
+<script src="/js/theme-switcher.js" defer></script>
 
 
 
@@ -676,6 +708,9 @@
 
 <script src="/js/matrix-saver.js" defer data-pjax></script>
 
+
+<script src="/js/archive-layout.js" defer data-pjax></script>
+
 <style>
 #hacker-terminal-overlay {
   position: fixed;
@@ -858,9 +893,9 @@ Type 'help' for a list of available commands.
     
       "阅读",
     
-      "Travel",
-    
       "论文",
+    
+      "Travel",
     
       "迷雾",
     
@@ -876,11 +911,11 @@ Type 'help' for a list of available commands.
     
       "雪",
     
+      "随笔",
+    
       "学生时代",
     
       "观影",
-    
-      "随笔",
     
   ];
 
@@ -1058,7 +1093,7 @@ Type 'help' for a list of available commands.
 
 
   
-    <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><link rel="stylesheet" href="/css/konami.css"><link rel="stylesheet" href="/css/time-machine.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script><script src="/js/konami.js" defer></script><script src="/js/time-machine.js" defer></script>
+    <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><link rel="stylesheet" href="/css/konami.css"><link rel="stylesheet" href="/css/time-machine.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script><script src="/js/konami.js" defer></script><script src="/js/time-machine.js" defer></script><script src="/js/archive-layout.js" defer></script>
   
 </body>
 </html>

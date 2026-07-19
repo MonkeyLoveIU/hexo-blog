@@ -1,23 +1,102 @@
-/* ========== 朋友圈碎碎念 ========== */
-/* 所有颜色跟随主题暗色/亮色变量，自动适配 */
+/* ========== 朋友圈碎碎念 — 双模式布局 ========== */
+/* Timeline (默认) + Card 瀑布流  |  所有颜色跟随主题暗色/亮色变量 */
 
+/* ===== 1. CSS 自定义变量 ===== */
+:root {
+  /* 玻璃拟态 */
+  --moment-glass-bg: rgba(255, 255, 255, 0.55);
+  --moment-glass-border: rgba(255, 255, 255, 0.35);
+  --moment-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  /* 卡片 */
+  --moment-radius: 20px;
+  --moment-radius-sm: 14px;
+  --moment-gap: 20px;
+  /* 切换器 */
+  --switch-bg: rgba(0, 0, 0, 0.05);
+  --switch-active-bg: var(--red-1, #e74c6f);
+  --switch-active-text: #fff;
+  --switch-text: var(--highlight-comment, #888);
+  /* 动画 */
+  --moment-transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 暗色适配 */
+[data-theme="dark"] {
+  --moment-glass-bg: rgba(39, 43, 48, 0.6);
+  --moment-glass-border: rgba(255, 255, 255, 0.08);
+  --moment-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --switch-bg: rgba(255, 255, 255, 0.06);
+}
+
+/* ===== 2. 布局切换器 ===== */
+.moments-layout-switch {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 28px;
+  background: var(--switch-bg);
+  padding: 4px;
+  border-radius: 12px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.moments-layout-switch button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 20px;
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--switch-text);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+.moments-layout-switch button:hover {
+  color: var(--red-1, #e74c6f);
+}
+.moments-layout-switch button.active {
+  background: var(--switch-active-bg);
+  color: var(--switch-active-text);
+  box-shadow: 0 2px 8px rgba(231, 76, 111, 0.25);
+}
+.moments-layout-switch button svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ===== 3. 容器 — 公共样式 ===== */
 .moments-wrap {
   max-width: 640px;
   margin: 0 auto;
   padding: 24px 16px;
+  transition: max-width var(--moment-transition);
+}
+
+/* ===== 4. Timeline 模式（默认）===== */
+/* 容器宽度保持窄列 */
+.moments-wrap[data-layout="timeline"] {
+  max-width: 640px;
 }
 
 /* ---------- 单条卡片 ---------- */
 .moments-item {
-  background: var(--card-bg);
-  border-radius: 14px;
+  background: var(--color-wrap, #fff);
+  border-radius: var(--moment-radius-sm);
   padding: 20px 22px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  transition: box-shadow 0.25s ease, transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.25s ease, transform 0.2s ease, opacity 0.3s ease;
+  break-inside: avoid;
 }
 .moments-item:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 /* ---------- 头部 ---------- */
@@ -50,7 +129,7 @@
 .moments-username {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--heading-color);
+  color: var(--heading-color, var(--color-default));
   letter-spacing: 0.01em;
 }
 .moments-time {
@@ -66,7 +145,7 @@
 .moments-text {
   font-size: 1rem;
   line-height: 1.75;
-  color: var(--text-color);
+  color: var(--text-color, var(--color-default));
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -157,13 +236,157 @@
   border-top: 1px solid var(--red-5);
 }
 
+/* ===== 5. Card 瀑布流模式 ===== */
+.moments-wrap[data-layout="card"] {
+  max-width: 900px;
+  column-count: 2;
+  column-gap: var(--moment-gap);
+  overflow: hidden;
+}
+
+/* 卡片 — Card 模式覆盖 */
+.moments-wrap[data-layout="card"] .moments-item {
+  break-inside: avoid;
+  overflow: hidden;
+  margin-bottom: var(--moment-gap);
+  border-radius: var(--moment-radius);
+  background: var(--moment-glass-bg);
+  border: 1px solid var(--moment-glass-border);
+  box-shadow: var(--moment-glass-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform var(--moment-transition),
+              box-shadow var(--moment-transition),
+              border-color var(--moment-transition);
+  animation: moment-fade-in 0.4s ease backwards;
+}
+.moments-wrap[data-layout="card"] .moments-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+  border-color: var(--red-4);
+}
+
+/* Card 模式 — 头部微调 */
+.moments-wrap[data-layout="card"] .moments-header {
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.moments-wrap[data-layout="card"] .moments-avatar {
+  width: 36px;
+  height: 36px;
+}
+
+/* Card 模式 — 正文紧凑 */
+.moments-wrap[data-layout="card"] .moments-body {
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+.moments-wrap[data-layout="card"] .moments-text {
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+/* Card 模式 — 图片圆角增大 */
+.moments-wrap[data-layout="card"] .moments-images {
+  border-radius: 12px;
+}
+.moments-wrap[data-layout="card"] .moments-images:has(> :nth-child(1):last-child) {
+  max-width: 100%;
+}
+
+/* Card 模式 — 操作栏 */
+.moments-wrap[data-layout="card"] .moments-actions {
+  margin: 0 -22px;
+  padding: 10px 22px 12px;
+  border-top: 1px solid var(--moment-glass-border);
+  background: rgba(0, 0, 0, 0.02);
+}
+[data-theme="dark"] .moments-wrap[data-layout="card"] .moments-actions {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* 逐卡片交错入场动画 */
+.moments-wrap[data-layout="card"] .moments-item:nth-child(1) { animation-delay: 0s; }
+.moments-wrap[data-layout="card"] .moments-item:nth-child(2) { animation-delay: 0.05s; }
+.moments-wrap[data-layout="card"] .moments-item:nth-child(3) { animation-delay: 0.10s; }
+.moments-wrap[data-layout="card"] .moments-item:nth-child(4) { animation-delay: 0.15s; }
+.moments-wrap[data-layout="card"] .moments-item:nth-child(5) { animation-delay: 0.20s; }
+.moments-wrap[data-layout="card"] .moments-item:nth-child(6) { animation-delay: 0.25s; }
+.moments-wrap[data-layout="card"] .moments-item:nth-child(7) { animation-delay: 0.30s; }
+.moments-wrap[data-layout="card"] .moments-item:nth-child(8) { animation-delay: 0.35s; }
+
+/* ===== 6. 动画关键帧 ===== */
+@keyframes moment-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== 7. 响应式 ===== */
+/* ---------- 平板 ---------- */
+@media (max-width: 768px) {
+  .moments-wrap[data-layout="card"] {
+    max-width: 100%;
+    column-count: 2;
+    column-gap: 14px;
+  }
+  .moments-wrap[data-layout="card"] .moments-item {
+    padding: 16px 18px;
+  }
+}
+
 /* ---------- 移动端 ---------- */
 @media (max-width: 480px) {
-  .moments-wrap { padding: 16px 10px; }
-  .moments-item { padding: 14px 16px; margin-bottom: 12px; }
-  .moments-body { padding-left: 0; }
-  .moments-avatar { width: 38px; height: 38px; }
-  .moments-text { font-size: 0.95rem; }
-  .moments-images:has(> :nth-child(1):last-child) { max-width: 100%; }
-  .moments-actions { margin: 0 -16px; padding-left: 16px; padding-right: 16px; justify-content: space-around; }
+  .moments-wrap {
+    padding: 16px 10px;
+  }
+  .moments-item {
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .moments-body {
+    padding-left: 0;
+  }
+  .moments-avatar {
+    width: 38px;
+    height: 38px;
+  }
+  .moments-text {
+    font-size: 0.95rem;
+  }
+  .moments-images:has(> :nth-child(1):last-child) {
+    max-width: 100%;
+  }
+  .moments-actions {
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    justify-content: space-around;
+  }
+
+  /* Card 模式 → 单列 */
+  .moments-wrap[data-layout="card"] {
+    column-count: 1;
+  }
+  .moments-wrap[data-layout="card"] .moments-item {
+    border-radius: var(--moment-radius-sm);
+  }
+  .moments-wrap[data-layout="card"] .moments-actions {
+    margin: 0 -16px;
+    padding: 10px 16px 12px;
+  }
+
+  /* 切换器在窄屏也紧凑 */
+  .moments-layout-switch {
+    margin-bottom: 18px;
+  }
+  .moments-layout-switch button {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
 }

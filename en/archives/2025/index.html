@@ -94,6 +94,15 @@
 <!-- Live2D 自定义样式 & 打字机 -->
 <link rel="stylesheet" href="/css/live2d-custom.css">
 <script src="/js/live2d-typewriter.js" defer></script>
+<!-- Theme Switcher Init to prevent FOUC -->
+<script>
+  (function() {
+    try {
+      var colorTheme = localStorage.getItem('color-theme') || 'warm';
+      document.documentElement.setAttribute('data-color-theme', colorTheme);
+    } catch (e) {}
+  })();
+</script>
 <meta name="generator" content="Hexo 7.3.0"></head>
 
   <body>
@@ -164,210 +173,230 @@
         <div id="header-nav">
   <nav id="main-nav">
     
-    
-    
-    
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xea1f;
+                
+               
+            </div>
+            <a class="main-nav-link" href="/en/">首页</a>
+          </span>
         
-          
-            &#xea1f;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/en/">Home</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe699;
+                
+               
+            </div>
+            <a class="main-nav-link" href="/en/archives">文章</a>
+          </span>
         
-          
-            &#xe699;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/en/archives">Archives</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe64d;
+                
+               
+            </div>
+            <a class="main-nav-link" href="/en/categories">网站导航</a>
+          </span>
         
-          
-            &#xe647;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/en/about">About</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe60b;
+                
+               
+            </div>
+            <a class="main-nav-link" href="/en/diary">动态</a>
+          </span>
         
-          
-            &#xe64d;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/en/travel-map">Travel</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap has-children">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe699;
+                
+               
+            </div>
+            <a class="main-nav-link">记录</a>
+            <div class="main-nav-dropdown">
+              
+                <a class="main-nav-dropdown-link" href="/en/books">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  书架
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/movies">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  影视与游戏
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/music/">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  音乐
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/changelog">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  更新日志
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/calendar">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  日历
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/plan">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  规划
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/travel-map">
+                  
+                    <div class="main-nav-icon icon">&#xe64d;</div>
+                  
+                  足迹
+                </a>
+              
+            </div>
+          </span>
         
-          
-            &#xe604;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/en/friend">Friend</a>
-          
-          
-        </span>
       
         
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
+          <span class="main-nav-link-wrap has-children">
+            <div class="main-nav-icon icon ">
+               
+                
+                  &#xe647;
+                
+               
+            </div>
+            <a class="main-nav-link">关于</a>
+            <div class="main-nav-dropdown">
+              
+                <a class="main-nav-dropdown-link" href="/en/about">
+                  
+                    <div class="main-nav-icon icon">&#xe647;</div>
+                  
+                  关于我
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/friend">
+                  
+                    <div class="main-nav-icon icon">&#xe604;</div>
+                  
+                  友链
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/gallery">
+                  
+                    <div class="main-nav-icon icon">&#xe65f;</div>
+                  
+                  图库
+                </a>
+              
+                <a class="main-nav-dropdown-link" href="/en/javascript:window.toggleHackerTerminal()">
+                  
+                    <div class="main-nav-icon icon">&#xe699;</div>
+                  
+                  终端
+                </a>
+              
+            </div>
+          </span>
         
-          
-            &#xe60b;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/en/diary">Diary</a>
-          
-          
-        </span>
-      
-        
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
-        
-          
-            &#xe65f;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/en/gallery">Gallery</a>
-          
-          
-        </span>
-      
-        
-        <span class="main-nav-link-wrap ">
-          
-      <div class="main-nav-icon icon ">
-        
-          
-            &#xe699;
-          
-        
-      </div>
-    
-          
-            <a class="main-nav-link" href="/en/javascript:window.toggleHackerTerminal()">terminal</a>
-          
-          
-        </span>
       
     
     <a id="main-nav-toggle" class="nav-icon"></a>
   </nav>
-  <nav id="sub-nav" aria-label="Tools">
+  <nav id="sub-nav">
     
       <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" target="_blank"></a>
     
     
-    
       <a id="nav-search-btn" class="nav-icon popup-trigger" title="Search"></a>
     
-  </nav>
-  
     
-    <nav id="i18n-nav">
-      <div class="custom-dropdown">
-        <div class="select-selected" id="select-selected">
-          <span id="nav-language-btn" class="nav-icon" style="padding: 0 20px 0 0"></span>
-          <span id="selected-lang">English</span>
+      
+      <div id="i18n-nav" style="display: flex; align-items: center;">
+        <div class="custom-dropdown">
+          <div class="select-selected" id="select-selected" style="padding: 5px;">
+            <span id="selected-lang">EN</span>
+          </div>
+          <ul class="select-items" id="select-items" style="right: 0;">
+            
+              <li data-value="zh-CN" >中</li>
+            
+              <li data-value="en" class="selected">EN</li>
+            
+          </ul>
         </div>
-        <ul class="select-items" id="select-items">
-          
-            <li data-value="zh-CN" >简体中文</li>
-          
-            <li data-value="en" class="selected">English</li>
-          
-        </ul>
-      </div>
-      <script>
-        var selectSelected = document.getElementById("select-selected");
-        var selectedLang = document.getElementById("selected-lang");
-        var selectItems = document.getElementById("select-items");
-        var selectOptions = selectItems.querySelectorAll("li");
+        <script>
+          var selectSelected = document.getElementById("select-selected");
+          var selectedLang = document.getElementById("selected-lang");
+          var selectItems = document.getElementById("select-items");
+          var selectOptions = selectItems.querySelectorAll("li");
 
-        selectSelected.addEventListener("click", () => {
-          selectItems.classList.toggle("show");
-        });
-
-        selectOptions.forEach((item) => {
-          item.addEventListener("click", () => {
-            const langMap = {};
-            
-              langMap['zh-CN'] = '/archives/2025/';
-            
-              langMap['en'] = '/en/archives/2025/';
-            
-            selectedLang.textContent = item.textContent;
-            selectItems.classList.remove("show");
-            selectOptions.forEach((option) => {
-              option.classList.remove("selected");
-            });
-            item.classList.add("selected");
-            window.location = langMap[item.dataset.value];
+          selectSelected.addEventListener("click", () => {
+            selectItems.classList.toggle("show");
           });
-        });
 
-        document.addEventListener("click", (event) => {
-          if (!event.target.closest(".custom-dropdown")) {
-            selectItems.classList.remove("show");
-          }
-        });
-      </script>
-    </nav>
-  
+          selectOptions.forEach((item) => {
+            item.addEventListener("click", () => {
+              const langMap = {};
+              
+                langMap['zh-CN'] = '/archives/2025/';
+              
+                langMap['en'] = '/en/archives/2025/';
+              
+              selectedLang.textContent = item.textContent;
+              selectItems.classList.remove("show");
+              selectOptions.forEach((option) => {
+                option.classList.remove("selected");
+              });
+              item.classList.add("selected");
+              window.location = langMap[item.dataset.value];
+            });
+          });
+
+          document.addEventListener("click", (event) => {
+            if (!event.target.closest("#i18n-nav .custom-dropdown")) {
+              selectItems.classList.remove("show");
+            }
+          });
+        </script>
+      </div>
+    
+  </nav>
 </div>
 <header id="header">
   
@@ -490,19 +519,11 @@
         
       
     
-      
-        
-      
-    
-      
-        
-      
-    
   
   
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/" aria-label="Home"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/" aria-label="首页"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -510,11 +531,11 @@
             
           
         </div>
-        <div class="sidebar-menu-link">Home</div>
+        <div class="sidebar-menu-link">首页</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/archives" aria-label="Archives"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/archives" aria-label="文章"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -522,23 +543,11 @@
             
           
         </div>
-        <div class="sidebar-menu-link">Archives</div>
+        <div class="sidebar-menu-link">文章</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/about" aria-label="About"></a>
-        <div class="sidebar-menu-icon icon ">
-          
-            
-              &#xe647;
-            
-          
-        </div>
-        <div class="sidebar-menu-link">About</div>
-      </div>
-    
-      <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/travel-map" aria-label="Travel"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/categories" aria-label="网站导航"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -546,23 +555,11 @@
             
           
         </div>
-        <div class="sidebar-menu-link">Travel</div>
+        <div class="sidebar-menu-link">网站导航</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/friend" aria-label="Friend"></a>
-        <div class="sidebar-menu-icon icon ">
-          
-            
-              &#xe604;
-            
-          
-        </div>
-        <div class="sidebar-menu-link">Friend</div>
-      </div>
-    
-      <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/diary" aria-label="Diary"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/diary" aria-label="动态"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -570,23 +567,11 @@
             
           
         </div>
-        <div class="sidebar-menu-link">Diary</div>
+        <div class="sidebar-menu-link">动态</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/gallery" aria-label="Gallery"></a>
-        <div class="sidebar-menu-icon icon ">
-          
-            
-              &#xe65f;
-            
-          
-        </div>
-        <div class="sidebar-menu-link">Gallery</div>
-      </div>
-    
-      <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/javascript:window.toggleHackerTerminal()" aria-label="terminal"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/books" aria-label="书架"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -594,7 +579,127 @@
             
           
         </div>
-        <div class="sidebar-menu-link">terminal</div>
+        <div class="sidebar-menu-link">书架</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/movies" aria-label="影视与游戏"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">影视与游戏</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/music/" aria-label="音乐"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">音乐</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/changelog" aria-label="更新日志"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">更新日志</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/calendar" aria-label="日历"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">日历</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/plan" aria-label="规划"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">规划</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/travel-map" aria-label="足迹"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe64d;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">足迹</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/about" aria-label="关于我"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe647;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">关于我</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe604;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/gallery" aria-label="图库"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe65f;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">图库</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/javascript:window.toggleHackerTerminal()" aria-label="终端"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">终端</div>
       </div>
     
   
@@ -1666,6 +1771,28 @@ fetch('https://myip.ipip.net/')
           <section id="main">
 <div class="archives-outer-wrap" data-aos="fade-up">
   
+  <!-- 新增的归档页头部及控制栏 -->
+  <div class="archive-header-wrapper">
+    <div class="archive-header-title">
+      <h1>归档与探索</h1>
+      <span class="archive-header-count"><i class="fas fa-magic"></i> 总计 18 篇研究记录</span>
+    </div>
+    <div class="archive-filter-bar">
+      <div class="archive-tags-list">
+         <a href="/archives" class="filter-tag active">全部档案</a>
+      </div>
+      <div class="layout-controls">
+        <button class="layout-toggle-btn active" data-layout="timeline" title="时空轨迹">
+          <i class="fas fa-stream"></i> 时空轨迹
+        </button>
+        <button class="layout-toggle-btn" data-layout="grid" title="全息阵列">
+          <i class="fas fa-th-large"></i> 全息阵列
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
     <div class="tag-wrap">
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
@@ -1677,19 +1804,19 @@ fetch('https://myip.ipip.net/')
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
-      <a class="archives-tag-list-link" href="/en/tags/Mount-Song/">Mount Song</a>
-    </div>
-  
-    <div class="archives-tag-list-item" data-aos="zoom-in">
-      <a class="archives-tag-list-link" href="/en/tags/Hiking/">Hiking</a>
-    </div>
-  
-    <div class="archives-tag-list-item" data-aos="zoom-in">
       <a class="archives-tag-list-link" href="/en/tags/%E9%98%85%E8%AF%BB/">阅读</a>
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
       <a class="archives-tag-list-link" href="/en/tags/%E7%BF%BB%E8%AF%91/">翻译</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/en/tags/Mount-Song/">Mount Song</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/en/tags/Hiking/">Hiking</a>
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
@@ -1729,19 +1856,23 @@ fetch('https://myip.ipip.net/')
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
-      <a class="archives-tag-list-link" href="/en/tags/%E6%B3%B0%E5%B1%B1/">泰山</a>
-    </div>
-  
-    <div class="archives-tag-list-item" data-aos="zoom-in">
       <a class="archives-tag-list-link" href="/en/tags/%E7%AC%AC%E4%B8%80%E5%9C%BA%E9%9B%AA/">第一场雪</a>
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
-      <a class="archives-tag-list-link" href="/en/tags/%E6%95%B0%E5%AD%A6/">数学</a>
+      <a class="archives-tag-list-link" href="/en/tags/%E6%B3%B0%E5%B1%B1/">泰山</a>
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
       <a class="archives-tag-list-link" href="/en/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/en/tags/%E5%B0%8F%E6%84%9F/">小感</a>
+    </div>
+  
+    <div class="archives-tag-list-item" data-aos="zoom-in">
+      <a class="archives-tag-list-link" href="/en/tags/%E6%95%B0%E5%AD%A6/">数学</a>
     </div>
   
     <div class="archives-tag-list-item" data-aos="zoom-in">
@@ -1760,10 +1891,6 @@ fetch('https://myip.ipip.net/')
       <a class="archives-tag-list-link" href="/en/tags/%E6%83%8A%E5%A4%A9%E9%AD%94%E6%9C%AF%E7%A7%80/">惊天魔术秀</a>
     </div>
   
-    <div class="archives-tag-list-item" data-aos="zoom-in">
-      <a class="archives-tag-list-link" href="/en/tags/%E5%B0%8F%E6%84%9F/">小感</a>
-    </div>
-  
 </div>
 <div class="category-wrap">
   
@@ -1776,11 +1903,11 @@ fetch('https://myip.ipip.net/')
     </div>
   
     <div class="archives-category-list-item" data-aos="zoom-in">
-      <a class="archives-category-list-link" href="/en/categories/Travel/">Travel</a>
+      <a class="archives-category-list-link" href="/en/categories/%E8%AE%BA%E6%96%87/">论文</a>
     </div>
   
     <div class="archives-category-list-item" data-aos="zoom-in">
-      <a class="archives-category-list-link" href="/en/categories/%E8%AE%BA%E6%96%87/">论文</a>
+      <a class="archives-category-list-link" href="/en/categories/Travel/">Travel</a>
     </div>
   
     <div class="archives-category-list-item" data-aos="zoom-in">
@@ -1812,6 +1939,10 @@ fetch('https://myip.ipip.net/')
     </div>
   
     <div class="archives-category-list-item" data-aos="zoom-in">
+      <a class="archives-category-list-link" href="/en/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+    </div>
+  
+    <div class="archives-category-list-item" data-aos="zoom-in">
       <a class="archives-category-list-link" href="/en/categories/%E5%AD%A6%E7%94%9F%E6%97%B6%E4%BB%A3/">学生时代</a>
     </div>
   
@@ -1819,58 +1950,91 @@ fetch('https://myip.ipip.net/')
       <a class="archives-category-list-link" href="/en/categories/%E8%A7%82%E5%BD%B1/">观影</a>
     </div>
   
-    <div class="archives-category-list-item" data-aos="zoom-in">
-      <a class="archives-category-list-link" href="/en/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
-    </div>
-  
 </div>
   
-  
-    
-    
-    
-      
-      
-        
-        
-        <section class="archives-wrap" data-aos="fade-up">
-          <div class="archive-year-wrap">
-            <a href="/en/archives/2025" class="archive-year">2025</a>
-          </div>
-          <ul>
-            
-            <li class="archive-article">
-  <div class="archive-article-date">
-    <span>
-      <time class="dt-published" datetime="2025-12-12T04:15:00.000Z" itemprop="datePublished">12-12</time>
-    </span>
-  </div>
-  
-    <a class="archive-article-title" href="/en/2025/12/12/xue/">初雪物语</a>
-  
-</li>
 
-            
-      
-      
-            <li class="archive-article">
-  <div class="archive-article-date">
-    <span>
-      <time class="dt-published" datetime="2025-12-11T12:59:11.094Z" itemprop="datePublished">12-11</time>
-    </span>
-  </div>
-  
-    <a class="archive-article-title" href="/en/2025/12/11/tu/">图床</a>
-  
-</li>
-
-            
-            
-          </ul>
-        </section>
+  <!-- 动态布局容器 -->
+  <div id="moments-container" data-layout="grid">
+    <div class="timeline-axis"></div> <!-- 时空轨迹的主轴线 -->
     
-  
+    
+    
+      <article class="moment-card even">
+  <div class="moment-timeline-dot"></div>
+  <a href="/en/2025/12/12/xue/" class="moment-cover-link">
+    <div class="moment-cover">
+      
+        <img data-src="https://img.monkeyiu.icu/{year}/{month}/{md5}.{extName}/eight.webp" data-sizes="auto" alt="初雪物语" class="lazyload">
+      
+      <div class="moment-date-overlay">
+        <i class="fas fa-calendar-alt"></i> 2025-12-12
+      </div>
+    </div>
+  </a>
+  <div class="moment-content">
+    <div class="moment-meta">
+      <i class="fas fa-clock"></i>
+      <time datetime="2025-12-12T04:15:00.000Z">2025-12-12 12:15:00</time>
+    </div>
+    <a href="/en/2025/12/12/xue/" class="moment-title">初雪物语</a>
+    
+    <div class="moment-excerpt">
+      
+        谁言天公不好客，漫天飞雪送一人。...
+      
+    </div>
+
+    
+      <div class="moment-tags">
+        
+          <a href="/en/tags/%E7%AC%AC%E4%B8%80%E5%9C%BA%E9%9B%AA/" class="moment-tag">#第一场雪</a>
+        
+      </div>
+    
   </div>
+</article>
+
+      
+    
+      <article class="moment-card odd">
+  <div class="moment-timeline-dot"></div>
+  <a href="/en/2025/12/11/tu/" class="moment-cover-link">
+    <div class="moment-cover">
+      
+        <img data-src="https://img.monkeyiu.icu/{year}/{month}/{md5}.{extName}/fourteen.webp" data-sizes="auto" alt="图床" class="lazyload">
+      
+      <div class="moment-date-overlay">
+        <i class="fas fa-calendar-alt"></i> 2025-12-11
+      </div>
+    </div>
+  </a>
+  <div class="moment-content">
+    <div class="moment-meta">
+      <i class="fas fa-clock"></i>
+      <time datetime="2025-12-11T12:59:11.094Z">2025-12-11 20:59:11</time>
+    </div>
+    <a href="/en/2025/12/11/tu/" class="moment-title">图床</a>
+    
+    <div class="moment-excerpt">
+      
+        基于 Cloudflare R2...
+      
+    </div>
+
+    
+      <div class="moment-tags">
+        
+          <a href="/en/tags/%E5%9B%BE%E5%BA%8A/" class="moment-tag">#图床</a>
+        
+      </div>
+    
+  </div>
+</article>
+
+      
+    
+  </div>
+</div>
 
 
 
@@ -1954,12 +2118,66 @@ fetch('https://myip.ipip.net/')
 })();
 </script>
 
-        
-          <div class="sidebar-top">
-            <div class="sidebar-top-taichi rotate"></div>
-            <div class="arrow-up"></div>
-          </div>
-        
+        <div class="tool-dock collapsed" id="tool-dock">
+  <div class="tool-dock-menu" id="tool-dock-menu">
+    <!-- Quantum Stats Panel -->
+    <div id="anomaly-quantum-stats" class="tool-dock-stats">
+      <div class="stat-line"><span class="stat-label">G-CONST:</span> <span id="stat-grav" class="stat-value">99.8%</span></div>
+      <div class="stat-line"><span class="stat-label">Q-FLUCT:</span> <span id="stat-fluct" class="stat-value">0.02eV</span></div>
+      <div class="stat-line"><span class="stat-label">T-DILAT:</span> <span id="stat-time" class="stat-value">1.000x</span></div>
+    </div>
+    
+    <!-- Time Machine Submenu -->
+    <div id="anomaly-tm-submenu" class="tool-dock-submenu">
+      <div class="anomaly-tm-btn" data-year="modern">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 现代
+      </div>
+      <div class="anomaly-tm-btn" data-year="1998">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg> 1998
+      </div>
+      <div class="anomaly-tm-btn" data-year="2077">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 2077
+      </div>
+    </div>
+    
+    <!-- Anomaly Tools -->
+    <div class="tool-dock-item" id="btn-time-machine" data-tooltip="时光机 (Time Machine)">
+      <svg class="dock-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+    </div>
+    <div class="tool-dock-item" id="btn-hacker-terminal" data-tooltip="极客终端 (Terminal)">
+      <svg class="dock-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+    </div>
+    <div class="tool-dock-item anomaly-danger" id="btn-gravity-collapse" data-tooltip="重力崩塌 (Gravity Collapse)">
+      <svg class="dock-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    </div>
+    
+    <!-- Theme Switcher -->
+    <div class="custom-dropdown" id="color-theme-dropdown">
+      <div class="tool-dock-item select-selected" id="color-theme-btn" data-tooltip="主题切换 (Theme)">
+        <svg class="dock-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+      </div>
+      <ul class="select-items" id="color-theme-options">
+        <li data-value="apple" class="selected">Apple</li>
+        <li data-value="ruby">Ruby</li>
+        <li data-value="cyber">Cyber</li>
+        <li data-value="warm">Warm</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Toggle Button -->
+  <div class="tool-dock-item tool-dock-toggle" id="tool-dock-toggle" data-tooltip="控制面板 (Toggle)">
+    <svg class="dock-icon icon-spin" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+  </div>
+
+  <!-- Back to top -->
+  
+    <div class="tool-dock-item sidebar-top" data-tooltip="返回顶部 (Top)" style="position: static; opacity: 1; visibility: visible;">
+      <svg class="dock-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </div>
+  
+</div>
+
         <div id="mask" class="hide"></div>
       </div>
       <nav id="mobile-nav">
@@ -1981,7 +2199,7 @@ fetch('https://myip.ipip.net/')
       
     </span>
   
-            <span>Home</span>
+            <span>首页</span>
           </a>
         
       
@@ -1997,29 +2215,13 @@ fetch('https://myip.ipip.net/')
       
     </span>
   
-            <span>Archives</span>
+            <span>文章</span>
           </a>
         
       
         
         
-          <a class="mobile-menu-link mobile-menu-root" href="/en/about">
-            
-    <span class="mobile-menu-icon icon ">
-      
-        
-          &#xe647;
-        
-      
-    </span>
-  
-            <span>About</span>
-          </a>
-        
-      
-        
-        
-          <a class="mobile-menu-link mobile-menu-root" href="/en/travel-map">
+          <a class="mobile-menu-link mobile-menu-root" href="/en/categories">
             
     <span class="mobile-menu-icon icon ">
       
@@ -2029,23 +2231,7 @@ fetch('https://myip.ipip.net/')
       
     </span>
   
-            <span>Travel</span>
-          </a>
-        
-      
-        
-        
-          <a class="mobile-menu-link mobile-menu-root" href="/en/friend">
-            
-    <span class="mobile-menu-icon icon ">
-      
-        
-          &#xe604;
-        
-      
-    </span>
-  
-            <span>Friend</span>
+            <span>网站导航</span>
           </a>
         
       
@@ -2061,30 +2247,15 @@ fetch('https://myip.ipip.net/')
       
     </span>
   
-            <span>Diary</span>
+            <span>动态</span>
           </a>
         
       
         
         
-          <a class="mobile-menu-link mobile-menu-root" href="/en/gallery">
-            
-    <span class="mobile-menu-icon icon ">
-      
-        
-          &#xe65f;
-        
-      
-    </span>
-  
-            <span>Gallery</span>
-          </a>
-        
-      
-        
-        
-          <a class="mobile-menu-link mobile-menu-root" href="/en/javascript:window.toggleHackerTerminal()">
-            
+          <details class="mobile-menu-group">
+            <summary>
+              
     <span class="mobile-menu-icon icon ">
       
         
@@ -2093,8 +2264,176 @@ fetch('https://myip.ipip.net/')
       
     </span>
   
-            <span>terminal</span>
-          </a>
+              <span>记录</span>
+            </summary>
+            <div class="mobile-menu-children">
+              
+                <a class="mobile-menu-link" href="/en/books">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe699;
+        
+      
+    </span>
+  
+                  <span>书架</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/movies">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe699;
+        
+      
+    </span>
+  
+                  <span>影视与游戏</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/music/">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe699;
+        
+      
+    </span>
+  
+                  <span>音乐</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/changelog">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe699;
+        
+      
+    </span>
+  
+                  <span>更新日志</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/calendar">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe699;
+        
+      
+    </span>
+  
+                  <span>日历</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/plan">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe699;
+        
+      
+    </span>
+  
+                  <span>规划</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/travel-map">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe64d;
+        
+      
+    </span>
+  
+                  <span>足迹</span>
+                </a>
+              
+            </div>
+          </details>
+        
+      
+        
+        
+          <details class="mobile-menu-group">
+            <summary>
+              
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe647;
+        
+      
+    </span>
+  
+              <span>关于</span>
+            </summary>
+            <div class="mobile-menu-children">
+              
+                <a class="mobile-menu-link" href="/en/about">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe647;
+        
+      
+    </span>
+  
+                  <span>关于我</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/friend">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe604;
+        
+      
+    </span>
+  
+                  <span>友链</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/gallery">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe65f;
+        
+      
+    </span>
+  
+                  <span>图库</span>
+                </a>
+              
+                <a class="mobile-menu-link" href="/en/javascript:window.toggleHackerTerminal()">
+                  
+    <span class="mobile-menu-icon icon ">
+      
+        
+          &#xe699;
+        
+      
+    </span>
+  
+                  <span>终端</span>
+                </a>
+              
+            </div>
+          </details>
         
       
     </div>
@@ -2159,19 +2498,11 @@ fetch('https://myip.ipip.net/')
         
       
     
-      
-        
-      
-    
-      
-        
-      
-    
   
   
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/" aria-label="Home"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/" aria-label="首页"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -2179,11 +2510,11 @@ fetch('https://myip.ipip.net/')
             
           
         </div>
-        <div class="sidebar-menu-link">Home</div>
+        <div class="sidebar-menu-link">首页</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/archives" aria-label="Archives"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/archives" aria-label="文章"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -2191,23 +2522,11 @@ fetch('https://myip.ipip.net/')
             
           
         </div>
-        <div class="sidebar-menu-link">Archives</div>
+        <div class="sidebar-menu-link">文章</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/about" aria-label="About"></a>
-        <div class="sidebar-menu-icon icon ">
-          
-            
-              &#xe647;
-            
-          
-        </div>
-        <div class="sidebar-menu-link">About</div>
-      </div>
-    
-      <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/travel-map" aria-label="Travel"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/categories" aria-label="网站导航"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -2215,23 +2534,11 @@ fetch('https://myip.ipip.net/')
             
           
         </div>
-        <div class="sidebar-menu-link">Travel</div>
+        <div class="sidebar-menu-link">网站导航</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/friend" aria-label="Friend"></a>
-        <div class="sidebar-menu-icon icon ">
-          
-            
-              &#xe604;
-            
-          
-        </div>
-        <div class="sidebar-menu-link">Friend</div>
-      </div>
-    
-      <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/diary" aria-label="Diary"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/diary" aria-label="动态"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -2239,23 +2546,11 @@ fetch('https://myip.ipip.net/')
             
           
         </div>
-        <div class="sidebar-menu-link">Diary</div>
+        <div class="sidebar-menu-link">动态</div>
       </div>
     
       <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/gallery" aria-label="Gallery"></a>
-        <div class="sidebar-menu-icon icon ">
-          
-            
-              &#xe65f;
-            
-          
-        </div>
-        <div class="sidebar-menu-link">Gallery</div>
-      </div>
-    
-      <div class="sidebar-menu-link-wrap">
-        <a class="sidebar-menu-link-dummy" href="/en/javascript:window.toggleHackerTerminal()" aria-label="terminal"></a>
+        <a class="sidebar-menu-link-dummy" href="/en/books" aria-label="书架"></a>
         <div class="sidebar-menu-icon icon ">
           
             
@@ -2263,7 +2558,127 @@ fetch('https://myip.ipip.net/')
             
           
         </div>
-        <div class="sidebar-menu-link">terminal</div>
+        <div class="sidebar-menu-link">书架</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/movies" aria-label="影视与游戏"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">影视与游戏</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/music/" aria-label="音乐"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">音乐</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/changelog" aria-label="更新日志"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">更新日志</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/calendar" aria-label="日历"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">日历</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/plan" aria-label="规划"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">规划</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/travel-map" aria-label="足迹"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe64d;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">足迹</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/about" aria-label="关于我"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe647;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">关于我</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe604;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/gallery" aria-label="图库"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe65f;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">图库</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/javascript:window.toggleHackerTerminal()" aria-label="终端"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe699;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">终端</div>
       </div>
     
   
@@ -2292,6 +2707,8 @@ fetch('https://myip.ipip.net/')
       </div>
     
     
+      
+      
     
     
     
@@ -2305,6 +2722,9 @@ fetch('https://myip.ipip.net/')
 
 
 <script src="/js/script.js"></script>
+
+
+<script src="/js/theme-switcher.js" defer></script>
 
 
 
@@ -2617,6 +3037,9 @@ fetch('https://myip.ipip.net/')
 
 <script src="/js/matrix-saver.js" defer data-pjax></script>
 
+
+<script src="/js/archive-layout.js" defer data-pjax></script>
+
 <style>
 #hacker-terminal-overlay {
   position: fixed;
@@ -2799,9 +3222,9 @@ Type 'help' for a list of available commands.
     
       "阅读",
     
-      "Travel",
-    
       "论文",
+    
+      "Travel",
     
       "迷雾",
     
@@ -2817,11 +3240,11 @@ Type 'help' for a list of available commands.
     
       "雪",
     
+      "随笔",
+    
       "学生时代",
     
       "观影",
-    
-      "随笔",
     
   ];
 
@@ -3245,27 +3668,6 @@ Type 'help' for a list of available commands.
   }
 </style>
 
-<div id="anomaly-control-center">
-  <div class="anomaly-menu hide" id="anomaly-menu">
-    <div id="anomaly-quantum-stats" style="font-size:10px; color:#0f0; background:rgba(0,0,0,0.5); padding:8px; border-radius:8px; width:100%; box-sizing:border-box; margin-bottom:10px; font-family:monospace; line-height:1.4; text-shadow:0 0 3px #0f0; border:1px solid rgba(0,255,0,0.3);">
-      G-CONST: <span id="stat-grav">99.8%</span><br>
-      Q-FLUCT: <span id="stat-fluct">0.02eV</span><br>
-      T-DILAT: <span id="stat-time">1.000x</span>
-    </div>
-    <div id="anomaly-tm-submenu" class="anomaly-submenu">
-      <div class="anomaly-tm-btn" data-year="modern">🔙 现代 (Modern)</div>
-      <div class="anomaly-tm-btn" data-year="1998">💽 1998 (Win95)</div>
-      <div class="anomaly-tm-btn" data-year="2077">🌆 2077 (Cyber)</div>
-    </div>
-    <div class="anomaly-item" id="btn-time-machine" title="🕰️ 时光机 (Time Machine)">🕰️</div>
-    <div class="anomaly-item" id="btn-hacker-terminal" title="👨‍💻 极客终端 (Hacker Terminal)">👨‍💻</div>
-    <div class="anomaly-item anomaly-danger" id="btn-gravity-collapse" title="💥 重力崩塌 (Gravity Collapse)">💥</div>
-  </div>
-  <div class="anomaly-fab" id="anomaly-fab" title="Anomaly Control Center">
-    <div class="anomaly-fab-icon">⚠️</div>
-  </div>
-</div>
-
 <div id="anomaly-time-reversal">
   <span>⏳ 逆转时间 (Time Reversal)</span>
 </div>
@@ -3277,8 +3679,8 @@ Type 'help' for a list of available commands.
 
 <script>
 (function() {
-  const fab = document.getElementById('anomaly-fab');
-  const menu = document.getElementById('anomaly-menu');
+  const fab = document.getElementById('tool-dock-toggle');
+  const dock = document.getElementById('tool-dock');
   const btnTimeMachine = document.getElementById('btn-time-machine');
   const btnHackerTerminal = document.getElementById('btn-hacker-terminal');
   const btnGravity = document.getElementById('btn-gravity-collapse');
@@ -3295,22 +3697,46 @@ Type 'help' for a list of available commands.
     }
   }, 2000);
 
-  // Toggle Menu
-  fab.addEventListener('click', () => {
-    isMenuOpen = !isMenuOpen;
-    if (isMenuOpen) {
-      menu.classList.remove('hide');
-    } else {
-      menu.classList.add('hide');
-      tmSubmenu.classList.remove('show');
-    }
-  });
+  // Toggle Menu (Hover & Click)
+  const tmSubmenu = document.getElementById('anomaly-tm-submenu');
+  let dockHideTimeout;
+
+  const openDock = () => {
+    isMenuOpen = true;
+    if (dock) dock.classList.remove('collapsed');
+    clearTimeout(dockHideTimeout);
+  };
+
+  const closeDock = () => {
+    isMenuOpen = false;
+    if (dock) dock.classList.add('collapsed');
+    if (tmSubmenu) tmSubmenu.classList.remove('show');
+  };
+
+  if (dock) {
+    dock.addEventListener('mouseenter', openDock);
+    dock.addEventListener('mouseleave', () => {
+      dockHideTimeout = setTimeout(closeDock, 2000);
+    });
+  }
+
+  if (fab) {
+    fab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isMenuOpen) {
+        closeDock();
+      } else {
+        openDock();
+      }
+    });
+  }
 
   // Time Machine Integration
-  const tmSubmenu = document.getElementById('anomaly-tm-submenu');
-  btnTimeMachine.addEventListener('click', () => {
-    tmSubmenu.classList.toggle('show');
-  });
+  if (btnTimeMachine && tmSubmenu) {
+    btnTimeMachine.addEventListener('click', () => {
+      tmSubmenu.classList.toggle('show');
+    });
+  }
 
   document.querySelectorAll('.anomaly-tm-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -3320,22 +3746,24 @@ Type 'help' for a list of available commands.
       } else {
         alert('时光机核心组件加载中，请稍后再试！');
       }
-      menu.classList.add('hide');
+      if (dock) dock.classList.add('collapsed');
       isMenuOpen = false;
-      tmSubmenu.classList.remove('show');
+      if (tmSubmenu) tmSubmenu.classList.remove('show');
     });
   });
 
   // Hacker Terminal Link
-  btnHackerTerminal.addEventListener('click', () => {
-    if (typeof window.toggleHackerTerminal === 'function') {
-      window.toggleHackerTerminal();
-      menu.classList.add('hide');
-      isMenuOpen = false;
-    } else {
-      alert('👨‍💻 终端模式加载中... (Booting OS...)');
-    }
-  });
+  if (btnHackerTerminal) {
+    btnHackerTerminal.addEventListener('click', () => {
+      if (typeof window.toggleHackerTerminal === 'function') {
+        window.toggleHackerTerminal();
+        if (dock) dock.classList.add('collapsed');
+        isMenuOpen = false;
+      } else {
+        alert('👨‍💻 终端模式加载中... (Booting OS...)');
+      }
+    });
+  }
 
   // --- Gravity Collapse Implementation ---
   let engine, render, runner, mouseConstraint;
@@ -3656,7 +4084,7 @@ Type 'help' for a list of available commands.
 </script>
 
     
-      <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><link rel="stylesheet" href="/css/konami.css"><link rel="stylesheet" href="/css/time-machine.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script><script src="/js/konami.js" defer></script><script src="/js/time-machine.js" defer></script>
+      <link rel="stylesheet" href="/css/moments.css"><link rel="stylesheet" href="/css/mist-lock.css"><link rel="stylesheet" href="/css/hbe-enhancer.css"><link rel="stylesheet" href="/css/live2d-minigame.css"><link rel="stylesheet" href="/css/time-capsule.css"><link rel="stylesheet" href="/css/konami.css"><link rel="stylesheet" href="/css/time-machine.css"><script type="module" src="/js/moments.js"></script><script src="/js/search-scroll.js"></script><script src="/js/mist-lock.js" defer></script><script src="/js/hbe-enhancer.js" defer></script><script src="/js/live2d-minigame.js" defer></script><script src="/js/time-capsule.js" defer></script><script src="/js/konami.js" defer></script><script src="/js/time-machine.js" defer></script><script src="/js/archive-layout.js" defer></script>
     
   </body>
   </html>

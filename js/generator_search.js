@@ -109,63 +109,72 @@
       return response.json();
     })
     .then(function(data) {
+      var performSearch = function() {
+        var inputText = _$("#search-text").value;
+        searchResult.innerHTML = "";
+        pagination.innerHTML = "";
+        if (inputText) {
+          var hits = data.filter(function(post) {
+            return (
+              (post.title &&
+                post.title.toLowerCase().includes(inputText.toLowerCase())) ||
+              (post.content &&
+                post.content.toLowerCase().includes(inputText.toLowerCase()))
+            );
+          });
+
+          var totalPages = Math.ceil(hits.length / itemsPerPage);
+          pagination.insertAdjacentHTML(
+            "beforeend",
+            "<ul class=\"ais-Pagination-list pagination\">"
+          );
+          for (var i = 1; i <= totalPages; i++) {
+            var pageItem = document.createElement("li");
+            pageItem.className =
+              "ais-Pagination-item pagination-item ais-Pagination-item--page";
+            pageItem.innerHTML = "<a class=\"ais-Pagination-link page-number\" aria-label=\"Page " + i + "\" href=\"#\">" + i + "</a>";
+            if (i === currentPage) {
+              pageItem.classList.add(
+                "ais-Pagination-item--selected",
+                "current"
+              );
+            }
+            pagination.querySelector("ul").appendChild(pageItem);
+          }
+
+          _$$(".page-number").forEach(function(element) {
+            element.off("click").on("click", function(event) {
+              event.preventDefault();
+              currentPage = parseInt(element.innerText, 10);
+              _$$(".ais-Pagination-item").forEach(function(element) {
+                element.classList.remove(
+                  "ais-Pagination-item--selected",
+                  "current"
+                );
+              });
+              element.parentNode.classList.add(
+                "ais-Pagination-item--selected",
+                "current"
+              );
+              displayHits(hits, currentPage, itemsPerPage, inputText);
+            });
+          });
+
+          displayHits(hits, currentPage, itemsPerPage, inputText);
+        }
+      };
+
       _$("#search-form")
         .off("submit")
         .on("submit", function(event) {
           event.preventDefault();
-          var inputText = _$("#search-text").value;
-          searchResult.innerHTML = "";
-          pagination.innerHTML = "";
-          if (inputText) {
-            var hits = data.filter(function(post) {
-              return (
-                (post.title &&
-                  post.title.toLowerCase().includes(inputText.toLowerCase())) ||
-                (post.content &&
-                  post.content.toLowerCase().includes(inputText.toLowerCase()))
-              );
-            });
-
-            var totalPages = Math.ceil(hits.length / itemsPerPage);
-            pagination.insertAdjacentHTML(
-              "beforeend",
-              "<ul class=\"ais-Pagination-list pagination\">"
-            );
-            for (var i = 1; i <= totalPages; i++) {
-              var pageItem = document.createElement("li");
-              pageItem.className =
-                "ais-Pagination-item pagination-item ais-Pagination-item--page";
-              pageItem.innerHTML = "<a class=\"ais-Pagination-link page-number\" aria-label=\"Page " + i + "\" href=\"#\">" + i + "</a>";
-              if (i === currentPage) {
-                pageItem.classList.add(
-                  "ais-Pagination-item--selected",
-                  "current"
-                );
-              }
-              pagination.querySelector("ul").appendChild(pageItem);
-            }
-
-            _$$(".page-number").forEach(function(element) {
-              element.off("click").on("click", function(event) {
-                event.preventDefault();
-                currentPage = element.innerText;
-                _$$(".ais-Pagination-item").forEach(function(element) {
-                  element.classList.remove(
-                    "ais-Pagination-item--selected",
-                    "current"
-                  );
-                });
-                element.parentNode.classList.add(
-                  "ais-Pagination-item--selected",
-                  "current"
-                );
-                displayHits(hits, currentPage, itemsPerPage, inputText);
-              });
-            });
-
-            displayHits(hits, currentPage, itemsPerPage, inputText);
-          }
+          performSearch();
         });
+
+      _$("#search-text").addEventListener("input", function() {
+        currentPage = 1;
+        performSearch();
+      });
     })
     .catch(function(error) {
       console.error(
@@ -188,13 +197,27 @@
       _$("#search-text").focus();
     });
 
+  const closeSearchPopup = function() {
+    _$(".popup").classList.remove("show");
+    _$("#mask").classList.add("hide");
+    _$("#container").style.marginRight = "";
+    _$("#header-nav").style.marginRight = "";
+    document.body.style.overflow = "";
+  };
+
   _$(".popup-btn-close")
     .off("click")
-    .on("click", function() {
-      _$(".popup").classList.remove("show");
-      _$("#mask").classList.add("hide");
-      _$("#container").style.marginRight = "";
-      _$("#header-nav").style.marginRight = "";
-      document.body.style.overflow = "";
-    });
+    .on("click", closeSearchPopup);
+
+  window.addEventListener("keydown", function(event) {
+    if (event.key === "Escape" && _$(".popup").classList.contains("show")) {
+      closeSearchPopup();
+    }
+  });
+
+  _$("#mask")?.addEventListener("click", function() {
+    if (_$(".popup").classList.contains("show")) {
+      closeSearchPopup();
+    }
+  });
 })();

@@ -64,58 +64,24 @@
     return true;
   }
 
-  function itemYear(i) {
-    if (i.watched_date) {
-      var m = String(i.watched_date).match(/^(\d{4})/);
-      if (m) return +m[1];
-    }
-    return i.year || 0;
-  }
-
-  function groupByYear(items) {
-    var groups = Object.create(null);
-    items.forEach(function (i) {
-      var y = itemYear(i) || 0;
-      (groups[y] = groups[y] || []).push(i);
-    });
-    var years = Object.keys(groups).map(Number).sort(function (a, b) { return b - a; });
-    return years.map(function (y) { return { year: y, items: groups[y] }; });
-  }
-
   function cardHTML(i) {
     var poster = i.poster
       ? '<img class="mv-card__poster" src="' + esc(i.poster) + '" alt="' + esc(i.title_cn) + '" loading="lazy" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'mv-card__poster mv-card__poster--placeholder\',textContent:\'' + esc((i.title_cn || '?').slice(0, 6)) + '\'}));">'
       : '<div class="mv-card__poster mv-card__poster--placeholder">' + esc((i.title_cn || '?').slice(0, 6)) + '</div>';
-    var rating = Number(i.my_rating) > 0
-      ? '<div class="mv-card__rating" data-shown="1">' + Number(i.my_rating).toFixed(1) + '</div>'
-      : '';
-    var statusTag = i.status !== 'watched'
-      ? '<div class="mv-card__status" data-status="' + esc(i.status) + '">' + esc(STATUS_LABELS[i.status] || '') + '</div>'
-      : '';
+    
+    var ratingVal = Number(i.my_rating) > 0 ? (Number(i.my_rating) * 2).toFixed(0) : '';
+    var ratingHtml = ratingVal ? '<div class="mv-card__rating">' + ratingVal + '</div>' : '';
+    var statusTag = '<div class="mv-card__status" data-status="' + esc(i.status) + '">' + esc(STATUS_LABELS[i.status] || '') + '</div>';
+    var typeLabel = TYPE_LABELS[i.type] || '其他';
+    
     return (
       '<div class="mv-card" data-id="' + esc(i.id) + '" tabindex="0" role="button" aria-label="' + esc(i.title_cn) + '">' +
-        poster + rating + statusTag +
+        poster + ratingHtml + statusTag +
         '<div class="mv-card__overlay">' +
           '<h3 class="mv-card__title">' + esc(i.title_cn) + '</h3>' +
-          '<div class="mv-card__meta">' + esc(i.year || '') + (i.director && i.director.length ? ' · ' + esc(i.director[0]) : '') + '</div>' +
-          starsHTML(i.my_rating) +
+          '<div class="mv-card__type">' + esc(typeLabel) + '</div>' +
         '</div>' +
       '</div>'
-    );
-  }
-
-  function yearHTML(y, items, isOpen) {
-    return (
-      '<section class="mv-year' + (isOpen ? ' is-open' : '') + '" data-year="' + y + '">' +
-        '<header class="mv-year__head" role="button" tabindex="0">' +
-          '<span class="mv-year__label">' + (y || '未分类') + '</span>' +
-          '<span class="mv-year__count">' + items.length + ' 部</span>' +
-          '<span class="mv-year__chev">›</span>' +
-        '</header>' +
-        '<div class="mv-year__body">' +
-          (isOpen ? '<div class="mv-grid">' + items.map(cardHTML).join('') + '</div>' : '') +
-        '</div>' +
-      '</section>'
     );
   }
 
@@ -124,7 +90,7 @@
     var totalHours = Math.round((s.totalMinutes || 0) / 60);
     setStat('thisYear', fmtNum(s.thisYearCount));
     setStat('totalHours', fmtNum(totalHours));
-    setStat('avgRating', (s.avgRating || 0).toFixed(2));
+    setStat('avgRating', (s.avgRating || 0).toFixed(1));
     setStat('topDirector', s.topDirector || '—');
     setStat('topCountry', s.topCountry || '—');
   }
@@ -145,45 +111,92 @@
     });
   }
 
-  function renderYears() {
-    var host = $('.mv-years');
+  function renderGrid() {
+    var host = $('#mv-grid');
+    var pHost = $('#mv-pagination');
+    if (!host) return;
     var visible = state.items.filter(passFilter);
     if (!visible.length) {
-      host.innerHTML = '<div class="mv-empty" style="display:block">没有符合条件的记录</div>';
+      host.innerHTML = '<div class="mv-empty" style="display:block;grid-column:1/-1">没有符合条件的记录</div>';
+      pHost.hidden = true;
       return;
     }
-    var groups = groupByYear(visible);
-    // 默认打开最近两个年份
-    groups.slice(0, 2).forEach(function (g) { state.openYears[g.year] = true; });
-    host.innerHTML = groups.map(function (g) {
-      return yearHTML(g.year, g.items, !!state.openYears[g.year]);
-    }).join('');
+    
+    var totalPages = Math.ceil(visible.length / state.pageSize);
+    if (state.page > totalPages) state.page = totalPages;
+    if (state.page < 1) state.page = 1;
+    
+    var start = (state.page - 1) * state.pageSize;
+    var end = start + state.pageSize;
+    var pageItems = visible.slice(start, end);
+    
+    host.innerHTML = pageItems.map(cardHTML).join('');
+    renderPagination(totalPages);
   }
 
-  function bindYears() {
-    root.addEventListener('click', function (e) {
-      var head = e.target.closest('.mv-year__head');
-      if (head) {
-        var section = head.parentElement;
-        var year = section.getAttribute('data-year');
-        var body = section.querySelector('.mv-year__body');
-        var open = !section.classList.contains('is-open');
-        state.openYears[year] = open;
-        if (open && !body.querySelector('.mv-grid')) {
-          var items = state.items.filter(passFilter).filter(function (i) { return String(itemYear(i)) === year; });
-          body.innerHTML = '<div class="mv-grid">' + items.map(cardHTML).join('') + '</div>';
-        }
-        section.classList.toggle('is-open', open);
+  function renderPagination(totalPages) {
+    var pHost = $('#mv-pagination');
+    if (totalPages <= 1) {
+      pHost.hidden = true;
+      return;
+    }
+    pHost.hidden = false;
+    var html = '';
+    html += '<button class="mv-page-btn" data-page="' + (state.page - 1) + '" ' + (state.page === 1 ? 'disabled' : '') + '>‹</button>';
+    
+    var startPage = Math.max(1, state.page - 2);
+    var endPage = Math.min(totalPages, startPage + 4);
+    if (endPage - startPage < 4) {
+      startPage = Math.max(1, endPage - 4);
+    }
+    
+    for (var p = startPage; p <= endPage; p++) {
+      html += '<button class="mv-page-btn ' + (p === state.page ? 'is-active' : '') + '" data-page="' + p + '">' + p + '</button>';
+    }
+    
+    html += '<button class="mv-page-btn" data-page="' + (state.page + 1) + '" ' + (state.page === totalPages ? 'disabled' : '') + '>›</button>';
+    pHost.innerHTML = html;
+  }
+
+  var gridObserver = null;
+  function bindGridResize() {
+    var container = $('.mv-list-container');
+    if (!container || typeof ResizeObserver === 'undefined') return;
+    if (gridObserver) gridObserver.disconnect();
+    gridObserver = new ResizeObserver(debounce(function() {
+      var w = container.clientWidth;
+      var gap = window.innerWidth <= 768 ? 16 : 28;
+      var cols = Math.floor((w + gap) / (156 + gap));
+      cols = Math.max(2, cols);
+      var newSize = cols * 2;
+      if (state.pageSize !== newSize) {
+        state.pageSize = newSize;
+        state.page = 1;
+        renderGrid();
+      }
+    }, 150));
+    gridObserver.observe(container);
+  }
+
+  function bindGrid() {
+    root.addEventListener('click', function(e) {
+      var card = e.target.closest('.mv-card');
+      if (card) {
+        openModal(card.getAttribute('data-id'));
         return;
       }
-      var card = e.target.closest('.mv-card');
-      if (card) openModal(card.getAttribute('data-id'));
+      var btn = e.target.closest('.mv-page-btn');
+      if (btn && !btn.disabled) {
+        state.page = parseInt(btn.getAttribute('data-page'), 10);
+        renderGrid();
+        var container = $('.mv-list-container');
+        if (container) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
-    root.addEventListener('keydown', function (e) {
+    
+    root.addEventListener('keydown', function(e) {
       if (e.key !== 'Enter' && e.key !== ' ') return;
-      var head = e.target.closest && e.target.closest('.mv-year__head');
-      if (head) { e.preventDefault(); head.click(); return; }
-      var card = e.target.closest && e.target.closest('.mv-card');
+      var card = e.target.closest('.mv-card');
       if (card) { e.preventDefault(); openModal(card.getAttribute('data-id')); }
     });
   }
@@ -192,9 +205,9 @@
     $$('.mv-tab').forEach(function (t) {
       t.addEventListener('click', function () {
         state.status = t.getAttribute('data-status');
-        state.openYears = Object.create(null);
+        state.page = 1;
         renderTabs();
-        renderYears();
+        renderGrid();
       });
     });
     $$('.mv-filter').forEach(function (f) {
@@ -202,8 +215,8 @@
       f.addEventListener(evt, debounce(function () {
         var key = f.getAttribute('data-filter');
         state[key] = f.value;
-        state.openYears = Object.create(null);
-        renderYears();
+        state.page = 1;
+        renderGrid();
       }, 180));
     });
   }
@@ -459,11 +472,12 @@
     root = el;
 
     // 重置每次进入页面的状态（pjax 会给全新 DOM）
-    state = { items: [], stats: null, status: 'all', type: '', q: '', openYears: Object.create(null) };
+    state = { items: [], stats: null, status: 'all', type: '', q: '', page: 1, pageSize: 12 };
     byId = Object.create(null);
     charts = {};
     chartsInit = false;
     if (chartsObserver) { chartsObserver.disconnect(); chartsObserver = null; }
+    if (gridObserver) { gridObserver.disconnect(); gridObserver = null; }
 
     var src = root.getAttribute('data-src') || '/movies/data.json';
     fetch(src)
@@ -478,9 +492,20 @@
 
         renderHero();
         renderTabs();
-        renderYears();
+        
+        // Initial setup for grid size
+        var container = $('.mv-list-container');
+        if (container) {
+          var w = container.clientWidth;
+          var gap = window.innerWidth <= 768 ? 16 : 28;
+          var cols = Math.max(2, Math.floor((w + gap) / (156 + gap)));
+          state.pageSize = cols * 2;
+        }
+        
+        renderGrid();
         bindTabs();
-        bindYears();
+        bindGrid();
+        bindGridResize();
         bindModal();
         bindGlobalOnce();
         initChartsIfReady();
@@ -489,7 +514,8 @@
         if (m) openModal(m[1]);
       })
       .catch(function (err) {
-        var host = $('.mv-years');
+        console.error('Movies page error:', err);
+        var host = $('.mv-list-container') || root;
         if (host) host.innerHTML = '<div class="mv-empty" style="display:block">数据加载失败：' + esc(err.message) + '</div>';
       });
   }
