@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /search.json
+Disallow: /messages-data.json
+Disallow: /time-capsule-data.json
+
+Sitemap: https://monkeyiu.icu/sitemap.xml

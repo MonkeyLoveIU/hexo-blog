@@ -1,26 +1,4 @@
-/* ============================================
- * 写作目标进度环 — 客户端脚本
- *
- * 从 /writing-stats.json 读取数据
- * 在侧边栏渲染环形进度 + 统计
- * ============================================ */
-
-(() => {
-  'use strict';
-
-  const fmt = (n) => {
-    if (n >= 10000) return (n / 10000).toFixed(1) + '万';
-    if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
-    return String(n);
-  };
-
-  const C = 2 * Math.PI * 45; // 圆环周长
-
-  const render = (el, data) => {
-    const pct = Math.min(100, Math.round((data.totalWordsThisYear / data.annualGoal) * 100));
-    const offset = C - (C * pct) / 100;
-
-    el.innerHTML = `
+(()=>{let fmt=n=>1e4<=n?(n/1e4).toFixed(1)+"万":1e3<=n?(n/1e3).toFixed(1)+"k":String(n),C=2*Math.PI*45,init=()=>{let el=document.getElementById("writing-goal-widget");el&&fetch("/writing-stats.json").then(r=>r.json()).then(data=>((el,data)=>{var pct=Math.min(100,Math.round(data.totalWordsThisYear/data.annualGoal*100)),offset=C-C*pct/100;el.innerHTML=`
       <div class="writing-goal-ring-container">
         <svg width="120" height="120" viewBox="0 0 100 100">
           <defs>
@@ -56,26 +34,4 @@
           <span class="writing-goal-stat-value">${fmt(data.totalWords)} 字 · ${data.totalPosts} 篇</span>
         </div>
       </div>
-    `;
-  };
-
-  const init = () => {
-    const el = document.getElementById('writing-goal-widget');
-    if (!el) return;
-
-    fetch('/writing-stats.json')
-      .then((r) => r.json())
-      .then((data) => render(el, data))
-      .catch(() => {
-        el.innerHTML = '<div class="writing-goal-loading">暂无数据</div>';
-      });
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
-  document.addEventListener('pjax:complete', () => setTimeout(init, 200));
-})();
+    `})(el,data)).catch(()=>{el.innerHTML='<div class="writing-goal-loading">暂无数据</div>'})};"loading"===document.readyState?document.addEventListener("DOMContentLoaded",init):init(),document.addEventListener("pjax:complete",()=>setTimeout(init,200))})();

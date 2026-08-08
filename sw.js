@@ -1,4 +1,4 @@
-const VERSION = "1784468553778";const preCache = ["/images/taichi.png","/images/banner.webp","/css/loader.css","/css/style.css","/js/script.js"];const cacheDomain = [
+const VERSION = "1786230715926";const preCache = ["/images/taichi.png","/images/banner.webp","/css/loader.css","/css/style.css","/css/reading-optimization.css","/js/script.js"];const cacheDomain = [
   "fonts.googleapis.com",
   "npm.webcache.cn",
   "unpkg.com",
@@ -6,79 +6,67 @@ const VERSION = "1784468553778";const preCache = ["/images/taichi.png","/images/
   "cdn.jsdelivr.net",
 ];
 
-// 安装时预加载必要内容
 self.addEventListener("install", (event) => {
-  console.log(`Service Worker ${VERSION} installing.`);
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(preCache)));
 });
 
-async function cacheRequest(request, options) {
+async function putInCache(request, response) {
+  if (!response || !response.ok || response.type === "opaque") return response;
+  const cache = await caches.open(VERSION);
+  await cache.put(request, response.clone());
+  return response;
+}
+
+async function networkFirst(request) {
   try {
-    const responseToCache = await fetch(request);
-    const cache = await caches.open(VERSION);
-    if (!/^https?:$/i.test(new URL(request.url).protocol))
-      return responseToCache;
-    cache.put(request, responseToCache.clone());
-    return responseToCache;
-  } catch (e) {
-    const responseToCache = await fetch(request, options);
-    const cache = await caches.open(VERSION);
-    if (!/^https?:$/i.test(new URL(request.url).protocol))
-      return responseToCache;
-    cache.put(request, responseToCache.clone());
-    return responseToCache;
+    return await putInCache(request, await fetch(request));
+  } catch (error) {
+    return (await caches.match(request)) || caches.match("/");
   }
 }
 
-async function respondRequest(request, options) {
-  const response = await caches.match(request);
-  if (response) {
-    return response;
-  }
-  return cacheRequest(request, options);
+async function staleWhileRevalidate(request) {
+  const cached = await caches.match(request);
+  const network = fetch(request)
+    .then((response) => putInCache(request, response))
+    .catch(() => cached);
+  return cached || network;
 }
 
 self.addEventListener("fetch", (event) => {
-  const url = new URL(event.request.url);
-  // 检查请求的域名是否在 CacheDomain 中
-  if (cacheDomain.includes(url.hostname)) {
-    event.respondWith(respondRequest(event.request));
-  } else {
-    // 检查请求是否为 POST 或带有查询参数的 GET 这样可避免错误缓存
-    if (
-      event.request.method === "POST" ||
-      (event.request.method === "GET" && url.search)
-    ) {
-      try {
-        event.respondWith(fetch(event.request));
-      } catch (e) {
-        event.respondWith(fetch(event.request, { mode: "no-cors" }));
-      }
-    } else {
-      event.respondWith(respondRequest(event.request, { mode: "no-cors" }));
-    }
+  const request = event.request;
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+  if (url.search) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  // 页面导航优先网络，避免发布后长期展示旧 HTML；离线时回退缓存。
+  if (request.mode === "navigate" || request.destination === "document") {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  // 静态资源和可信 CDN 使用 stale-while-revalidate，兼顾速度与更新。
+  if (url.origin === self.location.origin || cacheDomain.includes(url.hostname)) {
+    event.respondWith(staleWhileRevalidate(request));
   }
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (VERSION !== cacheName) {
-            console.log(`Service Worker: deleting old cache ${cacheName}`);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches.keys().then((cacheNames) =>
+      Promise.all(
+        cacheNames.map((cacheName) =>
+          cacheName === VERSION ? undefined : caches.delete(cacheName)
+        )
+      )
+    ).then(() => self.clients.claim())
   );
-  console.log(`Service Worker ${VERSION} activated.`);
 });
 
 self.addEventListener("message", (event) => {
-  console.log("Service Worker: message received");
-  if (event.data === "skipWaiting") {
-    self.skipWaiting();
-  }
+  if (event.data === "skipWaiting") self.skipWaiting();
 });
