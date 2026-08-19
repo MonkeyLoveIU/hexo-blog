@@ -1,4 +1,4 @@
-const VERSION = "1786897437939";const preCache = ["/images/taichi.png","/images/banner.webp","/css/loader.css","/css/style.css","/css/reading-optimization.css","/js/script.js"];const cacheDomain = [
+const VERSION = "1787159678663";const preCache = ["/images/taichi.png","/images/banner.webp","/css/loader.css","/css/style.css","/css/reading-optimization.css","/js/script.js"];const cacheDomain = [
   "fonts.googleapis.com",
   "npm.webcache.cn",
   "unpkg.com",
@@ -49,7 +49,14 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // 静态资源和可信 CDN 使用 stale-while-revalidate，兼顾速度与更新。
+  // 同源 js/css 同样优先网络：避免"部署后先展示一次旧脚本"的坑（如旧版 ai-chat.js）。
+  if (url.origin === self.location.origin &&
+      (url.pathname.startsWith("/js/") || url.pathname.startsWith("/css/"))) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  // 其余静态资源和可信 CDN 使用 stale-while-revalidate，兼顾速度与更新。
   if (url.origin === self.location.origin || cacheDomain.includes(url.hostname)) {
     event.respondWith(staleWhileRevalidate(request));
   }
